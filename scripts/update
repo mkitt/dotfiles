@@ -1,0 +1,85 @@
+#!/bin/bash
+set -e
+
+init() {
+  $([[ $1 == "" ]] && echo ./scripts/help update || echo run $@)
+  printf "%s\nupdate complete.\n"
+  exit 0
+}
+
+run() {
+  for cmd in $@; do $cmd; done
+}
+
+## Public
+
+#/ homebrews       Updates all programs installed through homebrew / cask
+homebrews() {
+  printf "%sUpdating homebrew..\n"
+  brew update
+  brew outdated
+  brew upgrade
+  brew cleanup
+  brew prune
+  brew doctor
+  brew cask doctor
+}
+
+#/ nvm             Updates nvm
+nvm() {
+  printf "%Updating nvm..\n"
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+}
+
+#/ node            Updates node and npm
+node() {
+  printf "%sUpdating node, npm and it's packages..\n"
+  nvm install stable
+  nvm use stable
+  packages
+}
+
+#/ ruby            Updates to the latest ruby
+ruby() {
+  printf "%sUpdating ruby and it's gems..\n"
+  rbenv install latest
+  rbenv global latest
+  rbenv rehash
+  gem install bundler
+}
+
+#/ packages        Updates global npm packages (excluding npm)
+packages() {
+  printf "%sUpdating global npm packages..\n"
+  npm outdated -g
+  npm install -g eslint_d
+}
+
+#/ gems            Updates local gems installed for the global ruby version
+gems() {
+  printf "%sUpdating gems..\n"
+  gem update
+  rbenv rehash
+  gem cleanup
+}
+
+#/ vim             Message instructions to update the Vim plugins
+vim() {
+  printf "%s-----------------------------------\n"
+  printf "%sUpdate Vim plugins:\n"
+  printf "%sPlugUpgrade, PlugUpdate, PlugClean!\n"
+  printf "%s-----------------------------------\n"
+}
+
+#/ world           Runs all of the update commands
+world() {
+  homebrews
+  packages
+  gems
+  vim
+  printf "%snvm, node and ruby were not updated!\n"
+}
+
+# go..
+init $@
+

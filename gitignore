@@ -1,0 +1,12 @@
+*.log
+*.map
+*.swp
+.DS_Store
+.bundle/
+.env
+log/*
+log/**/*
+node_modules
+tmp/*
+tmp/**/*
+vendor/bundle

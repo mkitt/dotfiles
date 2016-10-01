@@ -1,0 +1,40 @@
+[alias]
+  st = status
+  br = branch
+  co = checkout
+  del = !FILES=$(git ls-files --deleted) && git rm $FILES
+  empty = commit --allow-empty -m
+  glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
+  clog = log --pretty='- [x] %h %s'
+[branch]
+  autosetupmerge = always
+  autosetuprebase = always
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[commit]
+  gpgsign = true
+[core]
+  excludesfile = ~/.gitignore
+[gpg]
+  program = /usr/local/bin/gpg
+[help]
+  autocorrect = 1
+[interactive]
+  diffFilter = diff-highlight
+[merge]
+  tool = chdiff
+  trustExitCode = 0
+[mergetool "filemerge"]
+  cmd = /usr/bin/env chdiff --wait "$LOCAL" "$REMOTE"
+  keepBackup = false
+  trustExitCode = false
+[push]
+  default = matching
+[rerere]
+  enabled = 1
+[include]
+  path = ~/.gitconfig.local
+
