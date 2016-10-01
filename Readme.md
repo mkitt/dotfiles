@@ -10,8 +10,9 @@ Over the years these have shaped various organization dotfiles:
 &hearts; the Vim.
 
 ## Commands
-The main tasks are wrapped by the Makefile targets. To see all all the available
-commands provided by the install, uninstall, update and help scripts run:
+The main tasks are wrapped by the `Makefile` targets. To see all of the
+available commands provided by the `install`, `uninstall`, `update` and `help`
+scripts run:
 
 ```
 make help
@@ -32,9 +33,9 @@ file to your `$HOME` directory and add the following:
   user = YOUR_GITHUB_USERNAME
 ```
 
-Note: Any `*.local` files are git ignored. The install/uninstall script
+Note: Any `*.local` files are ignored by git. The `install`/`uninstall` script
 symlinks/removes a `gitconfig.local`. On my machine the dotfiles directory is
-stored in iCloud so it's just there for a convenience.
+stored in iCloud so it's just there as a convenience.
 
 ### GPG
 Install GPG Keychain for GPG signing to happen automatically. See [GPG
