@@ -105,9 +105,9 @@ if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
 endif
 
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command='ag -Q -l --nocolor --ignore vendor/bundle -g "" %s'
+if executable('rg')
+  set grepprg=rg\
+  let g:ctrlp_user_command='rg --files %s'
   let g:ctrlp_use_caching=0
 endif
 
@@ -185,8 +185,8 @@ nnoremap <silent>gF :vertical wincmd f<CR>
 nnoremap <silent>gl :CtrlP<CR>
 nnoremap <silent>gL :CtrlPBuffer<CR>
 nnoremap <silent>gy :NERDTreeToggle<CR>
-nnoremap gs :GrepperAg<space>
-xnoremap gs y:<c-u>GrepperAg -Q <C-R>=shellescape(expand(@"),1)<CR>
+nnoremap gs :GrepperRg<space>
+xnoremap gs y:<c-u>GrepperRg -F <C-R>=shellescape(expand(@"),1)<CR>
 nmap gz <Plug>CtrlSFPrompt
 vmap gz <Plug>CtrlSFVwordExec
 
