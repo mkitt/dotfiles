@@ -69,10 +69,6 @@ well put it to good use.
 To get full mouse support (scrolling, clicking, etc...) within Terminal
 Vim, install the [SIMBL][simbl] [MouseTerm][mouseterm] plug-in.
 
-### Patch Vim SuperTab - inserts new line bug
-There is an [issue with supertab][st162] that effects this setup. Applying the
-patch listed in the [issue][st162] gets around it for now. [Related issue][st158].
-
 ### Migrating to a new machine
 1. Setup iCloud 
 - Download App store applications
@@ -102,8 +98,6 @@ patch listed in the [issue][st162] gets around it for now. [Related issue][st158
 [shiftit]: https://github.com/fikovnik/ShiftIt
 [shiftit_setup]: https://github.com/fikovnik/ShiftIt/issues/110#issuecomment-20834932
 [simbl]: http://www.culater.net/software/SIMBL/SIMBL.php
-[st158]: https://github.com/ervandew/supertab/issues/158
-[st162]: https://github.com/ervandew/supertab/issues/162
 [toolbelt]: https://toolbelt.heroku.com
 [wipe]: https://support.apple.com/en-us/HT201065
 
