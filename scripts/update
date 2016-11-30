@@ -33,7 +33,7 @@ nvm() {
 
 #/ node            Updates node and npm
 node() {
-  printf "%sUpdating node, npm and it's packages..\n"
+  printf "%sUpdating node, npm and yarn packages..\n"
   nvm install stable
   nvm use stable
   packages
@@ -48,11 +48,10 @@ ruby() {
   gem install bundler
 }
 
-#/ packages        Updates global npm packages (excluding npm)
+#/ packages        Updates global yarn packages
 packages() {
-  printf "%sUpdating global npm packages..\n"
-  npm outdated -g
-  npm install -g eslint_d
+  printf "%sUpdating global yarn packages..\n"
+  yarn global upgrade
 }
 
 #/ gems            Updates local gems installed for the global ruby version
