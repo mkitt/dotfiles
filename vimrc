@@ -30,12 +30,14 @@ Plug 'tpope/vim-unimpaired'
 " Filetypes
 Plug 'othree/html5.vim'
 Plug 'keith/swift.vim'
+Plug 'flowtype/vim-flow'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'tpope/vim-rails'
 
 " Utility
 Plug 'tpope/vim-fugitive'
+
 
 call plug#end()
 
@@ -137,21 +139,23 @@ let g:qfenter_hopen_map=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_topen_map=['<C-t>']
 
 let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors=1
 
 let g:syntastic_css_checkers=['stylelint']
 if executable('node_modules/.bin/stylelint')
   let g:syntastic_css_stylelint_exec='node_modules/.bin/stylelint'
 endif
 
-let g:syntastic_javascript_checkers=['eslint', 'flow']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_javascript_eslint_args="--rule 'no-console: 0'"
 if executable('eslint_d')
   let g:syntastic_javascript_eslint_exec='eslint_d'
 endif
+
+let g:flow#autoclose=1
+let g:flow#omnifunc=1
+let g:flow#qfsize=0
 if executable('node_modules/.bin/flow')
-  let g:syntastic_javascript_flow_exec='node_modules/.bin/flow'
-  let g:syntastic_javascript_flow_exe = 'node_modules/.bin/flow --show-all-errors --json --quiet'
+  let g:flow#flowpath='node_modules/.bin/flow'
 endif
 
 let g:yankring_window_height=10
