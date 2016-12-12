@@ -70,7 +70,7 @@ xcode() {
 #/ casks           Uninstalls non App Store Mac applications
 casks() {
   printf "%sRemoving homebrew casks..\n"
-  brew cask uninstall appcleaner backblaze dropbox firefox google-chrome imageoptim shiftit screenhero
+  brew cask uninstall appcleaner backblaze charles dropbox firefox google-chrome imageoptim shiftit screenhero sketch
 }
 
 #/ world           Runs all of the uninstall commands

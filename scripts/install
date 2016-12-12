@@ -102,7 +102,7 @@ xcode() {
 #/ casks           Installs non App Store Mac applications
 casks() {
   printf "%sInstalling homebrew casks..\n"
-  brew cask install appcleaner backblaze dropbox firefox google-chrome imageoptim shiftit screenhero
+  brew cask install appcleaner backblaze charles dropbox firefox google-chrome imageoptim shiftit screenhero sketch
 }
 
 #/ macos           Setup osx defaults: https://mths.be/osx
