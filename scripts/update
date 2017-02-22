@@ -27,7 +27,7 @@ homebrews() {
 
 #/ nvm             Updates nvm
 nvm() {
-  printf "%Updating nvm..\n"
+  printf "%sUpdating nvm..\n"
   curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 }
 
