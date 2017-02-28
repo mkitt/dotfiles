@@ -119,7 +119,6 @@ let g:ctrlp_custom_ignore='vendor/bundle\|.bundle\|tmp\|.git$'
 let g:ctrlp_map='<F1>'
 
 let g:ctrlsf_auto_close=0
-let g:ctrlsf_context='-C 1'
 
 let g:netrw_liststyle=3
 
@@ -132,10 +131,10 @@ let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 
 " Open quick fix and location window items with CtrlP commands
-let g:qfenter_enable_autoquickfix=0
-let g:qfenter_vopen_map=['<C-v>']
-let g:qfenter_hopen_map=['<C-CR>', '<C-s>', '<C-x>']
-let g:qfenter_topen_map=['<C-t>']
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.vopen = ['<C-v>']
+let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
+let g:qfenter_keymap.topen = ['<C-t>']
 
 let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors=1
