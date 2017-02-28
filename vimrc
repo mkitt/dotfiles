@@ -131,6 +131,7 @@ let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 
 " Open quick fix and location window items with CtrlP commands
+let g:qfenter_enable_autoquickfix=0
 let g:qfenter_keymap = {}
 let g:qfenter_keymap.vopen = ['<C-v>']
 let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
