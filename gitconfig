@@ -18,6 +18,7 @@
   gpgsign = true
 [core]
   excludesfile = ~/.gitignore
+	trustctime = false
 [gpg]
   program = /usr/local/bin/gpg
 [help]
