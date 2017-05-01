@@ -36,6 +36,7 @@ Plug 'tpope/vim-rails'
 
 " Utility
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 
 call plug#end()
