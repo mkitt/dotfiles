@@ -229,6 +229,7 @@ if has("autocmd")
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
     autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
     autocmd BufRead,BufNewFile .{babel,eslint}rc set filetype=json
+    autocmd BufRead,BufNewFile *.{flow} set filetype=javascript
     " Abbreviations
     autocmd FileType css iabbrev <buffer> bgc background-color:
     autocmd FileType javascript iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
