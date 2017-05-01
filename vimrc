@@ -227,6 +227,7 @@ if has("autocmd")
     autocmd QuickFixCmdPost *grep* botright copen
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
+    autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
     autocmd BufRead,BufNewFile .{babel,eslint}rc set filetype=json
     " Abbreviations
     autocmd FileType css iabbrev <buffer> bgc background-color:
