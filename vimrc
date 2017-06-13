@@ -142,11 +142,6 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_aggregate_errors=1
 let g:syntastic_always_populate_loc_list=1
 
-let g:syntastic_css_checkers=['stylelint']
-if executable('node_modules/.bin/stylelint')
-  let g:syntastic_css_stylelint_exec='node_modules/.bin/stylelint'
-endif
-
 let g:syntastic_javascript_checkers=['eslint', 'flow']
 let g:syntastic_javascript_eslint_args="--rule 'no-console: 0'"
 if executable('eslint_d')
@@ -232,7 +227,8 @@ if has("autocmd")
     autocmd BufRead,BufNewFile .{babel,eslint}rc set filetype=json
     autocmd BufRead,BufNewFile *.{flow} set filetype=javascript
     " Abbreviations
-    autocmd FileType css iabbrev <buffer> bgc background-color:
+    autocmd FileType javascript iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript iabbrev <buffer> sdb outline: '1px dotted blue',<C-R>=Eatchar('\s')<CR>
     autocmd FileType javascript iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
   augroup END
 endif
