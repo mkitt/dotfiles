@@ -65,10 +65,10 @@ locals() {
   done
 }
 
-#/ packages        Installs global yarn packages
+#/ packages        Installs global npm packages
 packages() {
-  printf "%sInstalling global yarn packages..\n"
-  yarn global add eslint_d
+  printf "%sInstalling global npm packages..\n"
+  npm add eslint_d --global
 }
 
 #/ gems            Installs bundler
