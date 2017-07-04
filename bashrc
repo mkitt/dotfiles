@@ -23,6 +23,7 @@ fi
 # This loads nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # http://ss64.com/bash/shopt.html
 shopt -s histappend
