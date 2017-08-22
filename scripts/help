@@ -58,4 +58,3 @@ print_usage() {
 
 # go..
 init $@
-

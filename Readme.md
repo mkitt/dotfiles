@@ -100,4 +100,3 @@ Vim, install the [SIMBL][simbl] [MouseTerm][mouseterm] plug-in.
 [simbl]: http://www.culater.net/software/SIMBL/SIMBL.php
 [toolbelt]: https://toolbelt.heroku.com
 [wipe]: https://support.apple.com/en-us/HT201065
-

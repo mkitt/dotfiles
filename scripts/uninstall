@@ -90,4 +90,3 @@ world() {
 
 # go..
 init $@
-

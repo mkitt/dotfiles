@@ -7,4 +7,3 @@
 :backtrace: false
 :benchmark: false
 gem: --no-ri --no-rdoc
-

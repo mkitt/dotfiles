@@ -21,4 +21,3 @@ uninstall:
 	@./scripts/uninstall world
 
 .PHONY: help install update uninstall
-

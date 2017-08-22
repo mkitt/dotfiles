@@ -15,4 +15,3 @@ C-p: history-search-backward
 # For immediate completion feedback rock these
 # set show-all-if-ambiguous on
 # set show-all-if-unmodified on
-
