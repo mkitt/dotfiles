@@ -68,7 +68,7 @@ locals() {
 #/ packages        Installs global npm packages
 packages() {
   printf "%sInstalling global npm packages..\n"
-  npm add eslint_d --global
+  npm install eslint_d --global
 }
 
 #/ gems            Installs bundler
