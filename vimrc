@@ -2,7 +2,7 @@
 set nocompatible
 
 " Plugins
-" -----------------------------------------------------------------------------
+" --------------------------------------
 call plug#begin('~/.vim/plugged')
 
 " Editor
@@ -47,7 +47,7 @@ filetype plugin indent on
 syntax enable
 
 " Preferences
-" -----------------------------------------------------------------------------
+" --------------------------------------
 set autoindent
 set autoread
 set autowrite
@@ -145,7 +145,7 @@ let g:syntastic_always_populate_loc_list=1
 
 let g:syntastic_javascript_checkers=['eslint', 'flow']
 let g:syntastic_javascript_eslint_args="--rule 'no-console: 0'"
-if executable('eslint_d')
+if executable('eslint_d') && executable('node_modules/.bin/eslint')
   let g:syntastic_javascript_eslint_exec='eslint_d'
 endif
 
@@ -165,7 +165,7 @@ let g:javascript_plugin_flow=1
 let g:jsx_ext_required=0
 
 " Mappings
-" -----------------------------------------------------------------------------
+" --------------------------------------
 " RSI reduction
 nnoremap j gj
 nnoremap k gk
@@ -211,7 +211,7 @@ xnoremap <silent><leader>y "xy
 noremap <silent><leader>p "xp
 
 " Filetypes
-" -----------------------------------------------------------------------------
+" --------------------------------------
 func! Eatchar(pat)
   let c = nr2char(getchar(0))
   return (c =~ a:pat) ? '' : c
@@ -235,6 +235,5 @@ if has("autocmd")
 endif
 
 " Theme
-" -----------------------------------------------------------------------------
+" --------------------------------------
 colorscheme pigment
-
