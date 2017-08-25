@@ -8,11 +8,10 @@ install:
 	@echo 'scripts/install homebrews'
 	@echo 'scripts/install nvm'
 	@echo 'scripts/install node'
-	@echo 'scripts/install ruby'
 	@echo 'brew install macvim'
 	@echo 'scripts/install world'
 
-#/ update          Runs all of the update commands (excluding nvm, node and ruby)
+#/ update          Runs all of the update commands (excluding nvm and node)
 update:
 	@./scripts/update world
 
