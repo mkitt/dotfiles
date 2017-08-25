@@ -33,7 +33,6 @@ Plug 'keith/swift.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'alampros/vim-styled-jsx'
-Plug 'tpope/vim-rails'
 
 " Utility
 Plug 'tpope/vim-fugitive'

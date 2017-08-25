@@ -1,4 +1,3 @@
-eval "$(rbenv init -)"
 unset MAILCHECK
 
 # Environment pathing and editor defaults

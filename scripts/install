@@ -15,8 +15,8 @@ run() {
 #/ homebrews       Installs core homebrew kegs
 homebrews() {
   printf "%sInstalling homebrews..\n"
-  brew install bash-completion ctags git hub gpg rbenv ruby-build ripgrep tidy-html5 tree watchman wget yarn
-  printf "%sMacVim was not installed. Please install the latest node and ruby versions, then brew install macvim.\n"
+  brew install bash-completion ctags git hub gpg ripgrep tidy-html5 tree watchman wget yarn
+  printf "%sMacVim was not installed. Please install the latest node version, then brew install macvim.\n"
 }
 
 #/ nvm             Installs node version manager
@@ -33,15 +33,6 @@ node() {
   nvm alias default stable
 }
 
-#/ ruby            Installs ruby
-ruby() {
-  printf "%sInstalling ruby (latest)..\n"
-  rbenv init
-  rbenv install latest
-  rbenv global latest
-  rbenv rehash
-}
-
 #/ bash            Installs .bash_profile, .bashrc and .inputrc
 bash() {
   for file in "bash_profile" "bashrc" "inputrc"; do
@@ -51,9 +42,7 @@ bash() {
 
 #/ dots            Installs ~/ .gemrc .gitconfig .gitignore .bundle/
 dots() {
-  if [[ ! -d $HOME/.bundle ]]; then mkdir $HOME/.bundle;fi
-  ln -sfv "`pwd`/bundle.config" $HOME/.bundle/config
-  for file in "gemrc" "gitconfig" "gitignore"; do
+  for file in "gitconfig" "gitignore"; do
     ln -sfv "`pwd`/$file" $HOME/.$file
   done
 }
@@ -69,13 +58,6 @@ locals() {
 packages() {
   printf "%sInstalling global npm packages..\n"
   npm install eslint_d --global
-}
-
-#/ gems            Installs bundler
-gems() {
-  printf "%sInstalling gems..\n"
-  gem install bundler
-  rbenv rehash
 }
 
 #/ vim             Installs .vimrc, .vim/ and vim-plug
@@ -146,7 +128,6 @@ world() {
   dots
   locals
   packages
-  gems
   vim
   xcode
   casks

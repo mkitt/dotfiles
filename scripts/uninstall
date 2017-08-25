@@ -14,7 +14,7 @@ run() {
 #/ homebrews       Uninstalls core homebrew kegs
 homebrews() {
   printf "%Removing homebrews..\n"
-  brew uninstall bash-completion ctags git hub gpg macvim rbenv ruby-build ripgrep tidy-html5 tree watchman wget yarn
+  brew uninstall bash-completion ctags git hub gpg macvim ripgrep tidy-html5 tree watchman wget yarn
 }
 
 #/ bash            Removes .bash_profile, .bashrc and .inputrc
@@ -24,10 +24,9 @@ bash() {
   done
 }
 
-#/ dots            Removes ~/ .gemrc .gitconfig .gitignore .bundle/
+#/ dots            Removes ~/ .gitconfig .gitignore
 dots() {
-  rm -rfv $HOME/.bundle
-  for file in "gemrc" "gitconfig" "gitignore"; do
+  for file in "gitconfig" "gitignore"; do
     rm -v $HOME/.$file
   done
 }
@@ -44,16 +43,6 @@ node() {
   rm -rfv $HOME/.node-gyp/
   rm -rfv $HOME/.npm/
   rm -rfv $HOME/.nvm/
-}
-
-#/ ruby            Removes all rubies installed through rbenv
-ruby() {
-  rm -rfv `rbenv root`
-}
-
-#/ gems            Uninstalls all gems and their dependencies
-gems() {
-  gem list | cut -d" " -f1 | sort | xargs -n1 gem uninstall -aIx
 }
 
 #/ vim             Removes .vimrc, .vim/
@@ -78,8 +67,6 @@ world() {
   casks
   xcode
   vim
-  gems
-  ruby
   node
   homebrews
   locals
