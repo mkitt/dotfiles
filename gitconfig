@@ -18,7 +18,7 @@
   gpgsign = true
 [core]
   excludesfile = ~/.gitignore
-	trustctime = false
+  trustctime = false
 [gpg]
   program = /usr/local/MacGPG2/bin/gpg2
 [help]

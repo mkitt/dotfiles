@@ -15,8 +15,7 @@ run() {
 #/ homebrews       Installs core homebrew kegs
 homebrews() {
   printf "%sInstalling homebrews..\n"
-  brew install bash-completion ctags git hub gpg ripgrep tidy-html5 tree watchman wget yarn
-  printf "%sMacVim was not installed. Please install the latest node version, then brew install macvim.\n"
+  brew install bash-completion ctags git gpg heroku hub macvim ripgrep tidy-html5 tree watchman wget yarn
 }
 
 #/ nvm             Installs node version manager
@@ -84,7 +83,7 @@ xcode() {
 #/ casks           Installs non App Store Mac applications
 casks() {
   printf "%sInstalling homebrew casks..\n"
-  brew cask install appcleaner backblaze charles dropbox firefox google-chrome imageoptim shiftit screenhero sketch
+  brew cask install appcleaner backblaze charles google-chrome imageoptim rowanj-gitx shiftit screenhero sketch qlstephen zeplin
 }
 
 #/ macos           Setup osx defaults: https://mths.be/osx

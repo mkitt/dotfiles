@@ -14,7 +14,7 @@ run() {
 #/ homebrews       Uninstalls core homebrew kegs
 homebrews() {
   printf "%Removing homebrews..\n"
-  brew uninstall bash-completion ctags git hub gpg macvim ripgrep tidy-html5 tree watchman wget yarn
+  brew uninstall bash-completion ctags git gpg heroku hub macvim ripgrep tidy-html5 tree watchman wget yarn
 }
 
 #/ bash            Removes .bash_profile, .bashrc and .inputrc
@@ -59,7 +59,7 @@ xcode() {
 #/ casks           Uninstalls non App Store Mac applications
 casks() {
   printf "%sRemoving homebrew casks..\n"
-  brew cask uninstall appcleaner backblaze charles dropbox firefox google-chrome imageoptim shiftit screenhero sketch
+  brew cask uninstall appcleaner backblaze charles google-chrome imageoptim rowanj-gitx shiftit screenhero sketch qlstephen zeplin
 }
 
 #/ world           Runs all of the uninstall commands
