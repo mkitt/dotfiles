@@ -1,12 +1,6 @@
 # dotfiles
 My personal dotfiles for macOS.
 
-Over the years these have shaped various organization dotfiles:
-
-1. [Ello](https://github.com/ello/dotfiles) (active)
-- [Mode Set](https://github.com/modeset/dotset) (inactive)
-- [Factory Labs](https://github.com/factorylabs/vimfiles) (inactive)
-
 &hearts; the Vim.
 
 ## Commands
@@ -34,14 +28,14 @@ file to your `$HOME` directory and add the following:
 ```
 
 Note: Any `*.local` files are ignored by git. The `install`/`uninstall` script
-symlinks/removes a `gitconfig.local`. On my machine the dotfiles directory is
-stored in iCloud so it's just there as a convenience.
+symlinks/removes a `gitconfig.local`.
 
 ### GPG
 Install GPG Keychain for GPG signing to happen automatically. See [GPG
 Tools][gpg_tools] for more information. To obtain your GPG signing key you can
 either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
-`.gitconfig.local` file.
+`.gitconfig.local` file. If you are transferring a key to a new computer
+see [the knowledge base article][gpg_transfer]
 
 ### Install Polarized terminal themes
 Included in the vimrc is `Plug mkitt/pigment`. This is the color settings for
@@ -54,49 +48,28 @@ as the default. They should be found in:
 ~/.vim/plugged/pigment/profiles/
 ```
 
-### Turn caps lock into the control key
-The control key is in an awkward position and the caps lock key is
-basically useless. It's right there in the home row, so you might as
-well put it to good use.
-
-1. Open up System Preferences
-- Select `Keyboard`
-- Select `Modifier Keys`
-- From the drop down, select `^ Control` under the `Caps Lock` setting
-- In the `Select Keyboard` drop down, set it for both internal and external keyboards
-
-### Mouse support for Terminal
-To get full mouse support (scrolling, clicking, etc...) within Terminal
-Vim, install the [SIMBL][simbl] [MouseTerm][mouseterm] plug-in.
-
 ### Migrating to a new machine
-1. Setup iCloud 
-- Download App store applications
-- `xcode-select --install`
-- `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-- Navigate to this dotfiles directory
-- Run `make install`
-- Follow post install instructions (Vim plugins)
-- Install Terminal colors
-- Map caps lock to the control key
-- [Setup accessibility][shiftit_setup] for [Shift It][shiftit]
-- Install [SIMBL][simbl]
-- Install [MouseTerm][mouseterm]
-- Install [QLStephen][qlstephen]
-- Install [Heroku Toolbelt][toolbelt]
-- Set other reasonable [macOS defaults][macos_defaults]
-- Setup SSH & GPG keys (see account settings in GitHub)
-- Pull down key repositories
-- [Wipe old computer][wipe]
+1. Setup iCloud
+2. Download App store applications
+3. Run `xcode-select --install`
+4. Install [homebrew][homebrew]
+5. Run `brew install git hub`
+6. Run `git clone mkitt/dotfiles && cd dotfiles`
+7. Run `make install`
+8. Install [docker][docker]
+9. Follow post install instructions (Vim plugins)
+10. Install Terminal colors
+11. Map caps lock to the control key
+12. Set other reasonable [macOS defaults][macos_defaults]
+13. Setup SSH & GPG keys (see account settings in GitHub)
+14. Pull down key repositories
+15. [Wipe old computer][wipe]
 
 <!-- Markdown links -->
+[docker]: https://www.docker.com/docker-mac
 [gpg_tools]: https://gpgtools.org/
+[gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys
+[homebrew]: https://brew.sh
 [macos_defaults]: http://mths.be/osx
-[mouseterm]: http://bitheap.org/mouseterm/
 [pigment]: https://github.com/mkitt/pigment
-[qlstephen]: https://github.com/whomwah/qlstephen
-[shiftit]: https://github.com/fikovnik/ShiftIt
-[shiftit_setup]: https://github.com/fikovnik/ShiftIt/issues/110#issuecomment-20834932
-[simbl]: http://www.culater.net/software/SIMBL/SIMBL.php
-[toolbelt]: https://toolbelt.heroku.com
 [wipe]: https://support.apple.com/en-us/HT201065
