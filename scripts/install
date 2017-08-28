@@ -74,12 +74,6 @@ vim() {
   printf "%s----------------------------------------\n"
 }
 
-#/ xcode           Installs custom Xcode files
-xcode() {
-  mkdir -pv ~/Library/Developer/Xcode/UserData/FontAndColorThemes
-  ln -sfv "`pwd`/themes/polarized.dvtcolortheme" $HOME/Library/Developer/Xcode/UserData/FontAndColorThemes/polarized.dvtcolortheme
-}
-
 #/ casks           Installs non App Store Mac applications
 casks() {
   printf "%sInstalling homebrew casks..\n"
@@ -128,7 +122,6 @@ world() {
   locals
   packages
   vim
-  xcode
   casks
   macos
 }

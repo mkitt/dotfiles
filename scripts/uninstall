@@ -51,11 +51,6 @@ vim() {
   rm -rfv $HOME/.vim
 }
 
-#/ xcode           Uninstalls custom Xcode files
-xcode() {
-  rm -rfv $HOME/Library/Developer/Xcode/UserData/FontAndColorThemes
-}
-
 #/ casks           Uninstalls non App Store Mac applications
 casks() {
   printf "%sRemoving homebrew casks..\n"
@@ -65,7 +60,6 @@ casks() {
 #/ world           Runs all of the uninstall commands
 world() {
   casks
-  xcode
   vim
   node
   homebrews
