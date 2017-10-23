@@ -22,6 +22,7 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'vim-scripts/YankRing.vim'
 
 " Editing
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
