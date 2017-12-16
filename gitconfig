@@ -6,6 +6,7 @@
   empty = commit --allow-empty -m
   glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
   clog = log --pretty='- [x] %h %s'
+  slog = log --pretty='- %h %s (%an)'
 [branch]
   autosetupmerge = always
   autosetuprebase = always
