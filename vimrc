@@ -31,6 +31,7 @@ Plug 'tpope/vim-unimpaired'
 " Filetypes
 Plug 'othree/html5.vim'
 Plug 'keith/swift.vim'
+Plug 'jparise/vim-graphql'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'alampros/vim-styled-jsx'
