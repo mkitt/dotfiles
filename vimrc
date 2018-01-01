@@ -30,16 +30,13 @@ Plug 'tpope/vim-unimpaired'
 
 " Filetypes
 Plug 'othree/html5.vim'
-Plug 'keith/swift.vim'
 Plug 'jparise/vim-graphql'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'alampros/vim-styled-jsx'
 
 " Utility
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-
 
 call plug#end()
 
@@ -51,7 +48,6 @@ syntax enable
 " --------------------------------------
 set autoindent
 set autoread
-set autowrite
 set backspace=2
 set clipboard=unnamed
 set complete-=i
@@ -115,16 +111,13 @@ if executable('rg')
   let g:ctrlp_use_caching=0
 endif
 
-let g:ctrlp_by_filename=1
 let g:ctrlp_extensions=['line']
 let g:ctrlp_cache_dir=$HOME.'/.vim/tmp/ctrlp/'
 let g:ctrlp_custom_ignore='vendor/bundle\|.bundle\|tmp\|.git$'
-let g:ctrlp_map='<F1>'
 
 let g:ctrlsf_auto_close=0
 
 let g:netrw_liststyle=3
-
 let g:NERDTreeWinSize=40
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeAutoDeleteBuffer=1
@@ -134,7 +127,6 @@ let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 
 " Open quick fix and location window items with CtrlP commands
-let g:qfenter_enable_autoquickfix=0
 let g:qfenter_keymap = {}
 let g:qfenter_keymap.vopen = ['<C-v>']
 let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
@@ -158,10 +150,8 @@ endif
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
 
-let g:indexed_search_show_index_mappings=0
 let g:indexed_search_colors=0
 
-let g:javascript_enable_domhtmlcss=1
 let g:javascript_plugin_flow=1
 let g:jsx_ext_required=0
 
@@ -223,10 +213,10 @@ if has("autocmd")
     autocmd!
     autocmd User Grepper :resize 10
     autocmd QuickFixCmdPost *grep* botright copen
-    autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
-    autocmd BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
-    autocmd BufRead,BufNewFile .{babel,eslint}rc set filetype=json
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+    autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
+    autocmd BufRead,BufNewFile .env.* set filetype=sh
     autocmd BufRead,BufNewFile *.{flow} set filetype=javascript
     " Abbreviations
     autocmd FileType javascript iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
