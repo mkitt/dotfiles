@@ -194,7 +194,7 @@ nnoremap <silent>gl :CtrlP<CR>
 nnoremap <silent>gL :CtrlPBuffer<CR>
 nnoremap <silent>gy :NERDTreeToggle<CR>
 nnoremap gs :GrepperRg<space>
-xnoremap gs y:<c-u>GrepperRg -F <C-R>=shellescape(expand(@"),1)<CR>
+xnoremap gs y:<c-u>GrepperRg -F <C-R>=shellescape(@",1)<CR>
 nmap gz <Plug>CtrlSFPrompt
 vmap gz <Plug>CtrlSFVwordExec
 
