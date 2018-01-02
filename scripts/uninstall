@@ -14,7 +14,7 @@ run() {
 #/ homebrews       Uninstalls core homebrew kegs
 homebrews() {
   printf "%Removing homebrews..\n"
-  brew uninstall bash-completion ctags git heroku hub macvim ripgrep tidy-html5 tree watchman wget yarn
+  brew uninstall bash-completion ctags git git-standup heroku hub macvim ripgrep tidy-html5 tree watchman wget yarn
 }
 
 #/ bash            Removes .bash_profile, .bashrc and .inputrc
