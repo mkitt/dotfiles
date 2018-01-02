@@ -12,7 +12,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'mkitt/pigment'
 Plug 'yssl/QFEnter'
 Plug 'ervandew/supertab'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'mkitt/tabline.vim'
 Plug 'ton/vim-bufsurf'
 Plug 'mhinz/vim-grepper'
@@ -132,20 +132,15 @@ let g:qfenter_keymap.vopen = ['<C-v>']
 let g:qfenter_keymap.hopen = ['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen = ['<C-t>']
 
-let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors=1
-let g:syntastic_always_populate_loc_list=1
-
-let g:syntastic_javascript_checkers=['eslint', 'flow']
-let g:syntastic_javascript_eslint_args="--rule 'no-console: 0'"
-if executable('eslint_d') && executable('node_modules/.bin/eslint')
-  let g:syntastic_javascript_eslint_exec='eslint_d'
-endif
-
-if executable('node_modules/.bin/flow')
-  let g:syntastic_javascript_flow_exec='node_modules/.bin/flow'
-  let g:syntastic_javascript_flow_exe='node_modules/.bin/flow --show-all-errors --json --quiet'
-endif
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_history_log_output = 0
+let g:ale_javascript_eslint_executable = 'eslint_d'
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_open_list = 'on_save'
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '☠️'
+let g:ale_sign_warning = '⚠️'
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
