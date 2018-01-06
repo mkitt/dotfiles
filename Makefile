@@ -3,22 +3,20 @@ casks = appcleaner backblaze charles google-chrome gpgtools imageoptim rowanj-gi
 npms = eslint_d
 dots = bash_profile bashrc gitconfig gitconfig.local gitignore inputrc vimrc
 tmps = tmp/ctrlp tmp/swap tmp/yankring
-vimplug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # --------------------------------------
 
+#/ help            Print this message (default)
 help:
 	@printf "%sUsage: make TARGET\n"
-	@printf "%2shelp        Print this message (default)\n"
-	@printf "%2sinstall     Installs homebrews, casks, global npms and dotfiles\n"
-	@printf "%2suninstall   Removes homebrews, casks, global npms and dotfiles\n"
-	@printf "%2supdate      Updates homebrews, casks and global npm packages\n"
-	@printf "%2smacos       Setup macOS defaults: https://mths.be/macos\n"
+	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
-	@printf "%2shomebrews: $(brews)\n"
-	@printf "%2scasks: $(casks)\n"
-	@printf "%2snpm: $(npms)\n"
+	@printf "%sbrew: $(brews)\n"
+	@printf "%scask: $(casks)\n"
+	@printf "%snpm: $(npms)\n"
 
+#/ install         Installs homebrews, casks, global npms and dotfiles
 install:
 	sudo -v
 	brew install $(brews)
@@ -28,10 +26,11 @@ install:
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
 	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
-	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(vimplug)
+	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
 	@printf "%s\nInstall vim plugins: :PlugInstall"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
+#/ uninstall       Removes homebrews, casks, global npms and dotfiles
 uninstall:
 	sudo -v
 	brew uninstall $(brews) macvim
@@ -40,6 +39,7 @@ uninstall:
 	@rm -rfv $$HOME/.vim
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
+#/ update          Updates homebrews, casks and global npm packages
 update:
 	brew update
 	brew outdated
@@ -51,6 +51,7 @@ update:
 	npm update $(npms) --global
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
 
+#/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
 	sudo -v
 	@# Automatically quit printer app once the print jobs complete
