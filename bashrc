@@ -1,42 +1,14 @@
 unset MAILCHECK
-
-# Environment pathing and editor defaults
 export PATH="/usr/local/bin:/usr/local/heroku/bin:$PATH"
-export ARCHFLAGS="-arch i386 -arch x86_64"
-export EDITOR=vim
-export HISTCONTROL=ignoreboth
-export HISTFILESIZE=10000
-export HISTSIZE=10000
+export ARCHFLAGS="-arch x86_64"
+export EDITOR="vim"
+export HISTCONTROL="ignoreboth"
+export HISTSIZE="500"
 
-# Add some color to man pages
+# Add color to man pages
 export LESS_TERMCAP_md="$(tput setaf 4)"
 
-# Use MacVim's version of the Vim executable instead of the systems
-if [ -e /usr/local/bin/brew ]; then
-  export MACVIM_BASE=`brew --cellar macvim`
-  export MACVIM_VERSION=`brew list --versions macvim --compact | cut -d ' ' -f 2`
-  alias vim="$MACVIM_BASE/$MACVIM_VERSION/MacVim.app/Contents/MacOS/Vim"
-  export EDITOR="$MACVIM_BASE/$MACVIM_VERSION/MacVim.app/Contents/MacOS/Vim"
-fi
-
-# This loads nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-# http://ss64.com/bash/shopt.html
-shopt -s histappend
-shopt -s nocaseglob
-shopt -s cdspell
-
 # ------------------------------------------
-# Prompts
-
-# Color settings
-export TERM=xterm-color
-export GREP_OPTIONS='--color=auto' GREP_COLOR='0;36'
-export CLICOLOR=1
-
 # Color          | Escaped    | ANSI
 # -------------- | ---------- | ------------
 # No Color       | \033[0m    | x (default foreground)
@@ -57,7 +29,7 @@ export CLICOLOR=1
 # Bright Grey    | \033[0;37m | h
 # White          | \033[1;37m | H
 
-# The order of the attributes are as follows (fgbg):
+# XX (fgbg):
 # 01. directory
 # 02. symbolic link
 # 03. socket
@@ -70,50 +42,30 @@ export CLICOLOR=1
 # 10. directory writable to others, with sticky bit
 # 11. directory writable to others, without sticky bit
 #      LSCOLORS=0102030405060708091011
-export LSCOLORS=excxgxfxbxdxbxbxbxexex
+export LSCOLORS="excxgxfxbxdxbxbxbxexex"
+export CLICOLOR="1"
 
-parse_git_branch() {
-  __git_ps1 " [%s]"
-}
-
-export GIT_PS1_SHOWDIRTYSTATE='true'
-export PS1="\[\033[35m\][\h\[\033[00m\]\[\033[35m\]] \[\033[34m\]\W\[\033[31m\]\$(parse_git_branch)\[\033[00m\] \[\033[0m\]"
-export PS2="\[\033[35m\]→ \[\033[0m\]"
-
-# ------------------------------------------
-# Aliases
-
-# Map git commands through hub
-if [ -e /usr/local/bin/hub ]; then
-  alias git=hub
-fi
-
-alias git-prune='git remote | xargs -n1 git remote prune'
-
-# Handy stuff
-alias reload="source ~/.bash_profile && cd ../ && cd -"
-alias cp='cp -i'
-alias mv='mv -i'
-alias ls='ls -G'
-alias la='ls -lA'
-alias ll='ls -l'
-alias las='ls -lAS'
-alias ..='cd ../'
-
-# Completions
-# ------------------------------------------
-
+# Source homebrew bash_completions and set custom prompts
 if [ -f `brew --prefix`/etc/bash_completion ]; then
  . `brew --prefix`/etc/bash_completion
+ export GIT_PS1_SHOWDIRTYSTATE="true"
+ export PS1="\[\033[35m\][\h\[\033[00m\]\[\033[35m\]] \[\033[34m\]\W\[\033[31m\]\$(__git_ps1 \" [%s]\")\[\033[00m\] \[\033[0m\]"
+ export PS2="\[\033[35m\]→ \[\033[0m\]"
 fi
 
-# ps_1 was moved so source this file instead
-if [ -f /usr/local/share/git-core/contrib/completion/git-prompt.sh ]; then
-  source /usr/local/share/git-core/contrib/completion/git-prompt.sh
-fi
+# http://ss64.com/bash/shopt.html
+shopt -s histappend
+shopt -s nocaseglob
+shopt -s cdspell
 
-# Only print if we're in an interactive shell.
-# Non-interactive stuff like rsync will blow up otherwise
-if [[ "$-" == *"i"* ]]; then
-  echo -e "\033[0;35m------------------------------------------\033[0m"
-fi
+# Map git commands through hub
+eval "$(hub alias -s)"
+
+# Handy stuff
+alias ..="cd ../"
+alias cp="cp -i"
+alias la="ls -lA"
+alias ll="ls -l"
+alias ls="ls -G"
+alias mv="mv -i"
+alias reload="source ~/.bash_profile && cd ../ && cd -"
