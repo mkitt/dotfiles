@@ -8,18 +8,18 @@ call plug#begin('~/.vim/plugged')
 " Editor
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'mkitt/pigment'
-Plug 'yssl/QFEnter'
 Plug 'ervandew/supertab'
-Plug 'w0rp/ale'
-Plug 'mkitt/tabline.vim'
-Plug 'ton/vim-bufsurf'
-Plug 'mhinz/vim-grepper'
 Plug 'henrik/vim-indexed-search'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mhinz/vim-grepper'
+Plug 'mkitt/pigment'
+Plug 'mkitt/tabline.vim'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ton/vim-bufsurf'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'w0rp/ale'
+Plug 'yssl/QFEnter'
 
 " Editing
 Plug 'tpope/vim-abolish'
@@ -29,10 +29,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 " Filetypes
-Plug 'othree/html5.vim'
 Plug 'jparise/vim-graphql'
-Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
 
 " Utility
 Plug 'tpope/vim-fugitive'
@@ -105,6 +105,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
 endif
 
+" Plugins
+" --------------------------------------
 if executable('rg')
   set grepprg=rg\
   let g:ctrlp_user_command='rg --files %s'
@@ -126,7 +128,6 @@ let g:NERDTreeMapUpdir='-'
 let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 
-" Open quick fix and location window items with CtrlP commands
 let g:qfenter_keymap={}
 let g:qfenter_keymap.vopen=['<C-v>']
 let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
