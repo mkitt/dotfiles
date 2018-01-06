@@ -6,11 +6,9 @@ help:
 install:
 	@echo 'Run:'
 	@echo 'scripts/install homebrews'
-	@echo 'scripts/install nvm'
-	@echo 'scripts/install node'
 	@echo 'scripts/install world'
 
-#/ update          Runs all of the update commands (excluding nvm and node)
+#/ update          Runs all of the update commands
 update:
 	@./scripts/update world
 

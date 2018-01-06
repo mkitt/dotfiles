@@ -25,20 +25,6 @@ homebrews() {
   brew cask doctor
 }
 
-#/ nvm             Updates nvm
-nvm() {
-  printf "%sUpdating nvm..\n"
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-}
-
-#/ node            Updates node and npm
-node() {
-  printf "%sUpdating node, npm and npm packages..\n"
-  nvm install stable
-  nvm use stable
-  packages
-}
-
 #/ packages        Updates global npm packages
 packages() {
   printf "%sUpdating global npm packages..\n"
@@ -58,7 +44,7 @@ world() {
   homebrews
   packages
   vim
-  printf "%snvm and node were not updated!\n"
+  printf "%Done.\n"
 }
 
 # go..

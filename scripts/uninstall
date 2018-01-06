@@ -14,7 +14,7 @@ run() {
 #/ homebrews       Uninstalls core homebrew kegs
 homebrews() {
   printf "%Removing homebrews..\n"
-  brew uninstall bash-completion ctags git git-standup heroku hub macvim ripgrep tidy-html5 tree watchman wget write-good yarn
+  brew uninstall bash-completion ctags git git-standup heroku hub macvim node ripgrep tidy-html5 tree watchman wget write-good yarn
 }
 
 #/ bash            Removes .bash_profile, .bashrc and .inputrc
@@ -38,13 +38,6 @@ locals() {
   done
 }
 
-#/ node            Removes ~/ .node-gyp/ .npm/ .nvm/
-node() {
-  rm -rfv $HOME/.node-gyp/
-  rm -rfv $HOME/.npm/
-  rm -rfv $HOME/.nvm/
-}
-
 #/ vim             Removes .vimrc, .vim/
 vim() {
   rm -v $HOME/.vimrc
@@ -61,7 +54,6 @@ casks() {
 world() {
   casks
   vim
-  node
   homebrews
   locals
   dots

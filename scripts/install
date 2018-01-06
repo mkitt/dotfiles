@@ -15,21 +15,7 @@ run() {
 #/ homebrews       Installs core homebrew kegs
 homebrews() {
   printf "%sInstalling homebrews..\n"
-  brew install bash-completion ctags git git-standup heroku hub macvim ripgrep tidy-html5 tree watchman wget write-good yarn
-}
-
-#/ nvm             Installs node version manager
-nvm() {
-  printf "%sInstalling nvm..\n"
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-}
-
-#/ node            Installs node and npm
-node() {
-  printf "%sInstalling node and npm (stable)..\n"
-  nvm install stable
-  nvm use stable
-  nvm alias default stable
+  brew install bash-completion ctags git git-standup heroku hub macvim node ripgrep tidy-html5 tree watchman wget write-good yarn
 }
 
 #/ bash            Installs .bash_profile, .bashrc and .inputrc
