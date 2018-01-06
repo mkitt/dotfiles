@@ -11,10 +11,7 @@
   autosetupmerge = always
   autosetuprebase = always
 [color]
-  diff = auto
-  status = auto
-  branch = auto
-  ui = true
+  ui = auto
 [commit]
   gpgsign = true
 [core]
@@ -34,7 +31,7 @@
   keepBackup = false
   trustExitCode = false
 [push]
-  default = matching
+  default = current
 [rerere]
   enabled = 1
 [include]
