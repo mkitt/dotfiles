@@ -4,9 +4,8 @@ My personal dotfiles for macOS.
 &hearts; the Vim.
 
 ## Commands
-The main tasks are wrapped by the `Makefile` targets. To see all of the
-available commands provided by the `install`, `uninstall`, `update` and `help`
-scripts run:
+The main tasks are `Makefile` targets. To see the available commands provided by
+the `install`, `uninstall`, `update` and `help` scripts run:
 
 ```
 make help
@@ -15,8 +14,8 @@ make help
 ## Tips
 
 ### Git credentials
-To setup your git credentials correctly you'll need to add a `.gitconfig.local`
-file to your `$HOME` directory and add the following:
+To setup your git credentials you'll need to add a `.gitconfig.local` file to
+your `$HOME` directory and add the following:
 
 ```
 [user]
@@ -27,12 +26,12 @@ file to your `$HOME` directory and add the following:
   user = YOUR_GITHUB_USERNAME
 ```
 
-Note: Any `*.local` files are ignored by git. The `install`/`uninstall` script
+Note: Git will ignore `*.local` files. The `install`/`uninstall` script
 symlinks/removes a `gitconfig.local`.
 
 ### GPG
 Install GPG Keychain for GPG signing to happen automatically. See [GPG
-Tools][gpg_tools] for more information. To obtain your GPG signing key you can
+Tools][gpg_tools] for more information. To get your GPG signing key you can
 either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
 `.gitconfig.local` file. If you are transferring a key to a new computer
 see [the knowledge base article][gpg_transfer]
@@ -42,7 +41,7 @@ Included in the vimrc is `Plug mkitt/pigment`. This is the color settings for
 Vim. Any color profile should work with this theme including the defaults from
 Apple. Included from the [pigment][pigment] repository is the Polarized light
 and dark profiles. Import these profiles into Apple's Terminal.app and set one
-as the default. They should be found in:
+as the default. The location of the profiles is:
 
 ```
 ~/.vim/plugged/pigment/profiles/

@@ -15,7 +15,7 @@ run() {
 #/ homebrews       Installs core homebrew kegs
 homebrews() {
   printf "%sInstalling homebrews..\n"
-  brew install bash-completion ctags git git-standup heroku hub macvim ripgrep tidy-html5 tree watchman wget yarn
+  brew install bash-completion ctags git git-standup heroku hub macvim ripgrep tidy-html5 tree watchman wget write-good yarn
 }
 
 #/ nvm             Installs node version manager
