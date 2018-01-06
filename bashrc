@@ -44,13 +44,14 @@ export LESS_TERMCAP_md="$(tput setaf 4)"
 #      LSCOLORS=0102030405060708091011
 export LSCOLORS="excxgxfxbxdxbxbxbxexex"
 export CLICOLOR="1"
+export PS1="\[\033[35m\][\h] \[\033[33m\]\W \[\033[0m\]"
+export PS2="\[\033[35m\]→ \[\033[0m\]"
 
-# Source homebrew bash_completions and set custom prompts
+# Source homebrew bash_completions and set custom prompt
 if [ -f `brew --prefix`/etc/bash_completion ]; then
  . `brew --prefix`/etc/bash_completion
  export GIT_PS1_SHOWDIRTYSTATE="true"
- export PS1="\[\033[35m\][\h\[\033[00m\]\[\033[35m\]] \[\033[34m\]\W\[\033[31m\]\$(__git_ps1 \" [%s]\")\[\033[00m\] \[\033[0m\]"
- export PS2="\[\033[35m\]→ \[\033[0m\]"
+ export PS1="\[\033[35m\][\h] \[\033[34m\]\W\[\033[31m\]\$(__git_ps1 \" [%s]\") \[\033[0m\]"
 fi
 
 # http://ss64.com/bash/shopt.html
