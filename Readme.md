@@ -1,5 +1,5 @@
 # dotfiles
-My personal dotfiles for macOS.
+My personal dotfiles for macOS. Tuned to work with Apple's Terminal.app
 
 &hearts; the Vim.
 
@@ -36,7 +36,7 @@ either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
 `.gitconfig.local` file. If you are transferring a key to a new computer
 see [the knowledge base article][gpg_transfer]
 
-### Install Polarized terminal themes
+### Install Terminal.app themes
 Included in the vimrc is `Plug mkitt/pigment`. This is the color settings for
 Vim. Any color profile should work with this theme including the defaults from
 Apple. Included from the [pigment][pigment] repository is the Polarized light
@@ -54,21 +54,22 @@ as the default. The location of the profiles is:
 4. Install [homebrew][homebrew]
 5. Run `brew install git hub`
 6. Run `git clone mkitt/dotfiles && cd dotfiles`
-7. Run `make install`
-8. Install [docker][docker]
-9. Follow post install instructions (Vim plugins)
-10. Install Terminal colors
-11. Map caps lock to the control key
-12. Set other reasonable [macOS defaults][macos_defaults]
-13. Setup SSH & GPG keys (see account settings in GitHub)
-14. Pull down key repositories
-15. [Wipe old computer][wipe]
+7. Add the `.gitconfig.local` file
+8. Run `make install`
+9. Install [docker][docker]
+10. Follow post install instructions (Vim plugins)
+11. Install Terminal colors
+12. Map caps lock to the control key
+13. Set other reasonable [macOS defaults][macos_defaults]
+14. Setup SSH & GPG keys (see account settings in GitHub)
+15. Pull down key repositories
+16. [Wipe old computer][wipe]
 
 <!-- Markdown links -->
 [docker]: https://www.docker.com/docker-mac
 [gpg_tools]: https://gpgtools.org/
 [gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys
 [homebrew]: https://brew.sh
-[macos_defaults]: http://mths.be/osx
+[macos_defaults]: http://mths.be/macos
 [pigment]: https://github.com/mkitt/pigment
 [wipe]: https://support.apple.com/en-us/HT201065

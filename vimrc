@@ -105,8 +105,6 @@ if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
 endif
 
-" Plugins
-" --------------------------------------
 if executable('rg')
   set grepprg=rg\
   let g:ctrlp_user_command='rg --files %s'
