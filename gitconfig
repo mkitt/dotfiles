@@ -1,8 +1,6 @@
 [alias]
-  st = status
-  br = branch
   co = checkout
-  del = !FILES=$(git ls-files --deleted) && git rm $FILES
+  st = status
   empty = commit --allow-empty -m
   glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
   clog = log --pretty='- [x] %h %s'
@@ -16,22 +14,18 @@
   gpgsign = true
 [core]
   excludesfile = ~/.gitignore
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
   trustctime = false
+[fetch]
+  prune = true
 [gpg]
   program = /usr/local/MacGPG2/bin/gpg2
-[help]
-  autocorrect = 1
-[interactive]
-  diffFilter = diff-highlight
 [merge]
-  tool = chdiff
-  trustExitCode = 0
-[mergetool "filemerge"]
-  cmd = /usr/bin/env chdiff --wait "$LOCAL" "$REMOTE"
-  keepBackup = false
-  trustExitCode = false
+  ff = only
 [push]
   default = current
+[rebase]
+  autosquash = true
 [rerere]
   enabled = 1
 [include]
