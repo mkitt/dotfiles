@@ -47,7 +47,6 @@ update:
 	brew cleanup
 	brew prune
 	brew doctor
-	brew cask doctor
 	npm update $(npms) --global
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
 
