@@ -1,11 +1,2 @@
-*.log
-*.map
 *.swp
 .DS_Store
-.bundle/
-log/*
-log/**/*
-node_modules
-tmp/*
-tmp/**/*
-vendor/bundle
