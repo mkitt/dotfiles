@@ -64,6 +64,7 @@ eval "$(hub alias -s)"
 
 # Handy stuff
 alias ..="cd ../"
+alias ...="cd ../../"
 alias cp="cp -i"
 alias la="ls -lA"
 alias ll="ls -l"
