@@ -67,15 +67,16 @@ as the default. The location of the profiles is:
 15. Pull down key repositories
 16. [Wipe old computer][wipe]
 
+---
 [mkitt.net][mkitt.net] | [github.com/mkitt][github]
 
 <!-- Markdown links -->
-[docker]: https://www.docker.com/docker-mac "docker"
+[docker]: https://www.docker.com/docker-mac "docker for mac"
 [github]: https://github.com/mkitt "github.com/mkitt"
 [gpg_tools]: https://gpgtools.org/ "gpg tools"
 [gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys "transfer gpg"
 [homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: http://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "mkitt.net"
-[pigment]: https://github.com/mkitt/pigment "pigment"
+[pigment]: https://github.com/mkitt/pigment "vim and bash colors"
 [wipe]: https://support.apple.com/en-us/HT201065 "wipe"
