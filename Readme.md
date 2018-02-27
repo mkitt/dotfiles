@@ -1,3 +1,5 @@
+<img src="https://mkitt.net/apple-touch-icon.png" width="96px" height="96px" />
+
 # dotfiles
 My personal dotfiles for macOS. Tuned to work with Apple's Terminal.app
 
@@ -65,11 +67,15 @@ as the default. The location of the profiles is:
 15. Pull down key repositories
 16. [Wipe old computer][wipe]
 
+[mkitt.net][mkitt.net] | [github.com/mkitt][github]
+
 <!-- Markdown links -->
-[docker]: https://www.docker.com/docker-mac
-[gpg_tools]: https://gpgtools.org/
-[gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys
-[homebrew]: https://brew.sh
-[macos_defaults]: http://mths.be/macos
-[pigment]: https://github.com/mkitt/pigment
-[wipe]: https://support.apple.com/en-us/HT201065
+[docker]: https://www.docker.com/docker-mac "docker"
+[github]: https://github.com/mkitt "github.com/mkitt"
+[gpg_tools]: https://gpgtools.org/ "gpg tools"
+[gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys "transfer gpg"
+[homebrew]: https://brew.sh "homebrew's home"
+[macos_defaults]: http://mths.be/macos "macos defaults"
+[mkitt.net]: https://mkitt.net "mkitt.net"
+[pigment]: https://github.com/mkitt/pigment "pigment"
+[wipe]: https://support.apple.com/en-us/HT201065 "wipe"
