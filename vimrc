@@ -147,7 +147,6 @@ let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
 let g:indexed_search_colors=0
 
 let g:javascript_plugin_flow=1
-let g:jsx_ext_required=0
 
 " Mappings
 " --------------------------------------
