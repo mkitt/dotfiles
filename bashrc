@@ -1,5 +1,6 @@
 unset MAILCHECK
 export PATH="/usr/local/bin:/usr/local/heroku/bin:$PATH"
+export LC_ALL=C
 export ARCHFLAGS="-arch x86_64"
 export EDITOR="vim"
 export HISTCONTROL="ignoreboth"
@@ -48,8 +49,8 @@ export PS1="\[\033[35m\][\h] \[\033[33m\]\W \[\033[0m\]"
 export PS2="\[\033[35m\]→ \[\033[0m\]"
 
 # Source homebrew bash_completions and set custom prompt
-if [ -f `brew --prefix`/etc/bash_completion ]; then
- . `brew --prefix`/etc/bash_completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
  export GIT_PS1_SHOWDIRTYSTATE="true"
  export PS1="\[\033[35m\][\h] \[\033[34m\]\W\[\033[31m\]\$(__git_ps1 \" [%s]\") \[\033[0m\]"
 fi
