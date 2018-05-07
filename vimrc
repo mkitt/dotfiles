@@ -140,6 +140,9 @@ let g:ale_javascript_eslint_use_global=1
 let g:ale_open_list='on_save'
 let g:ale_sign_error='☠️'
 let g:ale_sign_warning='⚠️'
+let g:ale_echo_delay=666
+let g:ale_lint_delay=666
+
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
