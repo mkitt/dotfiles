@@ -1,5 +1,5 @@
 brews = bash-completion ctags git hub node@8 ripgrep tidy-html5 tree watchman wget write-good yarn
-casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen 1password keybase
+casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen 1password keybase docker java8 postgres redis-app
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
 tmps = tmp/ctrlp tmp/swap tmp/yankring
