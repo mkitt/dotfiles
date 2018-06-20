@@ -1,8 +1,8 @@
-brews = fd git gh node pnpm ripgrep tree
-casks = gpg-suite rectangle slack
+brews = ctags git gh node ripgrep tidy-html5 tree watchman wget write-good
+casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen 1password keybase
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
-dots = gitconfig gitconfig.local vimrc zprofile zshrc
+dots = gitconfig gitconfig.local vimrc zprofile zshrc inputrc
 
 # --------------------------------------
 
