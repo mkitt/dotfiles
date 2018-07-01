@@ -2,7 +2,7 @@ brews = bash-completion ctags git hub node@8 ripgrep tidy-html5 tree watchman wg
 casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
-tmps = tmp/ctrlp tmp/swap tmp/yankring
+tmps = tmp/ctrlp tmp/yankring
 plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # --------------------------------------

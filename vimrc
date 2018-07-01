@@ -52,7 +52,6 @@ set backspace=2
 set clipboard=unnamed
 set complete-=i
 set completeopt=longest,menu
-set directory=~/.vim/tmp/swap/
 set display+=lastline
 set expandtab
 set hidden
@@ -68,6 +67,7 @@ set nobackup
 set nojoinspaces
 set noshowcmd
 set nostartofline
+set noswapfile
 set nowrap
 set nrformats-=octal
 set number
