@@ -1,4 +1,4 @@
-brews = bash-completion ctags git hub node@8 ripgrep tidy-html5 tree watchman wget write-good yarn
+brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget write-good yarn
 casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
@@ -44,12 +44,11 @@ update:
 	brew update
 	brew outdated
 	brew upgrade
+	brew cask outdated
+	brew cask upgrade
 	brew cleanup
 	brew prune
 	brew doctor
-	brew cask outdated
-	brew cask upgrade
-	brew cask cleanup
 	npm update $(npms) --global
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
 
