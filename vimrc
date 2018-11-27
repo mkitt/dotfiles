@@ -224,7 +224,10 @@ vmap gz <Plug>CtrlSFVwordExec
 nnoremap <silent>gV `[v`]
 
 " Clear the search highlight
-noremap <silent><leader>\ :nohlsearch<CR>
+noremap <silent><leader>] :nohlsearch<CR>
+
+" Hide the quickfix window (ALE)
+noremap <silent><leader>\ :lcl<CR>
 
 " Remove whitespace
 noremap <silent><leader>CW :%s/\s\+$//<CR>
