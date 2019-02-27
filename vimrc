@@ -132,35 +132,28 @@ let g:qfenter_keymap.vopen=['<C-v>']
 let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
+let g:ale_close_preview_on_insert=1
 let g:ale_completion_enabled=1
 let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['eslint']}
-let g:ale_linters={'html': ['tidy']}
+let g:ale_fixers={'javascript': ['eslint', 'prettier']}
 let g:ale_history_log_output=0
 let g:ale_javascript_eslint_executable='eslint_d'
 let g:ale_javascript_eslint_use_global=1
+let g:ale_linters={'html': ['tidy']}
 let g:ale_open_list='on_save'
 let g:ale_set_balloons=1
 let g:ale_sign_error='☠️'
 let g:ale_sign_warning='⚠️'
-" let g:ale_echo_delay=666
-" let g:ale_lint_delay=666
 
-let g:ale_close_preview_on_insert=1
+let g:javascript_plugin_flow=1
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
 
 let g:indexed_search_colors=0
 
-let g:javascript_plugin_flow=1
-
 " Mappings
 " --------------------------------------
-" RSI reduction
-nnoremap j gj
-nnoremap k gk
-
 " Move between splits
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
@@ -180,12 +173,12 @@ nnoremap <silent><C-@> :CtrlP<CR>
 
 " The `g` commands
 nmap gad <Plug>(ale_documentation)
-nmap gag <Plug>(ale_go_to_definition)
-nmap gah <Plug>(ale_hover)
 nmap gaf <Plug>(ale_find_references)
 nmap gan <Plug>(ale_next_wrap)
 nmap gap <Plug>(ale_previous_wrap)
-nnoremap <silent>gF :vertical wincmd f<CR>
+nmap gf <Plug>(ale_go_to_definition)
+nmap gF <Plug>(ale_go_to_definition_in_vsplit)
+nmap gh <Plug>(ale_hover)
 nnoremap <silent>gl :CtrlP<CR>
 nnoremap <silent>gL :CtrlPBuffer<CR>
 nnoremap <silent>gy :NERDTreeToggle<CR>
@@ -228,6 +221,7 @@ if has("autocmd")
     autocmd BufRead,BufNewFile .env.* set filetype=sh
     autocmd BufRead,BufNewFile *.ts set filetype=javascript
     autocmd BufRead,BufNewFile *.tsx set filetype=javascript.jsx
+    autocmd QuitPre * if empty(&buftype) | lclose | endif
     " Abbreviations
     autocmd FileType *.{js,jsx,ts,tsx} iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
     autocmd FileType *.{js,jsx,ts,tsx} iabbrev <buffer> sdb outline: '1px dotted blue',<C-R>=Eatchar('\s')<CR>

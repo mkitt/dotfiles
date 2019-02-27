@@ -1,5 +1,5 @@
 brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget write-good yarn
-casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen
+casks = appcleaner backblaze charles google-chrome gpg-suite graphql-playground imageoptim rowanj-gitx slack shiftit sketch qlstephen
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
 tmps = tmp/ctrlp tmp/yankring
@@ -47,9 +47,8 @@ update:
 	brew cask outdated
 	brew cask upgrade
 	brew cleanup
-	brew prune
 	brew doctor
-	npm update $(npms) --global
+	npm install $(npms) --global
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
