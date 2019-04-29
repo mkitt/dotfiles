@@ -33,6 +33,7 @@ Plug 'jparise/vim-graphql'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'rhysd/vim-github-actions'
 
 " Utility
 Plug 'tpope/vim-fugitive'
