@@ -256,6 +256,7 @@ if has("autocmd")
     autocmd!
     autocmd User Grepper :resize 10
     autocmd QuickFixCmdPost *grep* botright copen
+    autocmd FileType qf setlocal wrap
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
     autocmd BufRead,BufNewFile *.md set filetype=markdown
     autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
