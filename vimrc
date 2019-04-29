@@ -45,6 +45,7 @@ Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-liquid'
 Plug 'othree/xml.vim'
 Plug 'wuelnerdotexe/vim-astro'
+Plug 'rhysd/vim-github-actions'
 
 " Utility
 Plug 'tpope/vim-fugitive'
