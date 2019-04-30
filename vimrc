@@ -214,20 +214,20 @@ endfunc
 if has("autocmd")
   augroup FTOptions
     autocmd!
-    autocmd User Grepper :resize 10
-    autocmd QuickFixCmdPost *grep* botright copen
-    autocmd FileType qf setlocal wrap
-    autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
-    autocmd BufRead,BufNewFile .env.* set filetype=sh
     autocmd BufRead,BufNewFile *.ts set filetype=javascript
     autocmd BufRead,BufNewFile *.tsx set filetype=javascript.jsx
+    autocmd BufRead,BufNewFile .env.* set filetype=sh
+    autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
+    autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
+    autocmd FileType qf setlocal wrap
+    autocmd QuickFixCmdPost *grep* botright copen
     autocmd QuitPre * if empty(&buftype) | lclose | endif
+    autocmd User Grepper :resize 10
     " Abbreviations
-    autocmd FileType *.{js,jsx,ts,tsx} iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
-    autocmd FileType *.{js,jsx,ts,tsx} iabbrev <buffer> sdb outline: '1px dotted blue',<C-R>=Eatchar('\s')<CR>
-    autocmd FileType *.{js,jsx,ts,tsx} iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript,javascript.jsx iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript,javascript.jsx iabbrev <buffer> sdb outline: '1px dotted blue',<C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript,javascript.jsx iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
   augroup END
 endif
 
