@@ -28,11 +28,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 " Filetypes
-Plug 'jparise/vim-graphql'
-Plug 'mxw/vim-jsx'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'rhysd/vim-github-actions'
+Plug 'sheerun/vim-polyglot'
 
 " Utility
 Plug 'tpope/vim-fugitive'
@@ -217,6 +213,7 @@ if has("autocmd")
     autocmd BufRead,BufNewFile *.ts set filetype=javascript
     autocmd BufRead,BufNewFile *.tsx set filetype=javascript.jsx
     autocmd BufRead,BufNewFile .env.* set filetype=sh
+    autocmd BufRead,BufNewFile *.workflow set filetype=terraform
     autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
     autocmd FileType qf setlocal wrap
