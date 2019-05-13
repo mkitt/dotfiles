@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugged')
 " Editor
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'ervandew/supertab'
 Plug 'henrik/vim-indexed-search'
 Plug 'mhinz/vim-grepper'
 Plug 'mkitt/pigment'
@@ -124,10 +123,6 @@ let g:NERDTreeMinimalUI=1
 let g:NERDTreeAutoDeleteBuffer=1
 let g:NERDTreeMapUpdir='-'
 
-let g:SuperTabLongestEnhanced=1
-let g:SuperTabLongestHighlight=1
-let g:SuperTabDefaultCompletionType='<C-n>'
-
 let g:qfenter_keymap={}
 let g:qfenter_keymap.vopen=['<C-v>']
 let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
@@ -171,6 +166,10 @@ nnoremap <silent><C-o> :BufSurfForward<CR>
 
 " Another alternative CtrlP mapping
 nnoremap <silent><C-@> :CtrlP<CR>
+
+" Tab through popup menu items
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 " The `g` commands
 nmap gad <Plug>(ale_documentation)
