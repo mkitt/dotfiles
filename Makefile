@@ -1,5 +1,6 @@
 brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget write-good yarn
 casks = appcleaner backblaze charles google-chrome gpg-suite graphql-playground imageoptim rowanj-gitx slack shiftit sketch qlstephen
+cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-tsserver
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc Brewfile
 tmps = tmp/ctrlp tmp/yankring
@@ -22,8 +23,9 @@ install:
 	npm install $(npms) --global
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
 	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
+	@ln -sfv `pwd`/coc-settings.json $$HOME/.vim/
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
-	@printf "%s\nInstall vim plugins: :PlugInstall"
+	@printf "%s\nInstall vim plugins: :PlugInstall and :CocInstall $(cocs)"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks, global npms and dotfiles
@@ -44,7 +46,8 @@ update:
 	brew autoremove
 	brew doctor
 	npm install $(npms) --global
-	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
+	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocUpdate\n"
+	@printf "%s\nMay need to run :CocRebuild if node.js was upgraded\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:

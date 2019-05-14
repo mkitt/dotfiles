@@ -6,18 +6,16 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " Editor
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'henrik/vim-indexed-search'
-Plug 'mhinz/vim-grepper'
 Plug 'mkitt/pigment'
 Plug 'mkitt/tabline.vim'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ton/vim-bufsurf'
 Plug 'vim-scripts/YankRing.vim'
-Plug 'dense-analysis/ale'
 Plug 'yssl/QFEnter'
 Plug 'vim-airline/vim-airline'
 Plug 'github/copilot.vim'
@@ -121,13 +119,7 @@ endif
 
 if executable('rg')
   set grepprg=rg\
-  let g:ctrlp_user_command='rg --files %s'
-  let g:ctrlp_use_caching=0
 endif
-
-let g:ctrlp_extensions=['line']
-let g:ctrlp_cache_dir=$HOME.'/.vim/tmp/ctrlp/'
-let g:ctrlp_custom_ignore='vendor/bundle\|.bundle\|tmp\|.git$'
 
 let g:ctrlsf_auto_close=0
 
@@ -142,28 +134,7 @@ let g:qfenter_keymap.vopen=['<C-v>']
 let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
-let g:ale_close_preview_on_insert=1
-let g:ale_completion_enabled=1
-let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['prettier'], 'typescript': ['eslint', 'prettier'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'yapf', 'reorder-python-imports' ], 'ruby': [ 'rubocop' ], 'go': [ 'gopls', 'goimports', 'golines', 'gofumpt', 'gofmt' ], 'graphql': [ 'prettier' ] }
-let g:ale_linters={'javascript': ['eslint'], 'typescript': ['eslint', 'prettier', 'tsserver'], 'html': ['tidy'], 'scala': ['scalac', 'scalastyle'], 'python': [ 'flake8', 'pylint', 'vulture', 'pyre'], 'go': [ 'gopls', 'golangci-lint'], 'xml': ['xmllimt'], 'ruby': [ 'rubocop'], 'powershell': ['powershell']}
-let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
-let g:ale_history_log_output=0
-let g:ale_javascript_eslint_executable='eslint_d'
-let g:ale_javascript_eslint_use_global=1
-let g:ale_python_auto_pipenv = 1
-let g:ale_open_list='on_save'
-let g:ale_set_balloons=1
-let g:ale_sign_error='☠️'
-let g:ale_sign_warning='⚠️'
-" let g:ale_echo_delay=666
-" let g:ale_lint_delay=666
-let g:airline#extensions#ale#enabled = 1
-
-" let g:ale_completion_enabled=1
-" let g:ale_set_balloons=1
-" let g:ale_list_window_size=5
-let g:ale_close_preview_on_insert=1
+let g:javascript_plugin_flow=1
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
@@ -205,26 +176,27 @@ nnoremap <silent>_ :silent edit .<CR>
 nnoremap <silent><C-i> :BufSurfBack<CR>
 nnoremap <silent><C-o> :BufSurfForward<CR>
 
-" Another alternative CtrlP mapping
-nnoremap <silent><C-@> :CtrlP<CR>
-
 " Tab through popup menu items
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+nnoremap <silent><C-@> :CocList<CR>
 
 " The `g` commands
-nmap gad <Plug>(ale_documentation)
-nmap gaf <Plug>(ale_find_references)
-nmap gan <Plug>(ale_next_wrap)
-nmap gap <Plug>(ale_previous_wrap)
-nmap gf <Plug>(ale_go_to_definition)
-nmap gF <Plug>(ale_go_to_definition_in_vsplit)
-nmap gh <Plug>(ale_hover)
-nnoremap <silent>gl :CtrlP<CR>
-nnoremap <silent>gL :CtrlPBuffer<CR>
+nnoremap <silent>ga :CocList --normal diagnostics<CR>
+nnoremap <silent>gb :CocList buffers<CR>
+nnoremap <silent>gd :call CocAction('jumpTypeDefinition')<CR>
+nnoremap <silent>gf :call CocAction('jumpDefinition')<CR>
+nnoremap <silent>gF :call CocAction('jumpDefinition', 'vsplit')<CR>
+nnoremap <silent>gh :call CocAction('doHover')<CR>
+nnoremap <silent>gl :CocList files<CR>
+nnoremap <silent>gL :CocListResume<CR>
+nnoremap <silent>gr :call CocAction('jumpReferences')<CR>
+nnoremap gs :CocList grep<CR>
+xnoremap gs y :CocList grep <C-R>=escape(@",'$ ')<CR><CR>
+nnoremap <silent>gx :call CocAction('showSignatureHelp')<CR>
 nnoremap <silent>gy :NERDTreeToggle<CR>
-nnoremap gs :GrepperRg<space>
-xnoremap gs y:<c-u>GrepperRg -F <C-R>=shellescape(@",1)<CR>
 nmap gz <Plug>CtrlSFPrompt
 vmap gz <Plug>CtrlSFVwordExec
 
@@ -232,10 +204,7 @@ vmap gz <Plug>CtrlSFVwordExec
 nnoremap <silent>gV `[v`]
 
 " Clear the search highlight
-noremap <silent><leader>] :nohlsearch<CR>
-
-" Hide the quickfix window (ALE)
-noremap <silent><leader>\ :lcl<CR>
+noremap <silent><leader>\ :nohlsearch<CR>
 
 " Remove whitespace
 noremap <silent><leader>CW :%s/\s\+$//<CR>
@@ -255,20 +224,19 @@ if has("autocmd")
   augroup FTOptions
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd BufRead,BufNewFile *.ts set filetype=javascript
-    autocmd BufRead,BufNewFile *.tsx set filetype=javascript.jsx
-    autocmd BufRead,BufNewFile .env.* set filetype=sh
+    autocmd BufRead,BufNewFile *.ts set syntax=javascript
+    autocmd BufRead,BufNewFile *.tsx set syntax=javascript.jsx
     autocmd BufRead,BufNewFile *.workflow set filetype=terraform
+    autocmd BufRead,BufNewFile .env.* set filetype=sh
     autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
     autocmd FileType qf setlocal wrap
     autocmd QuickFixCmdPost *grep* botright copen
     autocmd QuitPre * if empty(&buftype) | lclose | endif
-    autocmd User Grepper :resize 10
     " Abbreviations
-    autocmd FileType javascript,javascript.jsx iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
-    autocmd FileType javascript,javascript.jsx iabbrev <buffer> sdb outline: '1px dotted blue',<C-R>=Eatchar('\s')<CR>
-    autocmd FileType javascript,javascript.jsx iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx iabbrev <buffer> bgc backgroundColor: '',<Left><Left><C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx iabbrev <buffer> sdb outline: '1px dotted blue',<C-R>=Eatchar('\s')<CR>
+    autocmd FileType javascript,javascript.jsx,typescript,typescript.jsx iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
   augroup END
 endif
 

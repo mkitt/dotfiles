@@ -1,0 +1,28 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "json", "markdown", "typescript", "typescriptreact"],
+  "diagnostic.errorSign": "☠️'",
+  "diagnostic.warningSign": "⚠️'",
+  "diagnostic.infoSign": "ℹ️",
+  "diagnostic.hintSign": "👉",
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "javascript.format.insertSpaceAfterCommaDelimiter": false,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+  "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
+  "javascript.preferences.noSemicolons": true,
+  "list.insertMappings": {
+    "<C-t>": "action:tabe",
+    "<C-v>": "action:vsplit",
+    "<C-x>": "action:split",
+    "<C-z>": "do:toggle"
+  },
+  "tsserver.formatOnType": false,
+  "typescript.format.insertSpaceAfterCommaDelimiter": false,
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+  "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
+  "typescript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
+  "typescript.preferences.noSemicolons": true
+}
