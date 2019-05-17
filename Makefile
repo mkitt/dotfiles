@@ -1,5 +1,5 @@
-brews = bash-completion ctags git hub node@8 ripgrep tidy-html5 tree watchman wget write-good yarn
-casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen 1password keybase docker java8 postgres redis-app
+brews = bash-completion ctags git hub node@8 ripgrep tidy-html5 tree watchman wget write-good yarn terraform awscli sbt
+casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen 1password keybase docker spectacle spotify java8 postgres redis-app sonos flux
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
 tmps = tmp/ctrlp tmp/swap tmp/yankring
@@ -47,6 +47,7 @@ update:
 	brew cleanup
 	brew prune
 	brew doctor
+	brew tap homebrew/cask-drivers
 	brew cask outdated
 	brew cask upgrade
 	brew cask cleanup
