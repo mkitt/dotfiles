@@ -33,6 +33,7 @@ Plug 'jparise/vim-graphql'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'othree/xml.vim'
 
 " Utility
 Plug 'tpope/vim-fugitive'
@@ -151,6 +152,10 @@ let g:indexed_search_colors=0
 
 let g:javascript_plugin_flow=1
 
+
+" Enable XML folding
+let g:xml_syntax_folding=1 
+au FileType xml setlocal foldmethod=syntax
 " Mappings
 " --------------------------------------
 " RSI reduction
