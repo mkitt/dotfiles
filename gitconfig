@@ -11,7 +11,7 @@
 [color]
   ui = auto
 [commit]
-  gpgsign = true
+  gpgsign = false
 [core]
   pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
   trustctime = false
