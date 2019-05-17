@@ -29,10 +29,17 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 " Filetypes
-Plug 'jparise/vim-graphql'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'jparise/vim-graphql'
+Plug 'fatih/vim-go'
+Plug 'tpope/vim-rails'
+Plug 'derekwyatt/vim-scala'
+Plug 'elixir-lang/vim-elixir'
+Plug 'hashivim/vim-terraform'
+Plug 'slim-template/vim-slim'
+Plug 'tpope/vim-liquid'
 Plug 'othree/xml.vim'
 
 " Utility
@@ -133,11 +140,12 @@ let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
 let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['eslint']}
-let g:ale_linters={'html': ['tidy']}
+let g:ale_fixers={'javascript': ['eslint'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'autopep8' ], 'ruby': [ 'rufo', 'standardrb' ], 'go': [ 'gofmt', 'goimports' ] }
+let g:ale_linters={'html': ['tidy'], 'scala': ['scalac', 'sbtserver'], 'python': [ 'flake8', 'pylint'], 'go': [ 'golint', 'govet'], 'xml': ['xmllimt']}
 let g:ale_history_log_output=0
 let g:ale_javascript_eslint_executable='eslint_d'
 let g:ale_javascript_eslint_use_global=1
+let g:ale_python_auto_pipenv = 1
 let g:ale_open_list='on_save'
 let g:ale_sign_error='☠️'
 let g:ale_sign_warning='⚠️'
@@ -152,6 +160,18 @@ let g:indexed_search_colors=0
 
 let g:javascript_plugin_flow=1
 
+
+" Enable more Go highlighting
+let g:go_highlight_structs = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 " Enable XML folding
 let g:xml_syntax_folding=1 
