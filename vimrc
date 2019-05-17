@@ -155,6 +155,8 @@ let g:ale_sign_warning='⚠️'
 " let g:ale_lint_delay=666
 let g:airline#extensions#ale#enabled = 1
 
+" let g:ale_completion_enabled=1
+" let g:ale_set_balloons=1
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
@@ -179,6 +181,7 @@ let g:go_highlight_build_constraints = 1
 " Enable XML folding
 let g:xml_syntax_folding=1 
 au FileType xml setlocal foldmethod=syntax
+
 " Mappings
 " --------------------------------------
 " RSI reduction
