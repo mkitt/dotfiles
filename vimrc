@@ -20,6 +20,7 @@ Plug 'ton/vim-bufsurf'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
 Plug 'yssl/QFEnter'
+Plug 'vim-airline/vim-airline'
 
 " Editing
 Plug 'tpope/vim-abolish'
@@ -45,6 +46,7 @@ Plug 'othree/xml.vim'
 " Utility
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -151,6 +153,7 @@ let g:ale_sign_error='☠️'
 let g:ale_sign_warning='⚠️'
 " let g:ale_echo_delay=666
 " let g:ale_lint_delay=666
+let g:airline#extensions#ale#enabled = 1
 
 
 let g:yankring_window_height=10
