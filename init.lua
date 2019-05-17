@@ -33,6 +33,8 @@ require("lazy").setup({
                         "csv",
                         "diff",
                         "dockerfile",
+                        "elixir",
+                        "go",
                         "html",
                         "javascript",
                         "jsdoc",
@@ -53,6 +55,7 @@ require("lazy").setup({
                         "typescript",
                         "vim",
                         "vimdoc",
+                        "xml",
                         "yaml"
                     },
                     highlight = { enable = true, disable = { "gitcommit", "graphql" } },
@@ -176,7 +179,9 @@ require("lazy").setup({
         "tpope/vim-repeat",
         "tpope/vim-rhubarb",
         "tpope/vim-surround",
-        "tpope/vim-unimpaired"
+        "tpope/vim-unimpaired",
+        "fatih/vim-go",
+        "tpope/vim-rails",
     },
     {
         ui = {
