@@ -14,6 +14,7 @@ help:
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
 	@printf "%scask: $(casks)\n"
+	@printf "%scocs: $(cocs)\n"
 
 #/ install         Installs homebrews, casks and dotfiles
 install:
@@ -47,7 +48,7 @@ update:
 	brew cleanup
 	brew doctor
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocUpdate\n"
-	@printf "%s\nMay need to run :CocRebuild if node.js was upgraded\n"
+	@printf "%s\nRun :CocRebuild if node.js was upgraded\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
