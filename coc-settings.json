@@ -1,9 +1,9 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "json", "markdown", "typescript", "typescriptreact"],
   "diagnostic.errorSign": "☠️'",
-  "diagnostic.warningSign": "⚠️'",
-  "diagnostic.infoSign": "ℹ️",
   "diagnostic.hintSign": "👉",
+  "diagnostic.infoSign": "ℹ️",
+  "diagnostic.warningSign": "⚠️'",
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "javascript.format.insertSpaceAfterCommaDelimiter": false,

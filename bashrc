@@ -51,7 +51,7 @@ export LESS_TERMCAP_md="$(tput setaf 4)"
 # 09. executable with setgid bit set
 # 10. directory writable to others, with sticky bit
 # 11. directory writable to others, without sticky bit
-#      LSCOLORS=0102030405060708091011
+#      LSCOLORS="0102030405060708091011"
 export LSCOLORS="excxgxfxbxdxbxbxbxexex"
 export CLICOLOR="1"
 export PS1="\[\033[35m\][\h] \[\033[33m\]\W \[\033[0m\]"
