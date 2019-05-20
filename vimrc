@@ -28,6 +28,7 @@ Plug 'github/copilot.vim'
 
 " Filetypes
 Plug 'jparise/vim-graphql'
+Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
@@ -169,7 +170,6 @@ if has("autocmd")
   augroup FTOptions
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-    autocmd BufRead,BufNewFile *.ts set filetype=typescript
     autocmd BufRead,BufNewFile *.ts set syntax=javascript
     autocmd BufRead,BufNewFile *.tsx set filetype=typescript.tsx
     autocmd BufRead,BufNewFile *.tsx set syntax=javascript.jsx
