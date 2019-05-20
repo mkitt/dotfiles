@@ -28,22 +28,12 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 " Filetypes
-Plug 'mxw/vim-jsx'
-Plug 'ianks/vim-tsx'
+Plug 'jparise/vim-graphql'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'jparise/vim-graphql'
-Plug 'fatih/vim-go'
-Plug 'tpope/vim-rails'
-Plug 'derekwyatt/vim-scala'
-Plug 'elixir-lang/vim-elixir'
-Plug 'hashivim/vim-terraform'
-Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-liquid'
-Plug 'othree/xml.vim'
-Plug 'wuelnerdotexe/vim-astro'
 Plug 'rhysd/vim-github-actions'
-Plug 'sheerun/vim-polyglot'
+Plug 'wuelnerdotexe/vim-astro'
 
 " Utility
 Plug 'tpope/vim-fugitive'
@@ -135,6 +125,7 @@ let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
 let g:javascript_plugin_flow=1
+let g:markdown_fenced_languages = ['css', 'html', 'javascript', 'json', 'sh', 'typescript=javascript']
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
@@ -224,9 +215,10 @@ if has("autocmd")
   augroup FTOptions
     autocmd!
     autocmd BufRead,BufNewFile *.md set filetype=markdown
+    autocmd BufRead,BufNewFile *.ts set filetype=typescript
     autocmd BufRead,BufNewFile *.ts set syntax=javascript
+    autocmd BufRead,BufNewFile *.tsx set filetype=typescript.tsx
     autocmd BufRead,BufNewFile *.tsx set syntax=javascript.jsx
-    autocmd BufRead,BufNewFile *.workflow set filetype=terraform
     autocmd BufRead,BufNewFile .env.* set filetype=sh
     autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
     autocmd FileType markdown,text,txt setlocal tw=80 linebreak nolist wrap spell
