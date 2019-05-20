@@ -1,7 +1,6 @@
 brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget write-good yarn
 casks = appcleaner backblaze charles google-chrome gpg-suite graphql-playground imageoptim rowanj-gitx slack shiftit sketch qlstephen
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-tsserver
-npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc Brewfile
 tmps = tmp/ctrlp tmp/yankring
 plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -13,14 +12,14 @@ help:
 	@printf "%sUsage: make TARGET\n"
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
-	@printf "%snpm: $(npms)\n"
+	@printf "%sbrew: $(brews)\n"
+	@printf "%scask: $(casks)\n"
 
-#/ install         Installs homebrews, casks, global npms and dotfiles
+#/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	brew bundle install --global --all
-	npm install $(npms) --global
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
 	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
 	@ln -sfv `pwd`/coc-settings.json $$HOME/.vim/
@@ -28,14 +27,13 @@ install:
 	@printf "%s\nInstall vim plugins: :PlugInstall and :CocInstall $(cocs)"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
-#/ uninstall       Removes homebrews, casks, global npms and dotfiles
+#/ uninstall       Removes homebrews, casks and dotfiles
 uninstall:
 	sudo -v
-	npm uninstall $(npms) --global
 	@rm -rfv $$HOME/.vim
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
-#/ update          Updates homebrews, casks and global npm packages
+#/ update          Updates homebrews and casks
 update:
 	brew update
 	brew outdated
@@ -45,7 +43,6 @@ update:
 	brew cleanup
 	brew autoremove
 	brew doctor
-	npm install $(npms) --global
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocUpdate\n"
 	@printf "%s\nMay need to run :CocRebuild if node.js was upgraded\n"
 
