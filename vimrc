@@ -191,4 +191,5 @@ colorscheme pigment
 hi def link CocDiagnosticsError     Error
 hi def link CocDiagnosticsWarning   WarningMsg
 hi def link NERDTreeExecFile        Special
+hi def link htmlH1                  Statement
 hi def link multiple_cursors_cursor IncSearch
