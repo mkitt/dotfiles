@@ -186,4 +186,10 @@ if has("autocmd")
   augroup END
 endif
 
+" Theme
+" --------------------------------------
 colorscheme pigment
+
+hi def link CocDiagnosticsError     Error
+hi def link CocDiagnosticsWarning   WarningMsg
+hi def link NERDTreeExecFile        Special
