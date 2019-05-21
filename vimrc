@@ -70,6 +70,7 @@ set number
 set ruler
 set scrolloff=3
 set sessionoptions-=options
+set signcolumn=yes
 set shiftround
 set shiftwidth=2
 set showmatch
@@ -122,7 +123,7 @@ nnoremap <silent>_ :silent edit .<CR>
 nnoremap <silent><C-i> :BufSurfBack<CR>
 nnoremap <silent><C-o> :BufSurfForward<CR>
 
-" The `g` commands (mnemonic goto command)
+" The `g`oto commands
 nnoremap <silent><C-@> :CocList<CR>
 nnoremap <silent>ga :CocList --normal diagnostics<CR>
 nnoremap <silent>gb :CocList buffers<CR>
