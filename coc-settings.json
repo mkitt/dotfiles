@@ -18,6 +18,10 @@
     "<C-x>": "action:split",
     "<C-z>": "do:toggle"
   },
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "suggest.autoTrigger":"trigger",
   "tsserver.formatOnType": false,
   "typescript.format.insertSpaceAfterCommaDelimiter": false,
   "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
