@@ -90,6 +90,7 @@ set ttimeout
 set ttimeoutlen=50
 set ttyfast
 set undolevels=1000
+set updatetime=50
 set wildignore+=*.DS_Store
 set wildmenu
 set wildmode=longest:full,full
@@ -145,10 +146,18 @@ nnoremap <silent>gy :NERDTreeToggle<CR>
 nmap gz <Plug>CtrlSFPrompt
 vmap gz <Plug>CtrlSFVwordExec
 
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
 " Tab through popup menu items and allow return to select
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<Tab>" : coc#refresh()
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <C-@> coc#refresh()
+
 
 " Clear the search highlight
 noremap <silent><leader>\ :nohlsearch<CR>
