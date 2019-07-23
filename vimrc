@@ -10,7 +10,7 @@ Plug 'henrik/vim-indexed-search'
 Plug 'mkitt/pigment'
 Plug 'mkitt/tabline.vim'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ton/vim-bufsurf'
