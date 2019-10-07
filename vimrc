@@ -102,6 +102,7 @@ let g:markdown_fenced_languages=['css', 'html', 'javascript', 'json', 'sh', 'typ
 let g:NERDTreeAutoDeleteBuffer=1
 let g:NERDTreeMapUpdir='-'
 let g:NERDTreeMinimalUI=1
+let g:NERDTreeShowHidden=1
 let g:NERDTreeWinSize=40
 let g:netrw_liststyle=3
 let g:qfenter_keymap={}
@@ -157,7 +158,6 @@ inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : <SID>check_back_space() 
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <C-@> coc#refresh()
-
 
 " Clear the search highlight
 noremap <silent><leader>\ :nohlsearch<CR>

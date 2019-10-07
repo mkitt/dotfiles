@@ -1,5 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "json", "markdown", "typescript", "typescriptreact"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "html", "javascript", "javascriptreact", "json", "markdown", "typescript", "typescriptreact", "yaml"],
   "diagnostic.errorSign": "☠️'",
   "diagnostic.hintSign": "👉",
   "diagnostic.infoSign": "ℹ️",
@@ -11,7 +11,6 @@
   "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
   "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
   "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
-  "javascript.preferences.noSemicolons": true,
   "list.insertMappings": {
     "<C-t>": "action:tabe",
     "<C-v>": "action:vsplit",
@@ -28,5 +27,5 @@
   "typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
   "typescript.format.insertSpaceAfterSemicolonInForStatements": false,
   "typescript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
-  "typescript.preferences.noSemicolons": true
+  "typescript.updateImportsOnFileMove.enable": false
 }
