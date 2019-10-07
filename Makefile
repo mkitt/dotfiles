@@ -1,4 +1,4 @@
-brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget write-good yarn
+brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget yarn
 casks = appcleaner backblaze charles google-chrome gpg-suite graphql-playground imageoptim rowanj-gitx slack shiftit sketch qlstephen
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-tsserver
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
