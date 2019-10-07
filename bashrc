@@ -1,5 +1,5 @@
 unset MAILCHECK
-export PATH="/usr/local/bin:/usr/local/opt/node@10/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/node@10/bin:$PATH"
 export LC_ALL=C
 export ARCHFLAGS="-arch x86_64"
 export EDITOR="vim"
