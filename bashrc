@@ -1,5 +1,5 @@
 unset MAILCHECK
-export PATH="/usr/local/bin:/usr/local/sbin:/usr/local/opt/node@10/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export LC_ALL=C
 export ARCHFLAGS="-arch x86_64"
 export EDITOR="vim"
@@ -61,7 +61,7 @@ export PS2="\[\033[35m\]→ \[\033[0m\]"
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
  export GIT_PS1_SHOWDIRTYSTATE="true"
- export PS1="\[\033[35m\][\h] \[\033[34m\]\W\[\033[31m\]\$(__git_ps1 \" [%s]\") \[\033[0m\]"
+ export PS1="\[\033[35m\][\h] \[\033[34m\]\W\[\033[36m\]\$(__git_ps1 \" [%s]\") \[\033[0m\]"
 fi
 
 # http://ss64.com/bash/shopt.html
