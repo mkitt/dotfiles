@@ -1,6 +1,6 @@
 brews = bash-completion ctags git hub ripgrep tidy-html5 tree watchman wget yarn
-casks = appcleaner backblaze charles google-chrome gpg-suite graphql-playground imageoptim rowanj-gitx slack shiftit sketch qlstephen
-cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-tsserver
+casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim insomnia rowanj-gitx slack shiftit sketch qlstephen
+cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-pairs coc-prettier coc-sh coc-tabnine coc-tsserver coc-vimlsp coc-yaml
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
 tmps = tmp/yankring
 plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
