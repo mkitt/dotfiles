@@ -46,9 +46,9 @@ see [the knowledge base article][gpg_transfer]
 
 Included in the vimrc is `Plug mkitt/pigment`. This is the color settings for
 Vim. Any color profile should work with this theme including the defaults from
-Apple. Included from the [pigment][pigment] repository is the Polarized light
-and dark profiles. Import these profiles into Apple's Terminal.app and set one
-as the default. The location of the profiles is:
+Apple. Included from the [pigment][pigment] repository are light and dark
+profiles. Import these profiles into Apple's Terminal.app and set one as the
+default. The location of the profiles is:
 
 ```
 ~/.vim/plugged/pigment/profiles/
@@ -78,11 +78,11 @@ as the default. The location of the profiles is:
 
 <!-- Markdown links -->
 
-[github]: https://github.com/mkitt "github.com/mkitt"
-[gpg_tools]: https://gpgtools.org/ "gpg tools"
-[gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys "transfer gpg"
+[github]: https://github.com/mkitt 'github.com/mkitt'
+[gpg_tools]: https://gpgtools.org/ 'gpg tools'
+[gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys 'transfer gpg'
 [homebrew]: https://brew.sh "homebrew's home"
-[macos_defaults]: http://mths.be/macos "macos defaults"
-[mkitt.net]: https://mkitt.net "🏔"
-[pigment]: https://github.com/mkitt/pigment "vim and bash colors"
-[wipe]: https://support.apple.com/en-us/HT201065 "wipe"
+[macos_defaults]: http://mths.be/macos 'macos defaults'
+[mkitt.net]: https://mkitt.net '🏔'
+[pigment]: https://github.com/mkitt/pigment 'vim and zsh colors'
+[wipe]: https://support.apple.com/en-us/HT201065 'wipe'
