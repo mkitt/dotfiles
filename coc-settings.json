@@ -17,7 +17,7 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  // "suggest.autoTrigger":"trigger",
+  "suggest.autoTrigger":"trigger",
   "suggest.enablePreview": true,
   // "suggest.noselect": false
 }
