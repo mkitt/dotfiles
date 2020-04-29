@@ -14,6 +14,7 @@
   },
   // "list.previewHighlightGroup": "IncSearch",
   "npm.binPath": "yarn",
+  "prettier.disableSuccessMessage": true,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
