@@ -20,7 +20,7 @@ help:
 install:
 	sudo -v
 	brew install $(brews)
-	brew install macvim --with-override-system-vim
+	brew install macvim
 	brew cask install $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
