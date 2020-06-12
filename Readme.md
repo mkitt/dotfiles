@@ -57,20 +57,21 @@ default. The location of the profiles is:
 ### Migrating to a new machine
 
 1. Setup iCloud
-2. Download App store applications
-3. Run `xcode-select --install`
-4. Install [homebrew][homebrew]
-5. Run `brew install git hub`
-6. Run `git clone mkitt/dotfiles && cd dotfiles`
-7. Add the `.gitconfig.local` file
-8. Run `make install`
-9. Follow post install instructions (Vim plugins)
-10. Install Terminal colors
-11. Map caps lock to the control key
-12. Set other reasonable [macOS defaults][macos_defaults]
-13. Setup SSH & GPG keys (see account settings in GitHub)
-14. Pull down key repositories
-15. [Wipe old computer][wipe]
+1. Download App store applications
+1. Run `xcode-select --install`
+1. Install [homebrew][homebrew]
+1. Run `brew install git hub`
+1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
+1. Add the `gitconfig.local` file to the `dotfiles` directory
+1. Run `make install`
+1. Follow post install instructions (Vim plugins)
+1. Install Terminal colors
+1. Map caps lock to the control key
+1. Set other reasonable [macOS defaults][macos_defaults]
+1. Setup SSH & GPG keys (see account settings in GitHub)
+1. Switch the dotfiles repo [from https to ssh][git-remotes]
+1. Pull down key repositories
+1. [Wipe old computer][wipe]
 
 ---
 
@@ -78,6 +79,7 @@ default. The location of the profiles is:
 
 <!-- Markdown links -->
 
+[git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt 'github.com/mkitt'
 [gpg_tools]: https://gpgtools.org/ 'gpg tools'
 [gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys 'transfer gpg'
