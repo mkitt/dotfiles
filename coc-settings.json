@@ -23,12 +23,14 @@
     "<C-x>": "action:split",
     "<C-z>": "do:toggle"
   },
-  // "list.previewHighlightGroup": "IncSearch",
+  "list.previewHighlightGroup": "IncSearch",
   "npm.binPath": "yarn",
   "prettier.disableSuccessMessage": true,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  "suggest.enablePreview": true
-  // "suggest.noselect": false
+  "suggest.enablePreview": true,
+  // "suggest.noselect": false,
+  "tailwindCSS.headwind.runOnSave": true,
+  "typescript.updateImportsOnFileMove.enable": false
 }
