@@ -8,11 +8,11 @@ syntax enable
 call plug#begin('~/.vim/plugged')
 
 " Editor
+Plug 'mg979/vim-visual-multi'
 Plug 'mkitt/pigment'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -68,10 +68,10 @@ set scrolloff=3
 set sessionoptions-=options
 set shiftround
 set shiftwidth=2
-set shortmess-=S
+set shortmess+=c
 set showmatch
 set sidescrolloff=3
-set signcolumn=yes
+set signcolumn=number
 set smartcase
 set smartindent
 set smarttab
@@ -96,8 +96,9 @@ let g:NERDTreeShowHidden=1
 let g:NERDTreeWinSize=40
 let g:javascript_plugin_flow=1
 let g:markdown_fenced_languages=['css', 'html', 'javascript', 'json', 'graphql', 'sh', 'typescript=javascript', 'yaml']
-let g:multi_cursor_exit_from_insert_mode=1
-let g:multi_cursor_exit_from_visual_mode=1
+let g:VM_maps = {}
+let g:VM_maps['Find Under']='<C-m>'
+let g:VM_maps['Find Subword Under']='<C-m>'
 let g:netrw_liststyle=3
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
 let g:yankring_window_height=10
@@ -125,27 +126,27 @@ inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <C-@> coc#refresh()
 
 " The `g`oto and list commands
-nnoremap <silent><C-@> :CocList<CR>
-nnoremap <silent><C-c> :CocList commands<CR>
-nnoremap <silent>ga :CocList --normal diagnostics<CR>
-nnoremap <silent>gb :CocList buffers<CR>
-nnoremap <silent>gd :call CocAction('jumpTypeDefinition')<CR>
-nnoremap <silent>gf :call CocAction('jumpDefinition')<CR>
-nnoremap <silent>gF :call CocAction('jumpDefinition', 'vsplit')<CR>
-nnoremap <silent>gh :call CocAction('doHover')<CR>
-nnoremap <silent>gl :CocList files<CR>
-nnoremap <silent>gL :CocListResume<CR>
-nnoremap <silent>gr :call CocAction('jumpReferences')<CR>
-nnoremap <silent>gs :CocList grep<CR>
-xnoremap <silent>gs y :CocList grep <C-R>=escape(@",'$ ')<CR><CR>
-nnoremap <silent>gu :call CocAction('showSignatureHelp')<CR>
-nnoremap <silent>gV `[v`]
-nnoremap <silent>gy :NERDTreeToggle<CR>
+nnoremap <silent><nowait><C-@> :CocList<CR>
+nnoremap <silent><nowait><C-c> :CocList commands<CR>
+nnoremap <silent><nowait>ga :CocList --normal diagnostics<CR>
+nnoremap <silent><nowait>gb :CocList buffers<CR>
+nnoremap <silent><nowait>gd :call CocActionAsync('jumpTypeDefinition')<CR>
+nnoremap <silent><nowait>gf :call CocActionAsync('jumpDefinition')<CR>
+nnoremap <silent><nowait>gF :call CocActionAsync('jumpDefinition', 'vsplit')<CR>
+nnoremap <silent><nowait>gh :call CocActionAsync('doHover')<CR>
+nnoremap <silent><nowait>gl :CocList files<CR>
+nnoremap <silent><nowait>gL :CocListResume<CR>
+nnoremap <silent><nowait>gr :call CocActionAsync('jumpReferences')<CR>
+nnoremap <silent><nowait>gs :CocList grep<CR>
+xnoremap <silent><nowait>gs y :CocList grep <C-R>=escape(@",'$ ')<CR><CR>
+nnoremap <silent><nowait>gu :call CocActionAsync('showSignatureHelp')<CR>
+nnoremap <silent><nowait>gV `[v`]
+nnoremap <silent><nowait>gy :NERDTreeToggle<CR>
 nnoremap gz :CocSearch<space>
 xnoremap gz y :CocSearch <C-R>=escape(@",'$ ')<CR><CR>
-nmap <silent>g/ <Plug>(coc-refactor)
-nmap <silent>g. <Plug>(coc-codeaction)
-vmap <silent>g. <Plug>(coc-codeaction-selected)
+nmap <silent><nowait>g/ <Plug>(coc-refactor)
+nmap <silent><nowait>g. <Plug>(coc-codeaction)
+vmap <silent><nowait>g. <Plug>(coc-codeaction-selected)
 
 " Custom unimpaireds
 nmap <silent>[g <Plug>(coc-diagnostic-prev)

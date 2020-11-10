@@ -1,6 +1,6 @@
-brews = awscli ctags git github/gh/gh hub node@12 ripgrep tidy-html5 tree watchman wget yarn
-casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rowanj-gitx slack shiftit tuple zoomus
-cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh coc-tsserver coc-vimlsp coc-yaml
+brews = awscli ctags git github/gh/gh hub node ripgrep tidy-html5 tree watchman wget yarn
+casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rowanj-gitx slack shiftit zoomus
+cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh coc-tailwindcss coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 tmps = tmp/yankring
 plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -41,14 +41,15 @@ uninstall:
 #/ update          Updates homebrews and casks
 update:
 	brew update
+	@printf "%s----\n"
 	brew outdated
+	@printf "%s----\n"
 	brew upgrade
-	brew cask outdated
-	brew cask upgrade
+	@printf "%s----\n"
 	brew cleanup
+	@printf "%s----\n"
 	brew doctor
-	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocUpdate\n"
-	@printf "%s\nRun :CocRebuild if node.js was upgraded\n"
+	@printf "%sUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocRebuild, :CocUpdate\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:

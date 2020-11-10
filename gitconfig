@@ -19,6 +19,8 @@
   prune = true
 [gpg]
   program = /usr/local/MacGPG2/bin/gpg2
+[init]
+  defaultBranch = main
 [merge]
   ff = only
 [push]
