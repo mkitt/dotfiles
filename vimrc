@@ -68,6 +68,7 @@ set scrolloff=3
 set sessionoptions-=options
 set shiftround
 set shiftwidth=2
+set shortmess-=S
 set shortmess+=c
 set showmatch
 set sidescrolloff=3
