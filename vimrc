@@ -93,6 +93,7 @@ set wildmode=longest:full,full
 let g:NERDTreeAutoDeleteBuffer=1
 let g:NERDTreeMapUpdir='-'
 let g:NERDTreeMinimalUI=1
+let g:NERDTreeRespectWildIgnore=1
 let g:NERDTreeShowHidden=1
 let g:NERDTreeWinSize=40
 let g:javascript_plugin_flow=1
