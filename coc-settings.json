@@ -31,6 +31,6 @@
   "prettier.trailingComma": "all",
   "suggest.enablePreview": true,
   // "suggest.noselect": false,
-  "tailwindCSS.headwind.runOnSave": true,
-  "typescript.updateImportsOnFileMove.enable": false
+  "tailwindCSS.experimental.showPixelValues": true,
+  "typescript.updateImportsOnFileMove.enable": false,
 }
