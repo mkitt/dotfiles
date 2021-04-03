@@ -33,4 +33,11 @@
   // "suggest.noselect": false,
   "tailwindCSS.experimental.showPixelValues": true,
   "typescript.updateImportsOnFileMove.enable": false,
+  "languageserver": {
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["typescript", "typescriptreact", "graphql"]
+    }
+  }
 }
