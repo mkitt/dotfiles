@@ -1,5 +1,5 @@
 brews = awscli ctags git github/gh/gh hub node ripgrep tidy-html5 tree watchman wget yarn
-casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rowanj-gitx slack shiftit zoom
+casks = abstract appcleaner backblaze google-chrome gpg-suite hammerspoon imageoptim insomnia rowanj-gitx slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh https://github.com/rodrigore/coc-tailwind-intellisense coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
 tmps = tmp/ctrlp tmp/yankring
