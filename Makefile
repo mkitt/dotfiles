@@ -1,5 +1,5 @@
 brews = awscli ctags git github/gh/gh hub node ripgrep tidy-html5 tree watchman wget yarn
-casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rowanj-gitx slack shiftit zoom
+casks = abstract appcleaner backblaze google-chrome gpg-suite hammerspoon imageoptim insomnia rowanj-gitx slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh https://github.com/rodrigore/coc-tailwind-intellisense coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 tmps = tmp/yankring
@@ -21,7 +21,7 @@ install:
 	sudo -v
 	brew install $(brews)
 	brew install macvim
-	brew cask install $(casks)
+	brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
 	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
@@ -34,7 +34,7 @@ install:
 uninstall:
 	sudo -v
 	brew uninstall $(brews) macvim
-	brew cask uninstall $(casks)
+	brew uninstall --cask $(casks)
 	@rm -rfv $$HOME/.vim
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
