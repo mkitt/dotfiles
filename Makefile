@@ -1,5 +1,5 @@
 brews = awscli ctags git github/gh/gh hub node ripgrep tidy-html5 tree watchman wget yarn
-casks = abstract appcleaner backblaze google-chrome gpg-suite hammerspoon imageoptim insomnia rowanj-gitx slack zoom
+casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rectangle rowanj-gitx slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh https://github.com/rodrigore/coc-tailwind-intellisense coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
 tmps = tmp/ctrlp tmp/yankring
@@ -77,5 +77,8 @@ macos:
 	chflags nohidden ~/Library
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
+	@# Set Rectangle App settings
+	defaults write com.knollsoft.Rectangle almostMaximizeWidth -float 0.95
+	defaults write com.knollsoft.Rectangle almostMaximizeHeight -float 0.95
 
 .PHONY: help install uninstall update macos
