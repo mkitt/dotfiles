@@ -3,9 +3,6 @@
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export EDITOR="vim"
 
-# Map git commands through hub
-eval "$(hub alias -s)"
-
 # Add color to man pages
 export LESS_TERMCAP_md="$(tput setaf 4)"
 

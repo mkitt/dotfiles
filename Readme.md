@@ -60,7 +60,7 @@ default. The location of the profiles is:
 1. Download App store applications
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
-1. Run `brew install git hub`
+1. Run `brew install git`
 1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
 1. Add the `gitconfig.local` file to the `dotfiles` directory
 1. Run `make install`

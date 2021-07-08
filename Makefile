@@ -1,4 +1,4 @@
-brews = awscli ctags git github/gh/gh hub node ripgrep tidy-html5 tree watchman wget yarn
+brews = git gh node ripgrep tree watchman yarn
 casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rectangle rowanj-gitx slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh https://github.com/rodrigore/coc-tailwind-intellisense coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
@@ -28,6 +28,7 @@ install:
 	@ln -sfv `pwd`/coc-settings.json $$HOME/.vim/
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
 	@printf "%s\nInstall vim plugins: :PlugInstall and :CocInstall $(cocs)"
+	@printf "%s\nSetup gh defaults: make gh\n"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -56,6 +57,10 @@ node14:
 	brew unlink node
 	brew link node@14 --force --overwrite
 
+#/ gh              Setup a aliases for the GitHub cli tool
+gh:
+	gh alias set browse 'repo view --web'
+
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
 	sudo -v
@@ -83,5 +88,9 @@ macos:
 	@# Set Rectangle App settings
 	defaults write com.knollsoft.Rectangle almostMaximizeWidth -float 0.95
 	defaults write com.knollsoft.Rectangle almostMaximizeHeight -float 0.95
+	defaults write com.knollsoft.Rectangle curtainChangeSize -int 2
+	defaults write com.knollsoft.Rectangle specified -dict-add keyCode -float 45 modifierFlags -float 786721
+	defaults write com.knollsoft.Rectangle specifiedWidth -float 2048
+	defaults write com.knollsoft.Rectangle specifiedHeight -float 1152
 
 .PHONY: help install uninstall update macos
