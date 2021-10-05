@@ -1,5 +1,5 @@
-brews = git gh node ripgrep tree watchman yarn
-casks = abstract appcleaner backblaze google-chrome gpg-suite imageoptim insomnia rectangle rowanj-gitx slack zoom
+brews = git gh node ripgrep tree watchman
+casks = abstract appcleaner backblaze gpg-suite imageoptim insomnia rectangle rowanj-gitx slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh https://github.com/rodrigore/coc-tailwind-intellisense coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 tmps = tmp/yankring
