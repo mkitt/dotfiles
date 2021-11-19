@@ -5,6 +5,12 @@ export EDITOR="vim"
 export HISTCONTROL="ignoreboth"
 export HISTSIZE="500"
 
+# Postgres.app CLI tools
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+
+# Load Homebrew path
+eval $(/opt/homebrew/bin/brew shellenv)
+
 # Add color to man pages
 export LESS_TERMCAP_md="$(tput setaf 4)"
 
