@@ -1,6 +1,6 @@
 brews = git gh node ripgrep tree watchman
 casks = abstract appcleaner backblaze gpg-suite imageoptim insomnia rectangle rowanj-gitx slack zoom
-cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh https://github.com/rodrigore/coc-tailwind-intellisense coc-tsserver coc-vimlsp coc-yaml
+cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh coc-tsserver coc-vimlsp coc-yaml
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 tmps = tmp/yankring
 plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -22,6 +22,7 @@ install:
 	brew install $(brews)
 	brew install macvim
 	brew install --cask $(casks)
+	npm install -g @tailwindcss/language-server graphql-language-service-cli graphql
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
 	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
@@ -50,6 +51,8 @@ update:
 	brew cleanup
 	@printf "%s----\n"
 	brew doctor
+	@printf "%s----\n"
+	npm update -g @tailwindcss/language-server graphql-language-service-cli graphql
 	@printf "%sUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocRebuild, :CocUpdate\n"
 
 #/ node14          Use node@14 globally from hombrew
