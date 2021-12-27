@@ -34,6 +34,29 @@
       "command": "graphql-lsp",
       "args": ["server", "-m", "stream"],
       "filetypes": ["typescript", "typescriptreact", "graphql"]
+    },
+    "tailwind-lsp": {
+      "command": "tailwindcss-language-server",
+      "args": ["--stdio"],
+      "filetypes": [
+        "css",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+      ],
+      "rootPatterns": [
+        "tailwind.config.js",
+        "package.json",
+        "node_modules",
+        ".git"
+      ],
+      "settings": {
+        "tailwindCSS": {
+          "classAttributes": ["class", "className", "classList"]
+        }
+      }
     }
   }
 }
