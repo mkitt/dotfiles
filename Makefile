@@ -27,7 +27,6 @@ install:
 	@ln -sfv `pwd`/coc-settings.json $$HOME/.vim/
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
 	@printf "%s\nInstall vim plugins: :PlugInstall and :CocInstall $(cocs)"
-	@printf "%s\nSetup gh defaults: make gh\n"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -56,10 +55,6 @@ update:
 node14:
 	brew unlink node
 	brew link node@14 --force --overwrite
-
-#/ gh              Setup a aliases for the GitHub cli tool
-gh:
-	gh alias set browse 'repo view --web'
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
