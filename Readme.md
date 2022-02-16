@@ -68,7 +68,7 @@ default. The location of the profiles is:
 1. Install Terminal colors
 1. Map caps lock to the control key
 1. Set other reasonable [macOS defaults][macos_defaults]
-1. Setup SSH & GPG keys (see account settings in GitHub)
+1. Create new SSH & update GPG keys (see account settings in GitHub)
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Pull down key repositories
 1. [Wipe old computer][wipe]
