@@ -23,12 +23,10 @@
     "<C-x>": "action:split",
     "<C-z>": "do:toggle"
   },
-  "prettier.disableSuccessMessage": true,
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
   "suggest.enablePreview": true,
-  "typescript.updateImportsOnFileMove.enable": false,
   "languageserver": {
     "graphql": {
       "command": "graphql-lsp",
