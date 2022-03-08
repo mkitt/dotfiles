@@ -28,11 +28,6 @@
   "prettier.trailingComma": "all",
   "suggest.enablePreview": true,
   "languageserver": {
-    "graphql": {
-      "command": "graphql-lsp",
-      "args": ["server", "-m", "stream"],
-      "filetypes": ["typescript", "typescriptreact", "graphql"]
-    },
     "tailwind-lsp": {
       "command": "tailwindcss-language-server",
       "args": ["--stdio"],
