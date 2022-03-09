@@ -18,7 +18,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ton/vim-bufsurf'
 Plug 'vim-scripts/YankRing.vim'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'yssl/QFEnter'
 Plug 'vim-airline/vim-airline'
 
