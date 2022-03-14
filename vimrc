@@ -142,8 +142,8 @@ let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
 let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['eslint'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'autopep8' ], 'ruby': [ 'rufo', 'standardrb' ], 'go': [ 'gofmt', 'goimports' ] }
-let g:ale_linters={'html': ['tidy'], 'scala': ['scalac', 'sbtserver'], 'python': [ 'flake8', 'pylint'], 'go': [ 'golint', 'govet'], 'xml': ['xmllimt']}
+let g:ale_fixers={'javascript': ['prettier'], 'typescript': ['prettier'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'yapf', 'reorder-python-imports' ], 'ruby': [ 'rubocop', 'standardrb' ], 'go': [ 'gofmt', 'goimports' ], 'graphql': [ 'prettier' ] }
+let g:ale_linters={'javascript': ['eslint'], 'typescript': ['eslint'], 'html': ['tidy'], 'scala': ['scalac', 'scalastyle'], 'python': [ 'flake8', 'pylint', 'vulture', 'pyre'], 'go': [ 'golint', 'govet', 'staticcheck'], 'xml': ['xmllimt'], 'ruby': [ 'rubocop', 'standardrb' ], 'powershell': ['powershell']}
 let g:ale_history_log_output=0
 let g:ale_javascript_eslint_executable='eslint_d'
 let g:ale_javascript_eslint_use_global=1
