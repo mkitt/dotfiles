@@ -1,6 +1,6 @@
 unset MAILCHECK
-export PATH="/usr/local/bin:/usr/local/heroku/bin:$PATH"
 export LC_ALL=C
+export PATH="/usr/local/bin:/usr/local/heroku/bin:$HOME/go/bin:$PATH"
 export EDITOR="vim"
 export HISTCONTROL="ignoreboth"
 export HISTSIZE="500"
