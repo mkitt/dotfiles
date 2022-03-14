@@ -1,5 +1,4 @@
 brews = ctags git gh node ripgrep tidy-html5 tree watchman wget write-good awscli
-casks = appcleaner backblaze charles google-chrome gpg-suite imageoptim rowanj-gitx slack shiftit sketch qlstephen 1password keybase docker spotify sonos
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc inputrc Brewfile
@@ -12,7 +11,6 @@ help:
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
-	@printf "%scask: $(casks)\n"
 	@printf "%scocs: $(cocs)\n"
 
 #/ install         Installs homebrews, casks and dotfiles
@@ -49,18 +47,14 @@ update:
 	brew autoremove
 	@printf "%s----\n"
 	brew doctor
-<<<<<<< HEAD
 	@printf "%s----\n"
 	npm update -g $(npms)
 	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :CocUpdate\n"
-=======
-	brew tap homebrew/cask-drivers
-	brew cask outdated
-	brew cask upgrade
-	brew cask cleanup
+	brew autoremove
+	brew prune
+	brew doctor
 	npm update $(npms) --global
 	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
->>>>>>> 1626bbf (Add more brews/casks)
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
