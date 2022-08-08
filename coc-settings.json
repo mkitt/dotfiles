@@ -26,7 +26,6 @@
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  "suggest.enablePreview": true,
   "languageserver": {
     "tailwind-lsp": {
       "command": "tailwindcss-language-server",
