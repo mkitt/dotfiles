@@ -103,8 +103,8 @@ let g:NERDTreeWinSize=40
 let g:javascript_plugin_flow=1
 let g:markdown_fenced_languages=['css', 'html', 'javascript', 'json', 'graphql', 'sh', 'typescript=javascript', 'yaml']
 let g:VM_maps = {}
-let g:VM_maps['Find Under']='<C-m>'
-let g:VM_maps['Find Subword Under']='<C-m>'
+let g:VM_maps['Find Under']='<C-\>'
+let g:VM_maps['Find Subword Under']='<C-\>'
 let g:netrw_liststyle=3
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
 let g:yankring_window_height=10
