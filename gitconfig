@@ -31,3 +31,6 @@
   enabled = 1
 [include]
   path = ~/.gitconfig.local
+[user]
+	name = Jay Zeschin
+	email = jay@zeschin.org

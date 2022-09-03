@@ -1,4 +1,3 @@
-brews = ctags git gh node ripgrep tidy-html5 tree watchman wget write-good awscli
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc inputrc
@@ -10,7 +9,6 @@ help:
 	@printf "%sUsage: make TARGET\n"
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
-	@printf "%sbrew: $(brews)\n"
 	@printf "%scocs: $(cocs)\n"
 
 #/ install         Installs homebrews, casks and dotfiles
