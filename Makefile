@@ -1,4 +1,3 @@
-brews = bash-completion ctags git hub node@8 ripgrep tidy-html5 tree watchman wget write-good yarn terraform awscli sbt
 npms = eslint_d serve
 dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
 tmps = tmp/ctrlp tmp/swap tmp/yankring
@@ -11,14 +10,11 @@ help:
 	@printf "%sUsage: make TARGET\n"
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
-	@printf "%sbrew: $(brews)\n"
 	@printf "%snpm: $(npms)\n"
 
 #/ install         Installs homebrews, casks, global npms and dotfiles
 install:
 	sudo -v
-	brew install $(brews)
-	brew install macvim --with-override-system-vim
 	brew bundle install
 	npm install $(npms) --global
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
@@ -31,7 +27,6 @@ install:
 #/ uninstall       Removes homebrews, casks, global npms and dotfiles
 uninstall:
 	sudo -v
-	brew uninstall $(brews) macvim
 	npm uninstall $(npms) --global
 	@rm -rfv $$HOME/.vim
 	@for file in $(dots); do rm -v $$HOME/.$$file; done

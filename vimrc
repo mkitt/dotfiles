@@ -31,6 +31,7 @@ Plug 'tpope/vim-unimpaired'
 
 " Filetypes
 Plug 'mxw/vim-jsx'
+Plug 'ianks/vim-tsx'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'jparise/vim-graphql'
@@ -42,6 +43,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-liquid'
 Plug 'othree/xml.vim'
+Plug 'pantharshit00/vim-prisma'
 
 " Utility
 Plug 'tpope/vim-fugitive'
@@ -142,8 +144,9 @@ let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
 let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['prettier'], 'typescript': ['prettier'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'yapf', 'reorder-python-imports' ], 'ruby': [ 'rubocop', 'standardrb' ], 'go': [ 'gofmt', 'goimports' ], 'graphql': [ 'prettier' ] }
-let g:ale_linters={'javascript': ['eslint'], 'typescript': ['eslint'], 'html': ['tidy'], 'scala': ['scalac', 'scalastyle'], 'python': [ 'flake8', 'pylint', 'vulture', 'pyre'], 'go': [ 'golint', 'govet', 'staticcheck'], 'xml': ['xmllimt'], 'ruby': [ 'rubocop', 'standardrb' ], 'powershell': ['powershell']}
+let g:ale_fixers={'javascript': ['prettier'], 'typescript': ['eslint', 'prettier'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'yapf', 'reorder-python-imports' ], 'ruby': [ 'rubocop', 'standardrb' ], 'go': [ 'gofmt', 'goimports', 'golines', 'gofumpt' ], 'graphql': [ 'prettier' ] }
+let g:ale_linters={'javascript': ['eslint'], 'typescript': ['eslint', 'prettier', 'tsserver'], 'html': ['tidy'], 'scala': ['scalac', 'scalastyle'], 'python': [ 'flake8', 'pylint', 'vulture', 'pyre'], 'go': [ 'gopls', 'govet'], 'xml': ['xmllimt'], 'ruby': [ 'rubocop', 'standardrb' ], 'powershell': ['powershell']}
+let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_history_log_output=0
 let g:ale_javascript_eslint_executable='eslint_d'
 let g:ale_javascript_eslint_use_global=1

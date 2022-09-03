@@ -10,7 +10,7 @@ export HISTSIZE="500"
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # Load Homebrew path
-eval $(/opt/homebrew/bin/brew shellenv)
+# eval $(/usr/local/homebrew/bin/brew shellenv)
 
 # Add color to man pages
 export LESS_TERMCAP_md="$(tput setaf 4)"
