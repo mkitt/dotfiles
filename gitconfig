@@ -33,7 +33,7 @@
 [include]
   path = ~/.gitconfig.local
 [user]
-	name = Jay Zeschin
-	email = jay@zeschin.org
+  name = Jay Zeschin
+  email = jay@zeschin.org
 [column]
 	ui = auto
