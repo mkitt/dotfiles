@@ -144,8 +144,8 @@ let g:qfenter_keymap.hopen=['<C-CR>', '<C-s>', '<C-x>']
 let g:qfenter_keymap.topen=['<C-t>']
 
 let g:ale_fix_on_save=1
-let g:ale_fixers={'javascript': ['prettier'], 'typescript': ['eslint', 'prettier'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'yapf', 'reorder-python-imports' ], 'ruby': [ 'rubocop', 'standardrb' ], 'go': [ 'gofmt', 'goimports', 'golines', 'gofumpt' ], 'graphql': [ 'prettier' ] }
-let g:ale_linters={'javascript': ['eslint'], 'typescript': ['eslint', 'prettier', 'tsserver'], 'html': ['tidy'], 'scala': ['scalac', 'scalastyle'], 'python': [ 'flake8', 'pylint', 'vulture', 'pyre'], 'go': [ 'gopls', 'govet'], 'xml': ['xmllimt'], 'ruby': [ 'rubocop', 'standardrb' ], 'powershell': ['powershell']}
+let g:ale_fixers={'javascript': ['prettier'], 'typescript': ['eslint', 'prettier'], 'scala': ['scalafmt'], 'terraform': [ 'terraform' ], 'python': [ 'yapf', 'reorder-python-imports' ], 'ruby': [ 'rubocop', 'standardrb' ], 'go': [ 'goimports', 'golines', 'gofumpt' ], 'graphql': [ 'prettier' ] }
+let g:ale_linters={'javascript': ['eslint'], 'typescript': ['eslint', 'prettier', 'tsserver'], 'html': ['tidy'], 'scala': ['scalac', 'scalastyle'], 'python': [ 'flake8', 'pylint', 'vulture', 'pyre'], 'go': [ 'gopls', 'golangci-lint'], 'xml': ['xmllimt'], 'ruby': [ 'rubocop', 'standardrb' ], 'powershell': ['powershell']}
 let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_history_log_output=0
 let g:ale_javascript_eslint_executable='eslint_d'
