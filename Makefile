@@ -1,5 +1,5 @@
 npms = eslint_d serve
-dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc
+dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc Brewfile
 tmps = tmp/ctrlp tmp/swap tmp/yankring
 plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -15,9 +15,9 @@ help:
 #/ install         Installs homebrews, casks, global npms and dotfiles
 install:
 	sudo -v
-	brew bundle install
-	npm install $(npms) --global
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
+	brew bundle install --global --all
+	npm install $(npms) --global
 	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
 	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
 	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
