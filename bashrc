@@ -12,6 +12,9 @@ export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 # Load Homebrew path
 eval $(/opt/homebrew/bin/brew shellenv)
 
+# Load ASDF
+. $(brew --prefix asdf)/libexec/asdf.sh
+
 # Add color to man pages
 export LESS_TERMCAP_md="$(tput setaf 4)"
 
