@@ -1,6 +1,10 @@
 # @see https://scriptingosx.com/2019/06/moving-to-zsh/
 
+# Load Homebrew path
 eval $(/opt/homebrew/bin/brew shellenv)
+
+# Load ASDF
+. $(brew --prefix asdf)/libexec/asdf.sh
 
 export EDITOR="nvim"
 
