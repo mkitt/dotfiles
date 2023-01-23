@@ -51,7 +51,7 @@
       ],
       "settings": {
         "tailwindCSS": {
-          "classAttributes": ["class", "className", "classNameList"]
+          "classAttributes": ["class", "className", "classNameList", "cn"]
         }
       }
     }
