@@ -1,6 +1,6 @@
 # @see https://scriptingosx.com/2019/06/moving-to-zsh/
 
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
 export EDITOR="vim"
 
 # Add color to man pages
