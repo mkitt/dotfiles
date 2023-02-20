@@ -1,5 +1,5 @@
 brews = git gh node ripgrep tree watchman
-casks = backblaze gpg-suite imageoptim rectangle slack zoom
+casks = gpg-suite imageoptim rectangle slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
