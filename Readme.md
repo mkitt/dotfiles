@@ -71,7 +71,7 @@ open ~/.vim/plugged/pigment/profiles/
 1. Create new SSH & update GPG keys (see account settings in GitHub)
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Pull down key repositories
-1. Setup all Application settings + Internet Accounts
+1. Setup all Application settings
 1. [Wipe old computer][wipe]
 
 ---
