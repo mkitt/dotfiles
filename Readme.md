@@ -26,7 +26,7 @@ your `$HOME` directory and add the following:
 [user]
   name = YOUR_GIT_AUTHOR_NAME
   email = YOUR_GIT_AUTHOR_EMAIL
-  signingKey = YOUR_GIT_SIGNING_KEY
+  # signingKey = YOUR_GIT_GPG_SIGNING_KEY
 [github]
   user = YOUR_GITHUB_USERNAME
 ```
@@ -51,7 +51,7 @@ profiles. Import these profiles into Apple's Terminal.app and set one as the
 default. The location of the profiles is:
 
 ```
-~/.vim/plugged/pigment/profiles/
+open ~/.vim/plugged/pigment/profiles/
 ```
 
 ### Migrating to a new machine
@@ -71,6 +71,7 @@ default. The location of the profiles is:
 1. Create new SSH & update GPG keys (see account settings in GitHub)
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Pull down key repositories
+1. Setup all Application settings + Internet Accounts
 1. [Wipe old computer][wipe]
 
 ---
