@@ -1,4 +1,4 @@
-brews = git gh node ripgrep tree watchman
+brews = git gh node ripgrep tree
 casks = gpg-suite imageoptim rectangle slack zoom
 cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
