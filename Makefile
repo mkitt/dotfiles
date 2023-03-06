@@ -53,12 +53,7 @@ update:
 	brew doctor
 	@printf "%s----\n"
 	npm update -g $(npms)
-	@printf "%sUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocRebuild, :CocUpdate\n"
-
-#/ node14          Use node@14 globally from hombrew
-node14:
-	brew unlink node
-	brew link node@14 --force --overwrite
+	@printf "%sUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocUpdate\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
