@@ -112,12 +112,6 @@ vim.cmd [[
 ]]
 
 -- Plugins
---
--- TODO:
--- Update colors or Pigment
--- Reduce and refine
--- `cdl`
--- Update Readme
 -- -------------------------------------
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
