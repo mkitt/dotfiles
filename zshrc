@@ -1,7 +1,7 @@
 # @see https://scriptingosx.com/2019/06/moving-to-zsh/
 
 export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # Add color to man pages
 export LESS_TERMCAP_md="$(tput setaf 4)"

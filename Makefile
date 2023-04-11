@@ -1,10 +1,8 @@
-brews = git gh node ripgrep tree
-casks = gpg-suite imageoptim rectangle slack zoom
-cocs = coc-css coc-eslint coc-html coc-json coc-marketplace coc-lists coc-prettier coc-sh coc-tsserver coc-vimlsp coc-yaml
+brews = fd git gh node ripgrep tree
+casks = gpg-suite imageoptim rectangle slack
+cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-lua coc-marketplace coc-prettier coc-sh coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
-tmps = tmp/ctrlp tmp/yankring
-plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # --------------------------------------
 
@@ -22,17 +20,20 @@ install:
 	sudo -v
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	brew bundle install --global --all
-	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
-	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
-	@ln -sfv `pwd`/coc-settings.json $$HOME/.vim/
-	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
-	@printf "%s\nInstall vim plugins: :PlugInstall and :CocInstall $(cocs)"
+	npm install -g $(npms)
+	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
+	@mkdir -pv $$HOME/.config/nvim
+	@ln -sfv `pwd`/coc-settings.json $$HOME/.config/nvim/
+	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
+	@git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+		~/.local/share/nvim/site/pack/packer/start/packer.nvim
+	@printf "%s\nInstall nvim plugins: :PackerInstall and :CocInstall $(cocs)"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
 uninstall:
 	sudo -v
-	@rm -rfv $$HOME/.vim
+	@rm -rfv $$HOME/.config
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
 #/ update          Updates homebrews and casks
@@ -49,7 +50,7 @@ update:
 	brew doctor
 	@printf "%s----\n"
 	npm update -g $(npms)
-	@printf "%sUpdate vim plugins: :PlugUpgrade, :PlugUpdate, :CocUpdate\n"
+	@printf "%sUpdate nvim plugins: :PackerUpdate, :TSUpdate, :CocUpdate\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:

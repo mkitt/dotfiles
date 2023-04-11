@@ -1,28 +1,11 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "graphql",
-    "markdown",
-    "typescript",
-    "typescriptreact",
-    "yaml"
-  ],
+  "coc.preferences.formatOnSave": true,
   "diagnostic.errorSign": "☠️'",
   "diagnostic.hintSign": "💡",
   "diagnostic.infoSign": "ℹ️",
   "diagnostic.warningSign": "⚠️'",
   "eslint.autoFixOnSave": true,
-  "list.indicator": "👽",
-  "list.insertMappings": {
-    "<C-t>": "action:tabe",
-    "<C-v>": "action:vsplit",
-    "<C-x>": "action:split",
-    "<C-z>": "do:toggle"
-  },
+  "Lua.diagnostics.globals": ["vim"],
   "prettier.semi": false,
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
@@ -48,12 +31,7 @@
         "package.json",
         "node_modules",
         ".git"
-      ],
-      "settings": {
-        "tailwindCSS": {
-          "classAttributes": ["class", "className", "classNameList", "cn"]
-        }
-      }
+      ]
     }
   }
 }
