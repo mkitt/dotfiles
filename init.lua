@@ -139,7 +139,7 @@ return require("packer").startup(function(use)
                         show = { file = false, folder = false, },
                         glyphs = {
                             folder = { arrow_closed = "▸", arrow_open = "▾", },
-                            git = { unstaged = "~" },
+                            git = { deleted = "-", unmerged = "‡", unstaged = "~" },
                         },
                     }
                 },
