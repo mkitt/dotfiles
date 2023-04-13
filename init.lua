@@ -68,7 +68,7 @@ vim.keymap.set("n", "<C-P>", "<Plug>(YankyCycleForward)", nor)
 vim.keymap.set("n", "<C-N>", "<Plug>(YankyCycleBackward)", nor)
 
 -- Completion popup-menu
-vim.g.copiolot_no_tab_map = true
+vim.g.copilot_no_tab_map = true
 vim.keymap.set("i", "<TAB>",
     "coc#pum#visible() ? coc#pum#next(1) : exists('b:_copilot.suggestions') ? copilot#Accept('<CR>') : '<TAB>'",
     norsilexp)
@@ -85,10 +85,11 @@ vim.keymap.set("n", "<C-F>", builtin.live_grep, norsil)
 vim.keymap.set("v", "<C-F>", lga_shortcuts.grep_visual_selection)
 vim.keymap.set("n", "<C-S>", builtin.resume, norsil)
 vim.keymap.set("n", "<C-Y>", ":NvimTreeToggle<CR>", norsil)
-vim.keymap.set("n", "-", ":silent Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
+vim.keymap.set("n", "-", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
 
 -- The `g` commands
 vim.keymap.set("n", "g.", cocs.file_code_actions, norsil)
+vim.keymap.set("n", "gb", ":e#<CR>", norsil)
 vim.keymap.set("n", "gd", "<Plug>(coc-definition)", norsil)
 vim.keymap.set("n", "gf", ":call CocActionAsync('jumpDefinition')<CR>", norsil)
 vim.keymap.set("n", "gF", ":call CocActionAsync('jumpDefinition', 'vsplit')<CR>", norsil)
