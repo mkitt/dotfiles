@@ -103,10 +103,15 @@ vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", norsil)
 -- Auto Commands
 -- -------------------------------------
 vim.cmd [[
+   func! Eatchar(pat)
+      let c = nr2char(getchar(0))
+      return (c =~ a:pat) ? '' : c
+   endfunc
   augroup FTOptions
     autocmd!
     autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
     autocmd FileType markdown,text,txt setlocal textwidth=80 linebreak nolist wrap spell
+    autocmd FileType javascript,typescript,typescriptreact iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
     autocmd FileType qf setlocal wrap
     autocmd QuickFixCmdPost *grep* botright copen
   augroup END
@@ -117,15 +122,20 @@ vim.cmd [[
 return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use { "neoclide/coc.nvim", branch = "release", run = ":CocUpdate" }
-    use { "gbprod/yanky.nvim", config = function() require("yanky").setup({ highlight = { timer = 50 } }) end }
+    use {
+        "gbprod/yanky.nvim",
+        config = function()
+            require("yanky").setup({ highlight = { timer = 50 } })
+        end
+    }
     use {
         "nvim-treesitter/nvim-treesitter",
-        -- requires = "nvim-treesitter/playground",
+        requires = "nvim-treesitter/playground",
         run = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "all",
-                highlight = { enable = true },
+                highlight = { enable = true, disable = { "gitcommit", "graphql" } },
             }
         end
     }
@@ -181,6 +191,7 @@ return require("packer").startup(function(use)
     }
     use "mg979/vim-visual-multi"
     use "mkitt/pigment"
+    use "jparise/vim-graphql"
     use "tpope/vim-commentary"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
