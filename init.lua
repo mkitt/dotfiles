@@ -33,12 +33,15 @@ vim.cmd [[
   hi TelescopePromptTitle ctermfg=07
   hi def link NvimTreeRootFolder Directory
 ]]
+-- https://neovim.io/doc/user/treesitter.html
 vim.api.nvim_set_hl(0, "@constructor", { link = "Identifier" })
 vim.api.nvim_set_hl(0, "@exception", { link = "Special" })
 vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "Normal" })
 vim.api.nvim_set_hl(0, "@punctuation.special", { ctermfg = 11 })
 vim.api.nvim_set_hl(0, "@tag.attribute", { link = "Statement" })
 vim.api.nvim_set_hl(0, "@variable", { link = "Normal" })
+vim.api.nvim_set_hl(0, "@text.literal", { link = "Normal" })
+vim.api.nvim_set_hl(0, "@conceal", { link = "Conceal" })
 -- CopilotLabel = { fg = nord.nord3_gui, bg = nord.none },
 
 -- Key Mappings
@@ -112,8 +115,6 @@ vim.cmd [[
     autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
     autocmd FileType markdown,text,txt setlocal textwidth=80 linebreak nolist wrap spell
     autocmd FileType javascript,typescript,typescriptreact iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
-    autocmd FileType qf setlocal wrap
-    autocmd QuickFixCmdPost *grep* botright copen
   augroup END
 ]]
 
