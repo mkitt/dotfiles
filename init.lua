@@ -42,7 +42,7 @@ vim.api.nvim_set_hl(0, "@tag.attribute", { link = "Statement" })
 vim.api.nvim_set_hl(0, "@variable", { link = "Normal" })
 vim.api.nvim_set_hl(0, "@text.literal", { link = "Normal" })
 vim.api.nvim_set_hl(0, "@conceal", { link = "Conceal" })
--- CopilotLabel = { fg = nord.nord3_gui, bg = nord.none },
+vim.api.nvim_set_hl(0, "CopilotSuggestion", { ctermfg = 8 })
 
 -- Key Mappings
 -- -------------------------------------
@@ -72,9 +72,8 @@ vim.keymap.set("n", "<C-N>", "<Plug>(YankyCycleBackward)", nor)
 
 -- Completion popup-menu
 vim.g.copilot_no_tab_map = true
-vim.keymap.set("i", "<TAB>",
-    "coc#pum#visible() ? coc#pum#next(1) : exists('b:_copilot.suggestions') ? copilot#Accept('<CR>') : '<TAB>'",
-    norsilexp)
+vim.cmd [[imap <silent><script><expr> <C-\> copilot#Accept("\<CR>")]]
+vim.keymap.set("i", "<TAB>", "coc#pum#visible() ? coc#pum#next(1) : '<TAB>'", norsilexp)
 vim.keymap.set("i", "<S-TAB>", "coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'", norsilexp)
 vim.keymap.set("i", "<CR>", "coc#pum#visible() ? coc#pum#confirm() : '<C-G>u<CR><C-R>=coc#on_enter()<CR>'", norsilexp)
 vim.keymap.set("i", "<C-Space>", "coc#refresh()", norsilexp)
@@ -190,9 +189,10 @@ return require("packer").startup(function(use)
             require("telescope").load_extension("live_grep_args")
         end
     }
+    use "github/copilot.vim"
+    use "jparise/vim-graphql"
     use "mg979/vim-visual-multi"
     use "mkitt/pigment"
-    use "jparise/vim-graphql"
     use "tpope/vim-commentary"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
