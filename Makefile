@@ -1,5 +1,5 @@
 brews = fd git gh node ripgrep tree
-casks = gpg-suite imageoptim rectangle slack
+casks = gpg-suite rectangle slack
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-marketplace coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
