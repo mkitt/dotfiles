@@ -13,7 +13,7 @@
 [commit]
   gpgsign = true
 [core]
-  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  pager = /opt/homebrew/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
   trustctime = false
 [fetch]
   prune = true
