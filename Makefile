@@ -18,10 +18,9 @@ help:
 #/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
-	brew install $(brews)
-	brew install neovim
-	brew install --cask $(casks)
-	npm install -g $(npms)
+	/opt/homebrew/bin/brew install $(brews)
+	/opt/homebrew/bin/brew install neovim
+	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
@@ -29,6 +28,7 @@ install:
 	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
 	@git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim
+	@printf "%s\nInstall global npm packages: npm install -g $(npms)"
 	@printf "%s\nInstall nvim plugins: :PackerInstall and :CocInstall $(cocs)"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
