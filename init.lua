@@ -22,33 +22,90 @@ vim.opt.wrap = false
 vim.opt.writebackup = false
 if vim.fn.executable("rg") > 0 then vim.opt.grepprg = "rg --vimgrep" end
 
-vim.cmd [[
-  colorscheme pigment
-  hi Delimiter cterm=NONE ctermbg=NONE ctermfg=4
-  hi Float cterm=NONE ctermbg=NONE ctermfg=5
-  hi Number cterm=NONE ctermbg=NONE ctermfg=5
-  hi Tag cterm=NONE ctermbg=NONE ctermfg=12
-  hi TelescopeBorder ctermbg=08 ctermfg=08
-  hi TelescopePromptCounter ctermfg=06
-  hi TelescopePromptTitle ctermfg=07
-  hi def link NvimTreeRootFolder Directory
-]]
--- https://neovim.io/doc/user/treesitter.html
+-- Colors
+-- -------------------------------------
+-- Editor group [:vert help highlight-groups]
+vim.api.nvim_set_hl(0, "Normal", { ctermbg = 'NONE', ctermfg = 'NONE' })
+vim.api.nvim_set_hl(0, "Cursor", { ctermbg = 5 })
+vim.api.nvim_set_hl(0, "Visual", { ctermbg = 9 })
+vim.api.nvim_set_hl(0, "CursorLine", { ctermbg = 8 })
+vim.api.nvim_set_hl(0, "CursorColumn", { ctermbg = 8 })
+vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = 8 })
+vim.api.nvim_set_hl(0, "QuickFixLine", { ctermbg = 8 })
+vim.api.nvim_set_hl(0, "VertSplit", { ctermbg = 8, ctermfg = 8 })
+vim.api.nvim_set_hl(0, "StatusLine", { ctermbg = 8, ctermfg = 12 })
+vim.api.nvim_set_hl(0, "TabLineSel", { ctermfg = 12 })
+vim.api.nvim_set_hl(0, "StatusLineNC", { ctermbg = 8, ctermfg = 10 })
+vim.api.nvim_set_hl(0, "TabLine", { ctermbg = 8, ctermfg = 10 })
+vim.api.nvim_set_hl(0, "TabLineFill", { ctermbg = 8, ctermfg = 10 })
+vim.api.nvim_set_hl(0, "Search", { ctermbg = 9, ctermfg = 12 })
+vim.api.nvim_set_hl(0, "IncSearch", { ctermbg = 9, ctermfg = 3 })
+vim.api.nvim_set_hl(0, "WildMenu", { ctermbg = 12, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "SignColumn", { ctermfg = 'NONE' })
+vim.api.nvim_set_hl(0, "LineNr", { ctermfg = 8 })
+vim.api.nvim_set_hl(0, "CursorLineNr", { ctermfg = 8 })
+vim.api.nvim_set_hl(0, "NonText", { ctermfg = 8 })
+vim.api.nvim_set_hl(0, "Title", { ctermfg = 12 })
+vim.api.nvim_set_hl(0, "SpecialKey", { ctermfg = 1 })
+vim.api.nvim_set_hl(0, "ErrorMsg", { ctermfg = 1 })
+vim.api.nvim_set_hl(0, "MatchParen", { ctermbg = 9 })
+vim.api.nvim_set_hl(0, "WarningMsg", { ctermfg = 3 })
+vim.api.nvim_set_hl(0, "Conceal", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "Directory", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "ModeMsg", { ctermfg = 2 })
+vim.api.nvim_set_hl(0, "MoreMsg", { ctermfg = 2 })
+vim.api.nvim_set_hl(0, "Question", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "Folded", { ctermfg = 10 })
+vim.api.nvim_set_hl(0, "FoldColumn", { ctermfg = 10 })
+vim.api.nvim_set_hl(0, "Pmenu", { ctermbg = 8 })
+vim.api.nvim_set_hl(0, "PmenuSel", { ctermbg = 12, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "PmenuThumb", { ctermbg = 10 })
+vim.api.nvim_set_hl(0, "PmenuSbar", { ctermbg = "NONE", ctermfg = "NONE" })
+vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 2, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "DiffChange", { ctermbg = 3, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "DiffDelete", { ctermbg = 1, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "DiffText", { ctermbg = 4, ctermfg = 0 })
+vim.api.nvim_set_hl(0, "SpellBad", { underline = true })
+vim.api.nvim_set_hl(0, "SpellCap", { underline = true })
+vim.api.nvim_set_hl(0, "SpellRare", { underline = true })
+vim.api.nvim_set_hl(0, "SpellLocal", { underline = true })
+-- Syntax group [:vert help group-name]
+vim.api.nvim_set_hl(0, "Comment", { ctermfg = 10 })
+vim.api.nvim_set_hl(0, "Constant", { ctermfg = 6 }) -- + Boolean
+vim.api.nvim_set_hl(0, "Number", { ctermfg = 5 })
+vim.api.nvim_set_hl(0, "Float", { link = "Number" })
+vim.api.nvim_set_hl(0, "String", { ctermfg = 2 })
+vim.api.nvim_set_hl(0, "Character", { ctermfg = 2 })
+vim.api.nvim_set_hl(0, "Identifier", { ctermfg = 12 }) -- + Function
+vim.api.nvim_set_hl(0, "Statement", { ctermfg = 4 })   -- + Conditional + Repeat + Label + Operator + Keyword + Exception
+vim.api.nvim_set_hl(0, "PreProc", { ctermfg = 13 })    -- + Include + Define + Macro + PreCondit
+vim.api.nvim_set_hl(0, "Type", { ctermfg = 4 })        -- + StorageClass + Structure + Typedef
+vim.api.nvim_set_hl(0, "Special", { ctermfg = 5 })     -- + SpecialChar + SpecialComment
+vim.api.nvim_set_hl(0, "Delimiter", { ctermfg = 4 })
+vim.api.nvim_set_hl(0, "Tag", { ctermfg = 12 })
+vim.api.nvim_set_hl(0, "Debug", { ctermfg = 11 })
+vim.api.nvim_set_hl(0, "Underlined", { underline = true })
+vim.api.nvim_set_hl(0, "Ignore", { ctermfg = 14 })
+vim.api.nvim_set_hl(0, "Error", { ctermfg = 1 })
+vim.api.nvim_set_hl(0, "Todo", { underline = true, ctermfg = 1 })
+-- Plugins group
+vim.api.nvim_set_hl(0, "CopilotSuggestion", { link = 'NonText' })
+vim.api.nvim_set_hl(0, "NvimTreeRootFolder", { link = "Directory" })
+vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "VertSplit" })
+vim.api.nvim_set_hl(0, "TelescopePromptCounter", { link = "Constant" })
+vim.api.nvim_set_hl(0, "TelescopePromptTitle", { ctermfg = 7 })
+-- Treesitter https://neovim.io/doc/user/treesitter.html
 vim.api.nvim_set_hl(0, "@constructor", { link = "Identifier" })
 vim.api.nvim_set_hl(0, "@exception", { link = "Special" })
 vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "Normal" })
-vim.api.nvim_set_hl(0, "@punctuation.special", { ctermfg = 11 })
+vim.api.nvim_set_hl(0, "@punctuation.special", { link = "Debug" })
 vim.api.nvim_set_hl(0, "@tag.attribute", { link = "Statement" })
 vim.api.nvim_set_hl(0, "@variable", { link = "Normal" })
 vim.api.nvim_set_hl(0, "@text.literal", { link = "Normal" })
 vim.api.nvim_set_hl(0, "@conceal", { link = "Conceal" })
-vim.api.nvim_set_hl(0, "CopilotSuggestion", { ctermfg = 8 })
 
 -- Key Mappings
 -- -------------------------------------
-local builtin = require("telescope.builtin")
-local cocs = require("telescope").extensions.coc
-local lga_shortcuts = require("telescope-live-grep-args.shortcuts")
 local nor = { noremap = true }
 local norsil = { noremap = true, silent = true }
 local norsilexp = { noremap = true, silent = true, expr = true }
@@ -59,8 +116,8 @@ vim.keymap.set("n", "<C-J>", "<C-W><C-J>", nor)
 vim.keymap.set("n", "<C-K>", "<C-W><C-K>", nor)
 vim.keymap.set("n", "<C-L>", "<C-W><C-L>", nor)
 
-vim.g.VM_maps = { ["Find Under"] = "<C-\\>",["Find Subword Under"] = "<C-\\>" }
-vim.keymap.set("n", "<leader><leader>", ":nohlsearch<CR>", norsil)
+-- Multiple cursor
+vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" }
 
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", nor)
@@ -70,15 +127,18 @@ vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)", nor)
 vim.keymap.set("n", "<C-P>", "<Plug>(YankyCycleForward)", nor)
 vim.keymap.set("n", "<C-N>", "<Plug>(YankyCycleBackward)", nor)
 
--- Completion popup-menu
+-- Completion pum
 vim.g.copilot_no_tab_map = true
-vim.cmd [[imap <silent><script><expr> <C-\> copilot#Accept("\<CR>")]]
+vim.api.nvim_set_keymap('i', '<C-\\>', 'copilot#Accept("<CR>")', norsilexp)
 vim.keymap.set("i", "<TAB>", "coc#pum#visible() ? coc#pum#next(1) : '<TAB>'", norsilexp)
 vim.keymap.set("i", "<S-TAB>", "coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'", norsilexp)
 vim.keymap.set("i", "<CR>", "coc#pum#visible() ? coc#pum#confirm() : '<C-G>u<CR><C-R>=coc#on_enter()<CR>'", norsilexp)
 vim.keymap.set("i", "<C-Space>", "coc#refresh()", norsilexp)
 
--- Telescope navigation ... <C-G>
+-- Telescope ... <C-G> is not in use
+local builtin = require("telescope.builtin")
+local cocs = require("telescope").extensions.coc
+local lga_shortcuts = require("telescope-live-grep-args.shortcuts")
 vim.keymap.set("n", "<C-Space>", function() builtin.builtin { include_extensions = true } end, norsil)
 vim.keymap.set("n", "<C-B>", builtin.buffers, norsil)
 vim.keymap.set("n", "<C-C>", cocs.commands, norsil)
@@ -99,23 +159,33 @@ vim.keymap.set("n", "gh", ":call CocActionAsync('doHover')<CR>", norsil)
 vim.keymap.set("n", "gr", "<Plug>(coc-rename)", norsil)
 vim.keymap.set("n", "gu", "<Plug>(coc-refactor)", norsil)
 vim.keymap.set("n", "gV", "`[v`]", norsil)
+vim.keymap.set('x', 'gz', 'y :CocSearch <C-R>=' .. vim.fn.escape('@', "',\"$ ") .. '<CR><CR>', nor)
 vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", norsil)
 vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", norsil)
+
+-- Leader commands
+vim.keymap.set("n", "<leader><leader>", ":nohlsearch<CR>", norsil)
 
 -- Auto Commands
 -- -------------------------------------
 vim.cmd [[
-   func! Eatchar(pat)
-      let c = nr2char(getchar(0))
-      return (c =~ a:pat) ? '' : c
-   endfunc
-  augroup FTOptions
-    autocmd!
-    autocmd BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
-    autocmd FileType markdown,text,txt setlocal textwidth=80 linebreak nolist wrap spell
-    autocmd FileType javascript,typescript,typescriptreact iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\s')<CR>
-  augroup END
+    func! Eatchar(pat)
+        let c = nr2char(getchar(0))
+        return (c =~ a:pat) ? '' : c
+    endfunc
 ]]
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "javascript", "typescript", "typescriptreact" },
+    command = "iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\\s')<CR>",
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "md", "markdown", "text", "txt" },
+    command = "setlocal textwidth=80 linebreak nolist wrap spell",
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "COMMIT_EDITMSG" },
+    command = "setlocal spell",
+})
 
 -- Plugins
 -- -------------------------------------
@@ -130,11 +200,15 @@ return require("packer").startup(function(use)
     }
     use {
         "nvim-treesitter/nvim-treesitter",
-        requires = "nvim-treesitter/playground",
+        requires = {
+            { "nvim-treesitter/playground" },
+            { "JoosepAlviste/nvim-ts-context-commentstring" },
+        },
         run = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "all",
+                context_commentstring = { enable = true, },
                 highlight = { enable = true, disable = { "gitcommit", "graphql" } },
             }
         end
@@ -143,6 +217,7 @@ return require("packer").startup(function(use)
         "nvim-tree/nvim-tree.lua",
         config = function()
             require("nvim-tree").setup({
+                actions = { open_file = { window_picker = { enable = false, }, }, },
                 filters = { custom = { ".DS_Store" } },
                 git = { ignore = false, },
                 renderer = {
@@ -192,7 +267,6 @@ return require("packer").startup(function(use)
     use "github/copilot.vim"
     use "jparise/vim-graphql"
     use "mg979/vim-visual-multi"
-    use "mkitt/pigment"
     use "tpope/vim-commentary"
     use "tpope/vim-fugitive"
     use "tpope/vim-repeat"
