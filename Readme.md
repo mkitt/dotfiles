@@ -42,18 +42,6 @@ either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
 `.gitconfig.local` file. If you are transferring a key to a new computer
 see [the knowledge base article][gpg_transfer]
 
-### Install Terminal.app themes
-
-Included in the vimrc is `Plug mkitt/pigment`. This is the color settings for
-Vim. Any color profile should work with this theme including the defaults from
-Apple. Included from the [pigment][pigment] repository are light and dark
-profiles. Import these profiles into Apple's Terminal.app and set one as the
-default. The location of the profiles is:
-
-```
-open ~/.vim/plugged/pigment/profiles/
-```
-
 ### Migrating to a new machine
 
 1. Setup iCloud
@@ -65,10 +53,10 @@ open ~/.vim/plugged/pigment/profiles/
 1. Add the `gitconfig.local` file to the `dotfiles` directory
 1. Run `make install`
 1. Follow post install instructions (Vim plugins)
-1. Install Terminal colors
+1. Import Terminal colors from profiles directory
 1. Map caps lock to the control key
 1. Set other reasonable [macOS defaults][macos_defaults]
-1. Create new SSH & update GPG keys (see account settings in GitHub)
+1. Create new [SSH & update GPG keys][gh-ssh-gpg]
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Pull down key repositories
@@ -81,6 +69,7 @@ open ~/.vim/plugged/pigment/profiles/
 
 <!-- Markdown links -->
 
+[gh-ssh-gpg]: https://github.com/settings/keys
 [git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt 'github.com/mkitt'
 [gpg_tools]: https://gpgtools.org/ 'gpg tools'
@@ -88,5 +77,4 @@ open ~/.vim/plugged/pigment/profiles/
 [homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: http://mths.be/macos 'macos defaults'
 [mkitt.net]: https://mkitt.net '🏔'
-[pigment]: https://github.com/mkitt/pigment 'vim and zsh colors'
 [wipe]: https://support.apple.com/en-us/HT201065 'wipe'
