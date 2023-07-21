@@ -27,8 +27,11 @@ install:
 	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
 	@git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 		~/.local/share/nvim/site/pack/packer/start/packer.nvim
-	@printf "%s\nInstall global npm packages: npm install -g $(npms)"
-	@printf "%s\nInstall nvim plugins: :PackerInstall and :CocInstall $(cocs)"
+	@printf "%s\nInstall global npm packages: npm install $(npms) --global"
+	@printf "%s\nIn init.lua, comment out all sections except Plugins and source"
+	@printf "%s\nInstall nvim packer plugins: :PackerInstall"
+	@printf "%s\nInstall nvim coc plugins: :CocInstall $(cocs)"
+	@printf "%s\nIn init.lua, uncomment all sections"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -51,7 +54,7 @@ update:
 	brew doctor
 	@printf "%s----\n"
 	npm update -g $(npms)
-	@printf "%sUpdate nvim plugins: :PackerUpdate, :TSUpdate, :CocUpdate\n"
+	@printf "%sUpdate nvim plugins: :PackerSync, :TSUpdate, :CocUpdate\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
