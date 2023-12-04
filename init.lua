@@ -194,6 +194,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     command = "setlocal spell",
 })
 
+vim.g.skip_ts_context_commentstring_module = true
+
 -- Plugins
 -- -------------------------------------
 return require("packer").startup(function(use)
@@ -207,17 +209,18 @@ return require("packer").startup(function(use)
     }
     use {
         "nvim-treesitter/nvim-treesitter",
-        requires = {
-            { "nvim-treesitter/playground" },
-            { "JoosepAlviste/nvim-ts-context-commentstring" },
-        },
         run = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "all",
-                context_commentstring = { enable = true, },
                 highlight = { enable = true, disable = { "gitcommit", "graphql" } },
             }
+        end
+    }
+    use {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        config = function()
+            require("ts_context_commentstring").setup({})
         end
     }
     use {
