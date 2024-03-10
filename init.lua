@@ -1,3 +1,149 @@
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Plugins
+-- -------------------------------------
+require("lazy").setup({
+        { "neoclide/coc.nvim", branch = "release", build = ":CocUpdate" },
+        {
+            "gbprod/yanky.nvim",
+            opts = { highlight = { timer = 50 }, }
+        },
+        {
+            "nvim-treesitter/nvim-treesitter",
+            build = ":TSUpdate",
+            config = function()
+                local ts = require("nvim-treesitter.configs")
+                ts.setup({
+                    ensure_installed = {
+                        "bash",
+                        "c",
+                        "comment",
+                        "css",
+                        "csv",
+                        "diff",
+                        "dockerfile",
+                        "html",
+                        "javascript",
+                        "jsdoc",
+                        "json",
+                        "lua",
+                        "markdown",
+                        "markdown_inline",
+                        "mermaid",
+                        "prisma",
+                        "python",
+                        "query",
+                        "ruby",
+                        "rust",
+                        "sql",
+                        "swift",
+                        "terraform",
+                        "tsx",
+                        "typescript",
+                        "vim",
+                        "vimdoc",
+                        "yaml"
+                    },
+                    highlight = { enable = true, disable = { "gitcommit", "graphql" } },
+                })
+            end
+        },
+        {
+            "nvim-telescope/telescope.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "fannheyward/telescope-coc.nvim",
+                { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+                "nvim-telescope/telescope-file-browser.nvim",
+                "nvim-telescope/telescope-live-grep-args.nvim",
+            },
+            config = function()
+                local telescope = require("telescope")
+                telescope.setup({
+                    defaults = {
+                        layout_strategy = "vertical",
+                        layout_config = {
+                            vertical = { mirror = true, preview_cutoff = 0, prompt_position = "top", }
+                        },
+                        prompt_prefix = "👽 ",
+                        selection_caret = "• ",
+                        sorting_strategy = 'ascending',
+                    },
+                    extensions = {
+                        coc = { prefer_locations = true },
+                        file_browser = { dir_icon = "▸", grouped = true, hidden = true, prompt_path = true }
+                    },
+                })
+                telescope.load_extension("coc")
+                telescope.load_extension("fzf")
+                telescope.load_extension("file_browser")
+                telescope.load_extension("yank_history")
+                telescope.load_extension("live_grep_args")
+            end
+        },
+        {
+            "nvim-tree/nvim-tree.lua",
+            config = function()
+                require("nvim-tree").setup({
+                    actions = { open_file = { window_picker = { enable = false, }, }, },
+                    filters = { custom = { ".DS_Store" } },
+                    git = { ignore = false, },
+                    renderer = {
+                        icons = {
+                            show = { file = false, folder = false, },
+                            glyphs = {
+                                folder = { arrow_closed = "▸", arrow_open = "▾", },
+                                git = { deleted = "-", unmerged = "‡", unstaged = "~" },
+                            },
+                        }
+                    },
+                })
+            end
+        },
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        "github/copilot.vim",
+        "jparise/vim-graphql",
+        "mg979/vim-visual-multi",
+        "tpope/vim-commentary",
+        "tpope/vim-fugitive",
+        "tpope/vim-repeat",
+        "tpope/vim-rhubarb",
+        "tpope/vim-surround",
+        "tpope/vim-unimpaired"
+    },
+    {
+        ui = {
+            icons = {
+                cmd = "⌘",
+                config = "🛠",
+                event = "📅",
+                ft = "📂",
+                init = "⚙",
+                keys = "🗝",
+                lazy = "💤 ",
+                plugin = "🔌",
+                require = "🌙",
+                runtime = "💻",
+                source = "📄",
+                start = "🚀",
+                task = "📌",
+            },
+        },
+    }
+)
+
 -- Preferences
 -- -------------------------------------
 vim.opt.backup = false
@@ -195,92 +341,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 vim.g.skip_ts_context_commentstring_module = true
-
--- Plugins
--- -------------------------------------
-return require("packer").startup(function(use)
-    use "wbthomason/packer.nvim"
-    use { "neoclide/coc.nvim", branch = "release", run = ":CocUpdate" }
-    use {
-        "gbprod/yanky.nvim",
-        config = function()
-            require("yanky").setup({ highlight = { timer = 50 } })
-        end
-    }
-    use {
-        "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = "all",
-                highlight = { enable = true, disable = { "gitcommit", "graphql" } },
-            }
-        end
-    }
-    use {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        config = function()
-            require("ts_context_commentstring").setup({})
-        end
-    }
-    use {
-        "nvim-tree/nvim-tree.lua",
-        config = function()
-            require("nvim-tree").setup({
-                actions = { open_file = { window_picker = { enable = false, }, }, },
-                filters = { custom = { ".DS_Store" } },
-                git = { ignore = false, },
-                renderer = {
-                    icons = {
-                        show = { file = false, folder = false, },
-                        glyphs = {
-                            folder = { arrow_closed = "▸", arrow_open = "▾", },
-                            git = { deleted = "-", unmerged = "‡", unstaged = "~" },
-                        },
-                    }
-                },
-            })
-        end
-    }
-    use {
-        "nvim-telescope/telescope.nvim",
-        requires = {
-            { "nvim-lua/plenary.nvim" },
-            { "fannheyward/telescope-coc.nvim" },
-            { "nvim-telescope/telescope-fzf-native.nvim",    run = "make" },
-            { "nvim-telescope/telescope-file-browser.nvim" },
-            { "nvim-telescope/telescope-live-grep-args.nvim" },
-        },
-        config = function()
-            require("telescope").setup {
-                defaults = {
-                    layout_strategy = "vertical",
-                    layout_config = {
-                        vertical = { mirror = true, preview_cutoff = 0, prompt_position = "top", }
-                    },
-                    prompt_prefix = "👽 ",
-                    selection_caret = "• ",
-                    sorting_strategy = 'ascending',
-                },
-                extensions = {
-                    coc = { prefer_locations = true },
-                    file_browser = { dir_icon = "▸", grouped = true, hidden = true, prompt_path = true }
-                },
-            }
-            require("telescope").load_extension("coc")
-            require("telescope").load_extension("fzf")
-            require("telescope").load_extension("file_browser")
-            require("telescope").load_extension("yank_history")
-            require("telescope").load_extension("live_grep_args")
-        end
-    }
-    use "github/copilot.vim"
-    use "jparise/vim-graphql"
-    use "mg979/vim-visual-multi"
-    use "tpope/vim-commentary"
-    use "tpope/vim-fugitive"
-    use "tpope/vim-repeat"
-    use "tpope/vim-rhubarb"
-    use "tpope/vim-surround"
-    use "tpope/vim-unimpaired"
-end)
