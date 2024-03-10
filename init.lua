@@ -24,8 +24,7 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
             config = function()
-                local ts = require("nvim-treesitter.configs")
-                ts.setup({
+                require("nvim-treesitter.configs").setup({
                     ensure_installed = {
                         "bash",
                         "c",
@@ -94,20 +93,66 @@ require("lazy").setup({
             end
         },
         {
-            "nvim-tree/nvim-tree.lua",
+            "nvim-neo-tree/neo-tree.nvim",
+            branch = "v3.x",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "MunifTanjim/nui.nvim",
+            },
             config = function()
-                require("nvim-tree").setup({
-                    actions = { open_file = { window_picker = { enable = false, }, }, },
-                    filters = { custom = { ".DS_Store" } },
-                    git = { ignore = false, },
-                    renderer = {
-                        icons = {
-                            show = { file = false, folder = false, },
-                            glyphs = {
-                                folder = { arrow_closed = "▸", arrow_open = "▾", },
-                                git = { deleted = "-", unmerged = "‡", unstaged = "~" },
+                require("neo-tree").setup({
+                    sources = {
+                        "filesystem",
+                        "buffers",
+                        "git_status",
+                        "document_symbols",
+                    },
+                    default_component_configs = {
+                        icon = {
+                            folder_closed = "▸",
+                            folder_open = "▾",
+                            folder_empty = ".",
+                            default = "",
+                        },
+                        git_status = {
+                            align = "right",
+                            symbols = {
+                                -- Change type
+                                added     = "✚",
+                                deleted   = "-",
+                                modified  = "", -- Use unstaged instead
+                                renamed   = "➜",
+                                -- Status type
+                                untracked = "★",
+                                ignored   = "◌",
+                                unstaged  = "~",
+                                staged    = "✓",
+                                conflict  = "✖",
+                                -- unmerged = "‡" -- Not in neo-tree
                             },
-                        }
+                        },
+                    },
+                    window = {
+                        mappings = {
+                            ['E'] = "Neotree_filesystem",
+                            ['B'] = "Neotree_buffers",
+                            ['G'] = "Neotree_git_status",
+                            ['Z'] = "Neotree_symbols",
+                        },
+                    },
+                    commands = {
+                        Neotree_filesystem = function() vim.api.nvim_exec('Neotree filesystem', true) end,
+                        Neotree_buffers = function() vim.api.nvim_exec('Neotree buffers', true) end,
+                        Neotree_git_status = function() vim.api.nvim_exec('Neotree git_status', true) end,
+                        Neotree_symbols = function() vim.api.nvim_exec('Neotree document_symbols right', true) end,
+                    },
+                    filesystem = {
+                        filtered_items = {
+                            hide_dotfiles = false,
+                            hide_gitignored = false,
+                        },
+                    },
+                    document_symbols = {
                     },
                 })
             end
@@ -143,6 +188,8 @@ require("lazy").setup({
         },
     }
 )
+
+vim.g.skip_ts_context_commentstring_module = true
 
 -- Preferences
 -- -------------------------------------
@@ -243,7 +290,8 @@ vim.api.nvim_set_hl(0, "CocListSearch", { link = 'Special' })
 vim.api.nvim_set_hl(0, "CocMenuSel", { link = 'PmenuSel' })
 vim.api.nvim_set_hl(0, "CocSearch", { link = 'Special' })
 vim.api.nvim_set_hl(0, "CopilotSuggestion", { link = 'NonText' })
-vim.api.nvim_set_hl(0, "NvimTreeRootFolder", { link = "Directory" })
+vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { link = "Comment" })
+vim.api.nvim_set_hl(0, "NeoTreeRootName", { link = "Directory" })
 vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "VertSplit" })
 vim.api.nvim_set_hl(0, "TelescopePromptCounter", { link = "Constant" })
 -- Treesitter https://neovim.io/doc/user/treesitter.html
@@ -299,7 +347,8 @@ vim.keymap.set("n", "<C-E>", builtin.find_files, norsil)
 vim.keymap.set("n", "<C-F>", builtin.live_grep, norsil)
 vim.keymap.set("v", "<C-F>", lga_shortcuts.grep_visual_selection)
 vim.keymap.set("n", "<C-S>", builtin.resume, norsil)
-vim.keymap.set("n", "<C-Y>", ":NvimTreeToggle<CR>", norsil)
+vim.keymap.set("n", "<C-Y>", ":Neotree toggle<CR>", norsil)
+vim.keymap.set("n", "_", ":Neotree current %:p:h<CR>", norsil)
 vim.keymap.set("n", "-", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
 
 -- The `g` commands
@@ -339,5 +388,3 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     pattern = { "COMMIT_EDITMSG" },
     command = "setlocal spell",
 })
-
-vim.g.skip_ts_context_commentstring_module = true
