@@ -138,6 +138,7 @@ require("lazy").setup({
                             ['B'] = "Neotree_buffers",
                             ['G'] = "Neotree_git_status",
                             ['Z'] = "Neotree_symbols",
+                            ['-'] = "parent_directory",
                         },
                     },
                     commands = {
@@ -145,6 +146,7 @@ require("lazy").setup({
                         Neotree_buffers = function() vim.api.nvim_exec('Neotree buffers', true) end,
                         Neotree_git_status = function() vim.api.nvim_exec('Neotree git_status', true) end,
                         Neotree_symbols = function() vim.api.nvim_exec('Neotree document_symbols right', true) end,
+                        parent_directory = function() vim.api.nvim_exec('Neotree current %:p:h:h', true) end,
                     },
                     filesystem = {
                         filtered_items = {
