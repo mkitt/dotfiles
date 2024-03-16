@@ -114,6 +114,10 @@ require("lazy").setup({
                             folder_empty = ".",
                             default = "",
                         },
+                        name = {
+                            trailing_slash = true,
+                            use_git_status_colors = false,
+                        },
                         git_status = {
                             align = "right",
                             symbols = {
@@ -153,8 +157,6 @@ require("lazy").setup({
                             hide_dotfiles = false,
                             hide_gitignored = false,
                         },
-                    },
-                    document_symbols = {
                     },
                 })
             end
@@ -253,7 +255,7 @@ vim.api.nvim_set_hl(0, "Question", { ctermbg = "NONE", ctermfg = 4 })
 vim.api.nvim_set_hl(0, "Folded", { ctermbg = "NONE", ctermfg = 10 })
 vim.api.nvim_set_hl(0, "FoldColumn", { ctermbg = "NONE", ctermfg = 10 })
 vim.api.nvim_set_hl(0, "Pmenu", { ctermbg = 8, ctermfg = "NONE" })
-vim.api.nvim_set_hl(0, "PmenuSel", { ctermbg = 0, ctermfg = 'NONE' })
+vim.api.nvim_set_hl(0, "PmenuSel", { ctermbg = 9, ctermfg = 'NONE' })
 vim.api.nvim_set_hl(0, "PmenuThumb", { ctermbg = 9, ctermfg = "NONE" })
 vim.api.nvim_set_hl(0, "PmenuSbar", { ctermbg = "NONE", ctermfg = "NONE" })
 vim.api.nvim_set_hl(0, "DiffAdd", { ctermbg = 2, ctermfg = 9 })
@@ -292,7 +294,7 @@ vim.api.nvim_set_hl(0, "CocListSearch", { link = 'Special' })
 vim.api.nvim_set_hl(0, "CocMenuSel", { link = 'PmenuSel' })
 vim.api.nvim_set_hl(0, "CocSearch", { link = 'Special' })
 vim.api.nvim_set_hl(0, "CopilotSuggestion", { link = 'NonText' })
-vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { link = "Comment" })
+vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { ctermbg = "NONE", ctermfg = 9 })
 vim.api.nvim_set_hl(0, "NeoTreeRootName", { link = "Directory" })
 vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "VertSplit" })
 vim.api.nvim_set_hl(0, "TelescopePromptCounter", { link = "Constant" })
