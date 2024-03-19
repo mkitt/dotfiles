@@ -138,11 +138,14 @@ require("lazy").setup({
                     },
                     window = {
                         mappings = {
-                            ['E'] = "Neotree_filesystem",
+                            ['<C-V>'] = "open_vsplit",
                             ['B'] = "Neotree_buffers",
+                            ['E'] = "Neotree_filesystem",
+                            ['F'] = "focus_preview",
                             ['G'] = "Neotree_git_status",
                             ['Z'] = "Neotree_symbols",
                             ['-'] = "parent_directory",
+                            ['l'] = false,
                         },
                     },
                     commands = {
