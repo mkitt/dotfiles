@@ -164,10 +164,13 @@ require("lazy").setup({
                 })
             end
         },
+        {
+            "mg979/vim-visual-multi",
+            init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
+        },
         "JoosepAlviste/nvim-ts-context-commentstring",
         "github/copilot.vim",
         "jparise/vim-graphql",
-        "mg979/vim-visual-multi",
         "tpope/vim-commentary",
         "tpope/vim-fugitive",
         "tpope/vim-repeat",
@@ -323,9 +326,6 @@ vim.keymap.set("n", "<C-H>", "<C-W><C-H>", nor)
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>", nor)
 vim.keymap.set("n", "<C-K>", "<C-W><C-K>", nor)
 vim.keymap.set("n", "<C-L>", "<C-W><C-L>", nor)
-
--- Multiple cursor
-vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" }
 
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", nor)
