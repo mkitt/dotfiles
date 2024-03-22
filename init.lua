@@ -355,8 +355,8 @@ vim.keymap.set("n", "<C-F>", builtin.live_grep, norsil)
 vim.keymap.set("v", "<C-F>", lga_shortcuts.grep_visual_selection)
 vim.keymap.set("n", "<C-S>", builtin.resume, norsil)
 vim.keymap.set("n", "<C-Y>", ":Neotree toggle<CR>", norsil)
-vim.keymap.set("n", "_", ":Neotree current %:p:h<CR>", norsil)
-vim.keymap.set("n", "-", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
+vim.keymap.set("n", "-", ":Neotree current %:p:h<CR>", norsil)
+vim.keymap.set("n", "_", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
 
 -- The `g` commands
 vim.keymap.set("n", "g.", cocs.file_code_actions, norsil)
