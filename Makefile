@@ -79,12 +79,5 @@ macos:
 	chflags nohidden ~/Library
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
-	@# Set Rectangle App settings
-	defaults write com.knollsoft.Rectangle almostMaximizeWidth -float 0.95
-	defaults write com.knollsoft.Rectangle almostMaximizeHeight -float 0.95
-	defaults write com.knollsoft.Rectangle curtainChangeSize -int 2
-	defaults write com.knollsoft.Rectangle specified -dict-add keyCode -float 45 modifierFlags -float 786721
-	defaults write com.knollsoft.Rectangle specifiedWidth -float 2048
-	defaults write com.knollsoft.Rectangle specifiedHeight -float 1152
 
 .PHONY: help install uninstall update macos
