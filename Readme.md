@@ -67,7 +67,7 @@ see [the knowledge base article][gpg_transfer]
 
 [mkitt.net][mkitt.net] | [github/mkitt][github]
 
-<!-- Markdown links -->
+<!-- Markdown Links -->
 
 [gh-ssh-gpg]: https://github.com/settings/keys
 [git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
