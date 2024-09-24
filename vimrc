@@ -44,6 +44,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-liquid'
 Plug 'othree/xml.vim'
+Plug 'wuelnerdotexe/vim-astro'
 
 " Utility
 Plug 'tpope/vim-fugitive'
