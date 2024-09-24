@@ -21,6 +21,7 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'dense-analysis/ale'
 Plug 'yssl/QFEnter'
 Plug 'vim-airline/vim-airline'
+Plug 'github/copilot.vim'
 
 " Editing
 Plug 'tpope/vim-abolish'
