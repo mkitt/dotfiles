@@ -43,7 +43,6 @@ Plug 'hashivim/vim-terraform'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-liquid'
 Plug 'othree/xml.vim'
-Plug 'pantharshit00/vim-prisma'
 
 " Utility
 Plug 'tpope/vim-fugitive'
