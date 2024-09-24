@@ -33,3 +33,5 @@
 [user]
 	name = Jay Zeschin
 	email = jay@zeschin.org
+[column]
+	ui = auto
