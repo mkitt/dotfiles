@@ -160,6 +160,7 @@ let g:airline#extensions#ale#enabled = 1
 
 " let g:ale_completion_enabled=1
 " let g:ale_set_balloons=1
+" let g:ale_list_window_size=5
 
 let g:yankring_window_height=10
 let g:yankring_history_dir=$HOME.'/.vim/tmp/yankring/'
