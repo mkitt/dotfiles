@@ -8,8 +8,10 @@
 [branch]
   autosetupmerge = always
   autosetuprebase = always
-	sort = -committerdate
+  sort = -committerdate
 [color]
+  ui = auto
+[column]
   ui = auto
 [commit]
   gpgsign = false
