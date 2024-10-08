@@ -46,6 +46,7 @@ alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
 alias reload="source ~/.zprofile && cd ../ && cd -"
+alias kill_git="(ps aux | head -n 1; ps aux | grep '[g]it')"
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \

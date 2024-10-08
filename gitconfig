@@ -5,6 +5,7 @@
   glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
   clog = log --pretty='- [x] %h %s'
   slog = log --pretty='- %h %s (%an)'
+  resolve-all-theirs = "!f() { git diff --name-only --diff-filter=U | xargs -I {} sh -c 'git checkout --theirs \"{}\" && git add \"{}\"'; }; f"
 [branch]
   autosetupmerge = always
   autosetuprebase = always
