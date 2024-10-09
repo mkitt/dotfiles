@@ -56,6 +56,7 @@ see [the knowledge base article][gpg_transfer]
 1. Import Terminal colors from profiles directory
 1. Map caps lock to the control key
 1. Set other reasonable [macOS defaults][macos_defaults]
+1. Restart to pick up the updated defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
