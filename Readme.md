@@ -19,8 +19,8 @@ make help
 
 ### Git credentials
 
-To setup your git credentials you'll need to add a `.gitconfig.local` file to
-your `$HOME` directory and add the following:
+To setup your git credentials you'll need to add a `gitconfig.local` file to
+your the root directory and add the following:
 
 ```
 [user]
@@ -31,8 +31,8 @@ your `$HOME` directory and add the following:
   user = YOUR_GITHUB_USERNAME
 ```
 
-Note: Git will ignore `*.local` files. The `install`/`uninstall` script
-symlinks/removes a `gitconfig.local`.
+- The `install`script symlinks this file to `$HOME/.gitconfig.local`
+- The global `.gitignore` is set to omit any `*.local` files
 
 ### GPG
 
@@ -48,15 +48,15 @@ see [the knowledge base article][gpg_transfer]
 1. Download App store applications
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
-1. Run `brew install git`
+1. Run `/opt/homebrew/bin/brew install git`
 1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
-1. Add the `gitconfig.local` file to the `dotfiles` directory
+1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install`
 1. Follow post install instructions (Vim plugins)
 1. Import Terminal colors from profiles directory
 1. Map caps lock to the control key
 1. Set other reasonable [macOS defaults][macos_defaults]
-1. Restart to pick up the updated defaults
+1. Restart to pick up reasonable defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]

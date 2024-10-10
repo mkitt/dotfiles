@@ -1,5 +1,5 @@
 brews = fd git gh node pnpm ripgrep tree
-casks = gpg-suite rectangle slack
+casks = gpg-suite
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
@@ -34,7 +34,7 @@ install:
 #/ uninstall       Removes homebrews, casks and dotfiles
 uninstall:
 	sudo -v
-	brew uninstall $(brews) macvim
+	brew uninstall $(brews) neovim
 	brew uninstall --cask $(casks)
 	@rm -rfv $$HOME/.config
 	@rm -rfv $$HOME/.local
