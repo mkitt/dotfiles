@@ -168,6 +168,21 @@ require("lazy").setup({
             "mg979/vim-visual-multi",
             init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
         },
+
+        {
+            "CopilotC-Nvim/CopilotChat.nvim",
+            branch = "canary",
+            dependencies = {
+                { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+                { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+            },
+            build = "make tiktoken", -- Only on MacOS or Linux
+            opts = {
+                debug = true,      -- Enable debugging
+                -- See Configuration section for rest
+            },
+            -- See Commands section for default commands if you want to lazy load on them
+        },
         "JoosepAlviste/nvim-ts-context-commentstring",
         "github/copilot.vim",
         "jparise/vim-graphql",
