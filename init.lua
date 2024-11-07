@@ -173,12 +173,12 @@ require("lazy").setup({
             "CopilotC-Nvim/CopilotChat.nvim",
             branch = "canary",
             dependencies = {
-                { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+                { "github/copilot.vim" },    -- or zbirenbaum/copilot.lua
                 { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
             },
-            build = "make tiktoken", -- Only on MacOS or Linux
+            build = "make tiktoken",         -- Only on MacOS or Linux
             opts = {
-                debug = true,      -- Enable debugging
+                debug = true,                -- Enable debugging
                 -- See Configuration section for rest
             },
             -- See Commands section for default commands if you want to lazy load on them
@@ -290,6 +290,7 @@ vim.api.nvim_set_hl(0, "SpellLocal", { ctermbg = "NONE", ctermfg = "NONE", under
 -- Syntax group [:vert help group-name]
 vim.api.nvim_set_hl(0, "Comment", { ctermbg = "NONE", ctermfg = 10 })
 vim.api.nvim_set_hl(0, "Constant", { ctermbg = "NONE", ctermfg = 6 }) -- + Boolean
+vim.api.nvim_set_hl(0, "DiagnosticError", { link = "Error" })
 vim.api.nvim_set_hl(0, "Number", { ctermbg = "NONE", ctermfg = 5 })
 vim.api.nvim_set_hl(0, "Float", { link = "Number" })
 vim.api.nvim_set_hl(0, "String", { ctermbg = "NONE", ctermfg = 2 })
@@ -372,6 +373,16 @@ vim.keymap.set("n", "<C-S>", builtin.resume, norsil)
 vim.keymap.set("n", "<C-Y>", ":Neotree toggle<CR>", norsil)
 vim.keymap.set("n", "-", ":Neotree current %:p:h<CR>", norsil)
 vim.keymap.set("n", "_", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
+
+vim.keymap.set({ "n", "v" }, "<C-G>", function()
+    if vim.fn.mode() == 'v' then
+        vim.cmd('normal! gv"xy')
+        local selection = vim.fn.getreg('x')
+        vim.cmd('CopilotChat ' .. selection)
+    else
+        vim.cmd('CopilotChat')
+    end
+end, { noremap = true, silent = true })
 
 -- The `g` commands
 vim.keymap.set("n", "g.", cocs.file_code_actions, norsil)
