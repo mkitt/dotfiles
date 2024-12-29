@@ -415,7 +415,7 @@ vim.cmd [[
     endfunc
 ]]
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "javascript", "typescript", "typescriptreact" },
+    pattern = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     command = "iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\\s')<CR>",
 })
 vim.api.nvim_create_autocmd("FileType", {
