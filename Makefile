@@ -1,4 +1,4 @@
-brews = fd git gh node pnpm ripgrep tree
+brews = fd fzf git gh node pnpm ripgrep tree
 casks = gpg-suite
 cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
 npms = @tailwindcss/language-server graphql-language-service-cli
