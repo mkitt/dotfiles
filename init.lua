@@ -1,14 +1,8 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+    vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+        lazypath, })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -20,50 +14,115 @@ vim.g.maplocalleader = ' '
 -- Plugins
 -- -------------------------------------
 require("lazy").setup({
-        { "neoclide/coc.nvim", branch = "release", build = ":CocUpdate" },
+        {
+            "neoclide/coc.nvim",
+            branch = "release",
+            build = ":CocUpdate"
+        },
+
+        -- Editing
+        {
+            "nvim-treesitter/nvim-treesitter",
+            build = ":TSUpdate",
+            dependencies = {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+            },
+            config = function()
+                require("nvim-treesitter.configs").setup({
+                    auto_install = true,
+                    highlight = { enable = true, disable = { "gitcommit", "graphql" } },
+                    indent = { enable = true },
+                    incremental_selection = { enable = true, },
+                    textobjects = {
+                        select = { enable = true, lookahead = true },
+                        move = { enable = true, set_jumps = true },
+                        swap = { enable = true },
+                    }
+                })
+            end
+        },
+        {
+            "folke/ts-comments.nvim",
+            opts = {},
+        },
+        -- TODO: Deprecate with LSP + treesitter
+        "jparise/vim-graphql",
         {
             "gbprod/yanky.nvim",
             opts = { highlight = { timer = 50 }, }
         },
         {
-            "nvim-treesitter/nvim-treesitter",
-            build = ":TSUpdate",
-            config = function()
-                require("nvim-treesitter.configs").setup({
-                    ensure_installed = {
-                        "bash",
-                        "c",
-                        "comment",
-                        "css",
-                        "csv",
-                        "diff",
-                        "dockerfile",
-                        "html",
-                        "javascript",
-                        "jsdoc",
-                        "json",
-                        "lua",
-                        "markdown",
-                        "markdown_inline",
-                        "mermaid",
-                        "prisma",
-                        "python",
-                        "query",
-                        "ruby",
-                        "rust",
-                        "sql",
-                        "swift",
-                        "terraform",
-                        "tsx",
-                        "typescript",
-                        "vim",
-                        "vimdoc",
-                        "yaml"
-                    },
-                    highlight = { enable = true, disable = { "gitcommit", "graphql" } },
-                })
-            end
+            "echasnovski/mini.ai",
+            opts = {}
         },
+        {
+            "echasnovski/mini.bracketed",
+            opts = {}
+        },
+        {
+            "echasnovski/mini.comment",
+            opts = {}
+        },
+        {
+            "echasnovski/mini.move",
+            opts = {}
+        },
+        {
+            "echasnovski/mini.pairs",
+            opts = {}
+        },
+        {
+            "echasnovski/mini.surround",
+            opts = {
+                mappings = {
+                    add = 'ys',
+                    delete = 'ds',
+                    find = 'yf',
+                    find_left = 'yF',
+                    highlight = 'yh',
+                    replace = 'cs',
+                    update_n_lines = '',
+                },
+                search_method = 'cover_or_next',
+            }
+        },
+        -- TODO: Is there a lua replacement?
+        "tpope/vim-repeat",
+        -- TODO: Neovim 0.12 https://neovim.io/roadmap/
+        {
+            "mg979/vim-visual-multi",
+            init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
+        },
+
+        -- AI
+        {
+            "zbirenbaum/copilot.lua",
+            build = ":Copilot auth",
+            cmd = "Copilot",
+            event = "InsertEnter",
+            opts = {
+                filetypes = { ["*"] = true, },
+                panel = { enabled = false },
+                suggestion = {
+                    enabled = true,
+                    auto_trigger = true,
+                    keymap = { accept = "<C-\\>", }
+                },
+            },
+        },
+        {
+            "CopilotC-Nvim/CopilotChat.nvim",
+            branch = "main",
+            build = "make tiktoken",
+            dependencies = { { "zbirenbaum/copilot.lua" }, { "nvim-lua/plenary.nvim" }, },
+            opts = {},
+        },
+
+        -- GIT
+        "tpope/vim-fugitive",
+        "tpope/vim-rhubarb",
+
+        -- Editor
         {
             "nvim-telescope/telescope.nvim",
             dependencies = {
@@ -154,11 +213,11 @@ require("lazy").setup({
                         },
                     },
                     commands = {
-                        Neotree_filesystem = function() vim.api.nvim_exec('Neotree filesystem', true) end,
-                        Neotree_buffers = function() vim.api.nvim_exec('Neotree buffers', true) end,
-                        Neotree_git_status = function() vim.api.nvim_exec('Neotree git_status', true) end,
-                        Neotree_symbols = function() vim.api.nvim_exec('Neotree document_symbols right', true) end,
-                        parent_directory = function() vim.api.nvim_exec('Neotree current %:p:h:h', true) end,
+                        Neotree_filesystem = function() vim.cmd('Neotree filesystem') end,
+                        Neotree_buffers = function() vim.cmd('Neotree buffers') end,
+                        Neotree_git_status = function() vim.cmd('Neotree git_status') end,
+                        Neotree_symbols = function() vim.cmd('Neotree document_symbols right') end,
+                        parent_directory = function() vim.cmd('Neotree current %:p:h:h') end,
                     },
                     filesystem = {
                         filtered_items = {
@@ -169,34 +228,6 @@ require("lazy").setup({
                 })
             end
         },
-        {
-            "mg979/vim-visual-multi",
-            init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
-        },
-
-        {
-            "CopilotC-Nvim/CopilotChat.nvim",
-            branch = "canary",
-            dependencies = {
-                { "github/copilot.vim" },    -- or zbirenbaum/copilot.lua
-                { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
-            },
-            build = "make tiktoken",         -- Only on MacOS or Linux
-            opts = {
-                debug = true,                -- Enable debugging
-                -- See Configuration section for rest
-            },
-            -- See Commands section for default commands if you want to lazy load on them
-        },
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        "github/copilot.vim",
-        "jparise/vim-graphql",
-        "tpope/vim-commentary",
-        "tpope/vim-fugitive",
-        "tpope/vim-repeat",
-        "tpope/vim-rhubarb",
-        "tpope/vim-surround",
-        "tpope/vim-unimpaired"
     },
     {
         ui = {
@@ -218,8 +249,6 @@ require("lazy").setup({
         },
     }
 )
-
-vim.g.skip_ts_context_commentstring_module = true
 
 -- Preferences
 -- -------------------------------------
@@ -348,6 +377,15 @@ vim.keymap.set("n", "<C-J>", "<C-W><C-J>", nor)
 vim.keymap.set("n", "<C-K>", "<C-W><C-K>", nor)
 vim.keymap.set("n", "<C-L>", "<C-W><C-L>", nor)
 
+-- Add a blank line above/below the cursor
+vim.api.nvim_set_keymap('n', '[<Space>', 'O<Esc>0"_D', norsil)
+vim.api.nvim_set_keymap('n', ']<Space>', 'o<Esc>0"_D', norsil)
+
+-- Make the surround plugin work like tpope/vim-surround
+vim.keymap.del('x', 'ys')
+vim.keymap.set('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+vim.keymap.set('n', 'yss', 'ys_', { remap = true })
+
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", nor)
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)", nor)
@@ -358,7 +396,7 @@ vim.keymap.set("n", "<C-N>", "<Plug>(YankyCycleBackward)", nor)
 
 -- Completion pum
 vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap('i', '<C-\\>', 'copilot#Accept("<CR>")', norsilexp)
+vim.keymap.set('i', '<C-\\>', function() require("copilot.suggestion").accept() end, norsilexp)
 vim.keymap.set("i", "<TAB>", "coc#pum#visible() ? coc#pum#next(1) : '<TAB>'", norsilexp)
 vim.keymap.set("i", "<S-TAB>", "coc#pum#visible() ? coc#pum#prev(1) : '<C-h>'", norsilexp)
 vim.keymap.set("i", "<CR>", "coc#pum#visible() ? coc#pum#confirm() : '<C-G>u<CR><C-R>=coc#on_enter()<CR>'", norsilexp)
@@ -396,7 +434,7 @@ vim.keymap.set("n", "gd", "<Plug>(coc-definition)", norsil)
 vim.keymap.set("n", "gf", ":call CocActionAsync('jumpDefinition')<CR>", norsil)
 vim.keymap.set("n", "gF", ":call CocActionAsync('jumpDefinition', 'vsplit')<CR>", norsil)
 vim.keymap.set("n", "gh", ":call CocActionAsync('doHover')<CR>", norsil)
-vim.keymap.set("n", "gr", "<Plug>(coc-rename)", norsil)
+-- vim.keymap.set("n", "gr", "<Plug>(coc-rename)", norsil)
 vim.keymap.set("n", "gu", "<Plug>(coc-refactor)", norsil)
 vim.keymap.set("n", "gV", "`[v`]", norsil)
 vim.keymap.set('x', 'gz', 'y :CocSearch <C-R>=' .. vim.fn.escape('@', "',\"$ ") .. '<CR><CR>', nor)
