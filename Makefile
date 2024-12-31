@@ -1,7 +1,5 @@
 brews = fd fzf git gh node pnpm ripgrep tree
 casks = gpg-suite
-cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
-npms = @tailwindcss/language-server graphql-language-service-cli
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 
 # --------------------------------------
@@ -13,7 +11,6 @@ help:
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
 	@printf "%scask: $(casks)\n"
-	@printf "%scocs: $(cocs)\n"
 
 #/ install         Installs homebrews, casks and dotfiles
 install:
@@ -24,11 +21,8 @@ install:
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
-	@ln -sfv `pwd`/coc-settings.json $$HOME/.config/nvim/
 	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
-	@printf "%s\nInstall global npm packages: npm install $(npms) --global"
 	@printf "%s\nOpen nvim and (auto)run: :Lazy install"
-	@printf "%s\nInstall nvim coc plugins: :CocInstall $(cocs)"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -52,8 +46,7 @@ update:
 	@printf "%s----\n"
 	brew doctor
 	@printf "%s----\n"
-	npm update -g $(npms)
-	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :CocUpdate\n"
+	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :Mason\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
