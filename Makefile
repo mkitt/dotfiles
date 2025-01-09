@@ -22,7 +22,6 @@ install:
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
 	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
-	@printf "%s\nOpen nvim and (auto)run: :Lazy install"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -48,6 +47,21 @@ update:
 	@printf "%s----\n"
 	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :Mason\n"
 
+#/ fonts           Patch SF Mono fonts with Nerd fonts
+fonts:
+	@if [ -z "$(word 2, $(MAKECMDGOALS))" ]; then \
+		echo "Error: Path to font-patcher is not provided."; \
+		echo "Usage: make fonts ~/path/to/font-patcher"; \
+		exit 1; \
+	fi
+	@if [ -z "$(wildcard ~/Library/Fonts/SF-Mono*.otf)" ]; then \
+		echo "Error: No SF-Mono fonts found in ~/Library/Fonts."; \
+		exit 1; \
+	fi
+	@for font in ~/Library/Fonts/SF-Mono*.otf; do \
+		fontforge --script $(word 2, $(MAKECMDGOALS)) --complete "$$font" --output-dir ./fonts; \
+	done
+
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
 	sudo -v
@@ -58,7 +72,7 @@ macos:
 	@# Set a blazingly fast keyboard repeat rate -- REQUIRES LOGOUT!
 	defaults write NSGlobalDomain KeyRepeat -int 1
 	defaults write NSGlobalDomain InitialKeyRepeat -int 15
-	@# Save screenshots to the desktop
+	@# Save screenshots to Downloads
 	defaults write com.apple.screencapture location -string "${HOME}/Downloads"
 	@# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 	defaults write com.apple.screencapture type -string "png"
@@ -73,4 +87,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install uninstall update macos
+.PHONY: help install uninstall update fonts macos
