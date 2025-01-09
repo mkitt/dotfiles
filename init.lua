@@ -14,345 +14,356 @@ vim.g.maplocalleader = ' '
 -- Plugins
 -- -------------------------------------
 require("lazy").setup({
-        -- Editing
-        {
-            "nvim-treesitter/nvim-treesitter",
-            build = ":TSUpdate",
-            dependencies = {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-            },
-            config = function()
-                require("nvim-treesitter.configs").setup({
-                    auto_install = true,
-                    highlight = { enable = true, disable = { "gitcommit" } },
-                    indent = { enable = true },
-                    incremental_selection = { enable = true, },
-                    textobjects = {
-                        select = { enable = true, lookahead = true },
-                        move = { enable = true, set_jumps = true },
-                        swap = { enable = true },
-                    }
-                })
-            end
+    -- Editing
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
-        {
-            "folke/ts-comments.nvim",
-            opts = {},
-        },
-        {
-            "gbprod/yanky.nvim",
-            opts = { highlight = { timer = 50 }, }
-        },
-        {
-            "echasnovski/mini.ai",
-            opts = {}
-        },
-        {
-            "echasnovski/mini.bracketed",
-            opts = {}
-        },
-        {
-            "echasnovski/mini.comment",
-            opts = {}
-        },
-        {
-            "echasnovski/mini.move",
-            opts = {}
-        },
-        {
-            "echasnovski/mini.pairs",
-            opts = {}
-        },
-        {
-            "echasnovski/mini.surround",
-            opts = {
-                mappings = {
-                    add = 'ys',
-                    delete = 'ds',
-                    find = 'yf',
-                    find_left = 'yF',
-                    highlight = 'yh',
-                    replace = 'cs',
-                    update_n_lines = '',
-                },
-                search_method = 'cover_or_next',
-            }
-        },
-        -- TODO: Is there a lua replacement?
-        "tpope/vim-repeat",
-        -- TODO: Neovim 0.12 https://neovim.io/roadmap/
-        {
-            "mg979/vim-visual-multi",
-            init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
-        },
-
-        -- AI
-        {
-            "zbirenbaum/copilot.lua",
-            build = ":Copilot auth",
-            cmd = "Copilot",
-            event = "InsertEnter",
-            opts = {
-                filetypes = { ["*"] = true, },
-                panel = { enabled = false },
-                suggestion = {
-                    enabled = true,
-                    auto_trigger = true,
-                    keymap = { accept = "<C-\\>", }
-                },
-            },
-        },
-        {
-            "CopilotC-Nvim/CopilotChat.nvim",
-            branch = "main",
-            build = "make tiktoken",
-            dependencies = { { "zbirenbaum/copilot.lua" }, { "nvim-lua/plenary.nvim" }, },
-            opts = {},
-        },
-
-        -- GIT
-        "tpope/vim-fugitive",
-        "tpope/vim-rhubarb",
-
-        -- Editor/UI
-        -- mini.icons
-        -- folke/snacks.nvim
-        -- folke/which-key.nvim
-
-        -- LSP
-        {
-            'neovim/nvim-lspconfig',
-            dependencies = {
-                'williamboman/mason.nvim',
-                'williamboman/mason-lspconfig.nvim',
-            },
-            config = function()
-                require('mason').setup()
-                require('mason-lspconfig').setup({
-                    automatic_installation = true,
-                    -- TODO: Add "marksman"?
-                    ensure_installed = { "bashls", "cssls", "eslint", "graphql", "html", "jsonls", "lua_ls", "tailwindcss", "ts_ls", "yamlls", },
-                })
-
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
-                require('mason-lspconfig').setup_handlers({
-                    function(server_name)
-                        require('lspconfig')[server_name].setup({
-                            capabilities = capabilities,
-                        })
-                    end,
-                })
-                require('lspconfig').eslint.setup({
-                    on_attach = function(_, bufnr)
-                        vim.api.nvim_create_autocmd("BufWritePre", {
-                            buffer = bufnr,
-                            command = "EslintFixAll",
-                        })
-                    end,
-                })
-                require('lspconfig').graphql.setup({
-                    root_dir = require('lspconfig').util.root_pattern('.graphqlrc*', '.graphql.config.*',
-                        'graphql.config.*', 'package.json'),
-                })
-            end
-        },
-        {
-            "folke/lazydev.nvim",
-            opts = {}
-        },
-        -- Formatting
-        {
-            "stevearc/conform.nvim",
-            event = { "BufWritePre" },
-            cmd = { "ConformInfo" },
-            opts = {
-                formatters_by_ft = {
-                    css = { "prettierd", "prettier" },
-                    html = { "prettierd", "prettier" },
-                    javascript = { "prettierd", "prettier", stop_after_first = true },
-                    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-                    json = { "prettierd", "prettier" },
-                    lua = { "stylua" },
-                    markdown = { "prettierd", "prettier" },
-                    typescript = { "prettierd", "prettier", stop_after_first = true },
-                    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-                    yaml = { "prettierd", "prettier" },
-                },
-                format_on_save = {
-                    timeout_ms = 500,
-                    lsp_fallback = true,
-                },
-            },
-        },
-        -- CMP
-        {
-            'hrsh7th/nvim-cmp',
-            event = 'InsertEnter',
-            dependencies = {
-                'hrsh7th/cmp-nvim-lsp',
-                'hrsh7th/cmp-buffer',
-                'hrsh7th/cmp-path',
-                'zbirenbaum/copilot-cmp',
-            },
-            config = function()
-                local cmp = require('cmp')
-                require("copilot_cmp").setup()
-                cmp.setup({
-                    mapping = cmp.mapping.preset.insert({
-                        ['<C-Space>'] = cmp.mapping.complete(),
-                        ['<Tab>'] = cmp.mapping(function(fallback)
-                            if cmp.visible() then
-                                cmp.select_next_item()
-                            else
-                                fallback()
-                            end
-                        end, { 'i', 's' }),
-                        ['<S-Tab>'] = cmp.mapping(function(fallback)
-                            if cmp.visible() then
-                                cmp.select_prev_item()
-                            else
-                                fallback()
-                            end
-                        end, { 'i', 's' }),
-                        ['<CR>'] = cmp.mapping.confirm({ select = true }),
-                    }),
-                    sources = {
-                        { name = 'lazydev', group_index = 0, },
-                        { name = 'copilot', group_index = 0, },
-                        { name = 'nvim_lsp' },
-                        { name = 'path' },
-                        { name = 'buffer' },
-                    }
-                })
-            end
-        },
-        -- Fuzzy
-        {
-            "nvim-telescope/telescope.nvim",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-                "nvim-telescope/telescope-file-browser.nvim",
-                "nvim-telescope/telescope-live-grep-args.nvim",
-            },
-            config = function()
-                local telescope = require("telescope")
-                telescope.setup({
-                    defaults = {
-                        layout_strategy = "vertical",
-                        layout_config = {
-                            vertical = { mirror = true, preview_cutoff = 0, prompt_position = "top", }
-                        },
-                        prompt_prefix = "👽 ",
-                        selection_caret = "• ",
-                        sorting_strategy = 'ascending',
-                    },
-                    extensions = {
-                        file_browser = { dir_icon = "▸", grouped = true, hidden = true, prompt_path = true }
-                    },
-                })
-                telescope.load_extension("fzf")
-                telescope.load_extension("file_browser")
-                telescope.load_extension("yank_history")
-                telescope.load_extension("live_grep_args")
-            end
-        },
-        -- TREES
-        {
-            "nvim-neo-tree/neo-tree.nvim",
-            branch = "v3.x",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                "MunifTanjim/nui.nvim",
-            },
-            config = function()
-                require("neo-tree").setup({
-                    sources = {
-                        "filesystem",
-                        "buffers",
-                        "git_status",
-                        "document_symbols",
-                    },
-                    default_component_configs = {
-                        icon = {
-                            folder_closed = "▸",
-                            folder_open = "▾",
-                            folder_empty = ".",
-                            default = "",
-                        },
-                        name = {
-                            trailing_slash = true,
-                            use_git_status_colors = false,
-                        },
-                        git_status = {
-                            align = "right",
-                            symbols = {
-                                -- Change type
-                                added     = "✚",
-                                deleted   = "-",
-                                modified  = "", -- Use unstaged instead
-                                renamed   = "➜",
-                                -- Status type
-                                untracked = "★",
-                                ignored   = "◌",
-                                unstaged  = "~",
-                                staged    = "✓",
-                                conflict  = "✖",
-                                -- unmerged = "‡" -- Not in neo-tree
-                            },
+        config = function()
+            ---@diagnostic disable-next-line: missing-fields
+            require("nvim-treesitter.configs").setup({
+                auto_install = true,
+                highlight = { enable = true, disable = { "gitcommit" } },
+                indent = { enable = true },
+                incremental_selection = { enable = true, },
+                textobjects = {
+                    lsp_interop = {
+                        enable = true,
+                        peek_definition_code = {
+                            ["gh"] = "@function.outer",
+                            ["gC"] = "@class.outer",
                         },
                     },
-                    window = {
-                        mappings = {
-                            ['<C-V>'] = "open_vsplit",
-                            ['B'] = "Neotree_buffers",
-                            ['E'] = "Neotree_filesystem",
-                            ['F'] = "focus_preview",
-                            ['G'] = "Neotree_git_status",
-                            ['Z'] = "Neotree_symbols",
-                            ['-'] = "parent_directory",
-                            ['l'] = false,
+                    select = {
+                        enable = true,
+                        lookahead = true,
+                        keymaps = {
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            ["ic"] = "@class.inner",
                         },
                     },
-                    commands = {
-                        Neotree_filesystem = function() vim.cmd('Neotree filesystem') end,
-                        Neotree_buffers = function() vim.cmd('Neotree buffers') end,
-                        Neotree_git_status = function() vim.cmd('Neotree git_status') end,
-                        Neotree_symbols = function() vim.cmd('Neotree document_symbols right') end,
-                        parent_directory = function() vim.cmd('Neotree current %:p:h:h') end,
-                    },
-                    filesystem = {
-                        filtered_items = {
-                            hide_dotfiles = false,
-                            hide_gitignored = false,
+                    move = {
+                        enable = true,
+                        set_jumps = true,
+                        goto_next_start = {
+                            ["]m"] = "@function.outer",
+                            ["]]"] = "@class.outer",
+                        },
+                        goto_next_end = {
+                            ["]M"] = "@function.outer",
+                            ["]["] = "@class.outer",
+                        },
+                        goto_previous_start = {
+                            ["[m"] = "@function.outer",
+                            ["[["] = "@class.outer",
+                        },
+                        goto_previous_end = {
+                            ["[M"] = "@function.outer",
+                            ["[]"] = "@class.outer",
                         },
                     },
-                })
-            end
+                    swap = {
+                        enable = true,
+                        swap_next = {
+                            ["]a"] = "@parameter.inner",
+                        },
+                        swap_previous = {
+                            ["[a"] = "@parameter.inner",
+                        },
+                    },
+                }
+            })
+        end
+    },
+    "numToStr/Comment.nvim",
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    "tpope/vim-repeat",
+    "tpope/vim-surround",
+    "tpope/vim-unimpaired",
+    {
+        "gbprod/yanky.nvim",
+        opts = { highlight = { timer = 50 }, }
+    },
+    -- TODO: Neovim 0.12 https://neovim.io/roadmap/
+    {
+        "mg979/vim-visual-multi",
+        init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
+    },
+
+    -- AI
+    {
+        "zbirenbaum/copilot.lua",
+        build = ":Copilot auth",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        opts = {
+            filetypes = { ["*"] = true, },
+            panel = { enabled = false },
+            suggestion = {
+                enabled = true,
+                auto_trigger = true,
+                keymap = { accept = "<C-\\>", }
+            },
         },
     },
     {
-        ui = {
-            icons = {
-                cmd = "⌘",
-                config = "🛠",
-                event = "📅",
-                ft = "📂",
-                init = "⚙",
-                keys = "🗝",
-                lazy = "💤 ",
-                plugin = "🔌",
-                require = "🌙",
-                runtime = "💻",
-                source = "📄",
-                start = "🚀",
-                task = "📌",
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "main",
+        build = "make tiktoken",
+        dependencies = { { "zbirenbaum/copilot.lua" }, { "nvim-lua/plenary.nvim" }, },
+        opts = {
+            question_header = '󰯈 Human ',
+            answer_header = ' Copilot ',
+            error_header = ' Error ',
+            mappings = {
+                reset = {
+                    normal = '',
+                    insert = '',
+                },
             },
         },
-    }
+    },
+
+    -- GIT
+    "tpope/vim-fugitive",
+    "tpope/vim-rhubarb",
+
+    -- Editor/UI
+    {
+        "nvim-tree/nvim-web-devicons",
+        opts = {}
+    },
+    -- TODO: folke/snacks.nvim
+    -- TODO: folke/which-key.nvim
+
+    -- LSP
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+        },
+        config = function()
+            require('mason').setup()
+            require('mason-lspconfig').setup({
+                automatic_installation = true,
+                -- TODO: Add "marksman"?
+                ensure_installed = { "bashls", "cssls", "eslint", "graphql", "html", "jsonls", "lua_ls", "tailwindcss", "ts_ls", "yamlls", },
+            })
+
+            local capabilities = vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(),
+                require('blink.cmp').get_lsp_capabilities())
+
+            require('mason-lspconfig').setup_handlers({
+                function(server_name)
+                    require('lspconfig')[server_name].setup({
+                        capabilities = capabilities,
+                    })
+                end,
+            })
+            require('lspconfig').eslint.setup({
+                capabilities = capabilities,
+                on_attach = function(_, bufnr)
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        buffer = bufnr,
+                        command = "EslintFixAll",
+                    })
+                end,
+            })
+            require('lspconfig').graphql.setup({
+                capabilities = capabilities,
+                root_dir = require('lspconfig').util.root_pattern('.graphqlrc*', '.graphql.config.*',
+                    'graphql.config.*', 'package.json'),
+            })
+        end
+    },
+    {
+        "folke/lazydev.nvim",
+        opts = {}
+    },
+
+    -- Formatting
+    {
+        "stevearc/conform.nvim",
+        event = { "BufWritePre" },
+        cmd = { "ConformInfo" },
+        opts = {
+            formatters_by_ft = {
+                css = { "prettierd", "prettier", stop_after_first = true },
+                html = { "prettierd", "prettier", stop_after_first = true },
+                javascript = { "prettierd", "prettier", stop_after_first = true },
+                javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+                json = { "prettierd", "prettier", stop_after_first = true },
+                lua = { "stylua" },
+                markdown = { "prettierd", "prettier", stop_after_first = true },
+                typescript = { "prettierd", "prettier", stop_after_first = true },
+                typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+                yaml = { "prettierd", "prettier", stop_after_first = true },
+            },
+            format_on_save = {
+                timeout_ms = 500,
+                lsp_fallback = true,
+            },
+        },
+    },
+
+    -- CMP
+    {
+        'saghen/blink.cmp',
+        dependencies = {
+            { "giuxtaposition/blink-cmp-copilot", },
+        },
+        version = '*',
+        opts = {
+            completion = {
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 200,
+                },
+                menu = {
+                    draw = {
+                        columns = { { 'kind_icon' }, { 'label', 'label_description', 'source_name', gap = 1 } },
+                        treesitter = { "lsp" },
+                    },
+                },
+            },
+            keymap = {
+                preset = 'enter',
+                ["<Tab>"] = { "select_next", "snippet_forward", "fallback", },
+                ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback", },
+            },
+            signature = { enabled = true, },
+            sources = {
+                default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
+                cmdline = {},
+                providers = {
+                    copilot = {
+                        async = true,
+                        module = "blink-cmp-copilot",
+                        name = "",
+                        score_offset = 100,
+                    },
+                    lazydev = {
+                        module = "lazydev.integrations.blink",
+                        name = "",
+                        score_offset = 100,
+                    },
+                    lsp = { name = "" },
+                    path = { name = "" },
+                    snippets = { name = "" },
+                    buffer = { name = "" },
+                },
+            },
+        },
+        opts_extend = { "sources.default" }
+    },
+
+    -- Fuzzy
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+            "nvim-telescope/telescope-file-browser.nvim",
+            "nvim-telescope/telescope-live-grep-args.nvim",
+        },
+        config = function()
+            local telescope = require("telescope")
+            telescope.setup({
+                defaults = {
+                    layout_strategy = "vertical",
+                    layout_config = {
+                        vertical = { mirror = true, preview_cutoff = 0, prompt_position = "top", }
+                    },
+                    prompt_prefix = "👽 ",
+                    selection_caret = "• ",
+                    sorting_strategy = 'ascending',
+                },
+            })
+            telescope.load_extension("fzf")
+            telescope.load_extension("file_browser")
+            telescope.load_extension("yank_history")
+            telescope.load_extension("live_grep_args")
+        end
+    },
+    -- TREES
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+        },
+        config = function()
+            require("neo-tree").setup({
+                sources = {
+                    "filesystem",
+                    "buffers",
+                    "git_status",
+                    "document_symbols",
+                },
+                default_component_configs = {
+                    icon = { default = "", },
+                    git_status = {
+                        symbols = {
+                            -- Change type
+                            added     = "✚",
+                            deleted   = "-",
+                            modified  = "", -- Use unstaged instead
+                            renamed   = "➜",
+                            -- Status type
+                            -- untracked = "★",
+                            untracked = "*",
+                            ignored   = "◌",
+                            unstaged  = "~",
+                            staged    = "✓",
+                            conflict  = "✖",
+                            -- unmerged = "‡" -- Not in neo-tree
+                        },
+                    },
+                },
+                window = {
+                    mappings = {
+                        ['<C-V>'] = "open_vsplit",
+                        ['B'] = "Neotree_buffers",
+                        ['E'] = "Neotree_filesystem",
+                        ['F'] = "focus_preview",
+                        ['G'] = "Neotree_git_status",
+                        ['Z'] = "Neotree_symbols",
+                        ['-'] = "parent_directory",
+                        ['l'] = false,
+                    },
+                },
+                commands = {
+                    Neotree_filesystem = function() vim.cmd('Neotree filesystem') end,
+                    Neotree_buffers = function() vim.cmd('Neotree buffers') end,
+                    Neotree_git_status = function() vim.cmd('Neotree git_status') end,
+                    Neotree_symbols = function() vim.cmd('Neotree document_symbols right') end,
+                    parent_directory = function() vim.cmd('Neotree current %:p:h:h') end,
+                },
+                filesystem = {
+                    filtered_items = {
+                        hide_dotfiles = false,
+                        hide_gitignored = false,
+                    },
+                },
+            })
+        end
+    },
+}
 )
+
+require('ts_context_commentstring').setup {
+    enable_autocmd = false,
+}
+---@diagnostic disable-next-line: missing-fields
+require('Comment').setup {
+    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+}
 
 -- Preferences
 -- -------------------------------------
@@ -378,20 +389,8 @@ vim.opt.wrap = false
 vim.opt.writebackup = false
 if vim.fn.executable("rg") > 0 then vim.opt.grepprg = "rg --vimgrep" end
 
--- LSP
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    { border = 'rounded' }
-)
-
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { border = 'rounded' }
-)
-
 -- Diagnostics
 vim.diagnostic.config({
-    float = { border = "rounded" },
     severity_sort = true,
     signs = {
         text = {
@@ -403,10 +402,8 @@ vim.diagnostic.config({
     },
 })
 
--- TODO: Change keymapping?
-vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist)
-
 -- Colors
+-- :highlight
 -- -------------------------------------
 -- Editor group [:vert help highlight-groups]
 vim.api.nvim_set_hl(0, "Normal", { ctermbg = "NONE", ctermfg = "NONE" })
@@ -442,6 +439,7 @@ vim.api.nvim_set_hl(0, "Question", { ctermbg = "NONE", ctermfg = 4 })
 vim.api.nvim_set_hl(0, "Folded", { ctermbg = "NONE", ctermfg = 10 })
 vim.api.nvim_set_hl(0, "FoldColumn", { ctermbg = "NONE", ctermfg = 10 })
 vim.api.nvim_set_hl(0, "Pmenu", { ctermbg = 8, ctermfg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { link = 'Pmenu' })
 vim.api.nvim_set_hl(0, "PmenuSel", { ctermbg = 9, ctermfg = 'NONE' })
 vim.api.nvim_set_hl(0, "PmenuThumb", { ctermbg = 9, ctermfg = "NONE" })
 vim.api.nvim_set_hl(0, "PmenuSbar", { ctermbg = "NONE", ctermfg = "NONE" })
@@ -451,8 +449,8 @@ vim.api.nvim_set_hl(0, "DiffDelete", { ctermbg = 1, ctermfg = 9 })
 vim.api.nvim_set_hl(0, "DiffText", { ctermbg = 4, ctermfg = 9 })
 vim.api.nvim_set_hl(0, "SpellBad", { ctermbg = "NONE", ctermfg = "NONE", underline = true })
 vim.api.nvim_set_hl(0, "SpellCap", { ctermbg = "NONE", ctermfg = "NONE", underline = true })
-vim.api.nvim_set_hl(0, "SpellRare", { ctermbg = "NONE", ctermfg = "NONE", underline = true })
 vim.api.nvim_set_hl(0, "SpellLocal", { ctermbg = "NONE", ctermfg = "NONE", underline = true })
+vim.api.nvim_set_hl(0, "SpellRare", { ctermbg = "NONE", ctermfg = "NONE", underline = true })
 -- Syntax group [:vert help group-name]
 vim.api.nvim_set_hl(0, "Comment", { ctermbg = "NONE", ctermfg = 10 })
 vim.api.nvim_set_hl(0, "Constant", { ctermbg = "NONE", ctermfg = 6 }) -- + Boolean
@@ -479,6 +477,7 @@ vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { ctermbg = "NONE", ctermfg = 9 })
 vim.api.nvim_set_hl(0, "NeoTreeRootName", { link = "Directory" })
 vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "WinSeparator" })
 vim.api.nvim_set_hl(0, "TelescopePromptCounter", { link = "Constant" })
+vim.api.nvim_set_hl(0, "BlinkCmpSource", { link = "Comment" })
 -- Treesitter https://neovim.io/doc/user/treesitter.html
 vim.api.nvim_set_hl(0, "@conceal", { link = "Conceal" })
 vim.api.nvim_set_hl(0, "@constructor", { link = "Identifier" })
@@ -501,15 +500,6 @@ vim.keymap.set("n", "<C-J>", "<C-W><C-J>", nor)
 vim.keymap.set("n", "<C-K>", "<C-W><C-K>", nor)
 vim.keymap.set("n", "<C-L>", "<C-W><C-L>", nor)
 
--- Add a blank line above/below the cursor
-vim.api.nvim_set_keymap('n', '[<Space>', 'O<Esc>0"_D', norsil)
-vim.api.nvim_set_keymap('n', ']<Space>', 'o<Esc>0"_D', norsil)
-
--- Make the surround plugin work like tpope/vim-surround
-vim.keymap.del('x', 'ys')
-vim.keymap.set('x', 'S', [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
-vim.keymap.set('n', 'yss', 'ys_', { remap = true })
-
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", nor)
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)", nor)
@@ -518,11 +508,13 @@ vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)", nor)
 vim.keymap.set("n", "<C-P>", "<Plug>(YankyCycleForward)", nor)
 vim.keymap.set("n", "<C-N>", "<Plug>(YankyCycleBackward)", nor)
 
--- Telescope ... <C-C> is not in use
+-- Telescope ... <C-G> is not in use
 local builtin = require("telescope.builtin")
 local lga_shortcuts = require("telescope-live-grep-args.shortcuts")
 vim.keymap.set("n", "<C-Space>", function() builtin.builtin { include_extensions = true } end, norsil)
 vim.keymap.set("n", "<C-B>", builtin.buffers, norsil)
+vim.keymap.set("n", "<C-C>", ":CopilotChat<CR>", norsil)
+vim.keymap.set("v", "<C-C>", ":CopilotChat<CR>", norsil)
 vim.keymap.set("n", "<C-E>", builtin.find_files, norsil)
 vim.keymap.set("n", "<C-F>", builtin.live_grep, norsil)
 vim.keymap.set("v", "<C-F>", lga_shortcuts.grep_visual_selection)
@@ -531,24 +523,15 @@ vim.keymap.set("n", "<C-Y>", ":Neotree toggle<CR>", norsil)
 vim.keymap.set("n", "-", ":Neotree current %:p:h<CR>", norsil)
 vim.keymap.set("n", "_", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
 
--- TODO: This can be simplified and maybe map to <C-C>?
-vim.keymap.set({ "n", "v" }, "<C-G>", function()
-    if vim.fn.mode() == 'v' then
-        vim.cmd('normal! gv"xy')
-        local selection = vim.fn.getreg('x')
-        vim.cmd('CopilotChat ' .. selection)
-    else
-        vim.cmd('CopilotChat')
-    end
-end, { noremap = true, silent = true })
-
 -- The `g` commands global ... `go` is not in use
 vim.keymap.set("n", "gb", ":e#<CR>", norsil)
 vim.keymap.set("n", "gV", "`[v`]", norsil)
 -- vim.keymap.set('x', 'gz', 'y :CocSearch <C-R>=' .. vim.fn.escape('@', "',\"$ ") .. '<CR><CR>', nor)
 
--- Leader commands
-vim.keymap.set("n", "<leader><leader>", ":nohlsearch<CR>", norsil)
+-- Misc commands
+vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist)
+vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>', nor)
+vim.keymap.set("n", "\\", ":nohlsearch<CR>", norsil)
 
 -- Auto Commands
 -- -------------------------------------
@@ -577,6 +560,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, opts)     -- code actions
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)     -- goto declaration
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)      -- goto definition
+        vim.keymap.set('n', 'gf', vim.lsp.buf.definition, opts)      -- goto definition
+        vim.keymap.set('n', 'gF', '<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>', opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)  -- goto implementation
         vim.keymap.set('n', 'gS', vim.lsp.buf.signature_help, opts)  -- show signature
         vim.keymap.set('n', 'gR', vim.lsp.buf.rename, opts)          -- rename
@@ -585,9 +570,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --
         -- vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
         -- vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-        -- vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-        -- vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-        -- vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
         -- vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 
         -- Enable LSP inlay hints????
