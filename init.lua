@@ -56,7 +56,7 @@ require('lazy').setup({
     { 'nvim-lua/plenary.nvim', },
     { 'MunifTanjim/nui.nvim', },
     -- Editing
-    { 'nvim-treesitter/nvim-treesitter',             build = ':TSUpdate', },
+    { 'nvim-treesitter/nvim-treesitter',              build = ':TSUpdate', },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring', },
     { 'numToStr/Comment.nvim', },
@@ -64,11 +64,6 @@ require('lazy').setup({
     { 'tpope/vim-surround', },
     { 'tpope/vim-unimpaired', },
     { 'gbprod/yanky.nvim', },
-    { 'mg979/vim-visual-multi' },
-    { -- TODO: Neovim 0.12 https://neovim.io/roadmap/
-        "mg979/vim-visual-multi",
-        init = function() vim.g.VM_maps = { ["Find Under"] = "<C-\\>", ["Find Subword Under"] = "<C-\\>" } end,
-    },
     -- AI
     { 'zbirenbaum/copilot.lua',                       build = ':Copilot auth' },
     { 'CopilotC-Nvim/CopilotChat.nvim',               branch = 'main',        build = 'make tiktoken', },
@@ -239,6 +234,7 @@ require('lazydev').setup()
 require('conform').setup({
     formatters_by_ft = {
         css = { 'prettierd', 'prettier', stop_after_first = true },
+        graphql = { 'prettierd', 'prettier', stop_after_first = true },
         html = { 'prettierd', 'prettier', stop_after_first = true },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
@@ -426,9 +422,6 @@ vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
     { desc = 'Open the CopilotChat Model selector', noremap = true })
 vim.keymap.set('n', '\\', ':nohlsearch<CR>',
     { desc = 'Clear search highlighting', noremap = true, silent = true })
-
-
-
 
 -- Auto Commands
 -- -------------------------------------
