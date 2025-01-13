@@ -1,8 +1,18 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
-        lazypath, })
+---@diagnostic disable-next-line: undefined-field
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -137,8 +147,6 @@ require("lazy").setup({
         "nvim-tree/nvim-web-devicons",
         opts = {}
     },
-    -- TODO: folke/snacks.nvim
-    -- TODO: folke/which-key.nvim
 
     -- LSP
     {
@@ -229,6 +237,7 @@ require("lazy").setup({
                         columns = { { 'kind_icon' }, { 'label', 'label_description', 'source_name', gap = 1 } },
                         treesitter = { "lsp" },
                     },
+                    max_height = 20,
                 },
             },
             keymap = {
@@ -290,7 +299,7 @@ require("lazy").setup({
             telescope.load_extension("live_grep_args")
         end
     },
-    -- TREES
+    -- Trees + Symbols
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -300,63 +309,52 @@ require("lazy").setup({
         },
         config = function()
             require("neo-tree").setup({
-                sources = {
-                    "filesystem",
-                    "buffers",
-                    "git_status",
-                    "document_symbols",
-                },
                 default_component_configs = {
-                    icon = { default = "", },
                     git_status = {
                         symbols = {
-                            -- Change type
-                            added     = "✚",
-                            deleted   = "-",
-                            modified  = "", -- Use unstaged instead
-                            renamed   = "➜",
-                            -- Status type
-                            -- untracked = "★",
-                            untracked = "*",
-                            ignored   = "◌",
-                            unstaged  = "~",
-                            staged    = "✓",
-                            conflict  = "✖",
-                            -- unmerged = "‡" -- Not in neo-tree
+                            modified = "", -- Use unstaged instead
+                            unstaged = "󰜥",
                         },
                     },
                 },
+                popup_border_style = "solid",
+                sources = { "filesystem", "buffers", "git_status", "document_symbols", },
                 window = {
                     mappings = {
                         ['<C-V>'] = "open_vsplit",
-                        ['B'] = "Neotree_buffers",
-                        ['E'] = "Neotree_filesystem",
-                        ['F'] = "focus_preview",
-                        ['G'] = "Neotree_git_status",
-                        ['Z'] = "Neotree_symbols",
-                        ['-'] = "parent_directory",
-                        ['l'] = false,
+                        ['b'] = { function() vim.cmd('Neotree buffers') end, desc = "buffers" },
+                        ['e'] = { function() vim.cmd('Neotree filesystem') end, desc = "filesystem" },
+                        ['g'] = { function() vim.cmd('Neotree git_status') end, desc = "git_status" },
+                    },
+                    popup = {
+                        size = { width = "80%", },
                     },
                 },
-                commands = {
-                    Neotree_filesystem = function() vim.cmd('Neotree filesystem') end,
-                    Neotree_buffers = function() vim.cmd('Neotree buffers') end,
-                    Neotree_git_status = function() vim.cmd('Neotree git_status') end,
-                    Neotree_symbols = function() vim.cmd('Neotree document_symbols right') end,
-                    parent_directory = function() vim.cmd('Neotree current %:p:h:h') end,
-                },
+                -- source configs
                 filesystem = {
+                    find_by_full_path_words = true,
                     filtered_items = {
                         hide_dotfiles = false,
                         hide_gitignored = false,
+                        visible = true,
                     },
+                    -- TODO: TESTING
+                    follow_current_file = {
+                        enabled = true,
+                    },
+                },
+                document_symbols = {
+                    -- The graphql language server currently blows up the symbols list 🙁
+                    client_filters = { ignore = { "graphql" }, },
+                    follow_cursor = true,
                 },
             })
         end
     },
-}
-)
+})
 
+-- Plugin Settings
+-- -------------------------------------
 require('ts_context_commentstring').setup {
     enable_autocmd = false,
 }
@@ -496,10 +494,10 @@ local nor = { noremap = true }
 local norsil = { noremap = true, silent = true }
 
 -- Move between splits
-vim.keymap.set("n", "<C-H>", "<C-W><C-H>", nor)
-vim.keymap.set("n", "<C-J>", "<C-W><C-J>", nor)
-vim.keymap.set("n", "<C-K>", "<C-W><C-K>", nor)
-vim.keymap.set("n", "<C-L>", "<C-W><C-L>", nor)
+vim.keymap.set("n", "<C-H>", "<C-W><C-H>", { desc = 'Move to the left window', noremap = true })
+vim.keymap.set("n", "<C-J>", "<C-W><C-J>", { desc = 'Move to the window below', noremap = true })
+vim.keymap.set("n", "<C-K>", "<C-W><C-K>", { desc = 'Move to the window above', noremap = true })
+vim.keymap.set("n", "<C-L>", "<C-W><C-L>", { desc = 'Move to the right window', noremap = true })
 
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", nor)
@@ -509,7 +507,7 @@ vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)", nor)
 vim.keymap.set("n", "<C-P>", "<Plug>(YankyCycleForward)", nor)
 vim.keymap.set("n", "<C-N>", "<Plug>(YankyCycleBackward)", nor)
 
--- Telescope ... <C-G> is not in use
+-- Telescope ... <C-Q> is not in use and maybe <C-M> but using it can be squirly
 local builtin = require("telescope.builtin")
 local lga_shortcuts = require("telescope-live-grep-args.shortcuts")
 vim.keymap.set("n", "<C-Space>", function() builtin.builtin { include_extensions = true } end, norsil)
@@ -519,9 +517,12 @@ vim.keymap.set("v", "<C-C>", ":CopilotChat<CR>", norsil)
 vim.keymap.set("n", "<C-E>", builtin.find_files, norsil)
 vim.keymap.set("n", "<C-F>", builtin.live_grep, norsil)
 vim.keymap.set("v", "<C-F>", lga_shortcuts.grep_visual_selection)
-vim.keymap.set("n", "<C-S>", builtin.resume, norsil)
-vim.keymap.set("n", "<C-Y>", ":Neotree toggle<CR>", norsil)
-vim.keymap.set("n", "-", ":Neotree current %:p:h<CR>", norsil)
+vim.keymap.set("n", "<C-G>", builtin.git_status, norsil)
+vim.keymap.set("n", "<C-Q>", builtin.resume, norsil)
+vim.keymap.set("n", "<C-S>", ":Neotree document_symbols toggle right<CR>", norsil)
+vim.keymap.set("n", "<C-T>", builtin.resume, norsil)
+vim.keymap.set("n", "<C-Y>", ":Neotree toggle left<CR>", norsil)
+vim.keymap.set("n", "-", ":Neotree filesystem float<CR>", norsil)
 vim.keymap.set("n", "_", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", norsil)
 
 -- The `g` commands global ... `go` is not in use
