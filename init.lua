@@ -17,6 +17,7 @@ vim.g.maplocalleader = ' '
 
 vim.opt.backup = false
 vim.opt.clipboard = 'unnamed'
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect', 'preview' }
 vim.opt.expandtab = true
 vim.opt.list = true
 vim.opt.listchars = 'tab:▸ ,eol:¬,trail:·'
@@ -81,7 +82,6 @@ require('lazy').setup({
     { 'stevearc/conform.nvim', },
     -- CMP
     { 'saghen/blink.cmp',                             version = '*', },
-    { 'giuxtaposition/blink-cmp-copilot', },
     -- Fuzzy
     { 'nvim-telescope/telescope.nvim', },
     { 'nvim-telescope/telescope-fzf-native.nvim',     build = 'make' },
@@ -273,15 +273,9 @@ require('blink.cmp').setup({
     },
     signature = { enabled = true, },
     sources = {
-        default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
         cmdline = {},
         providers = {
-            copilot = {
-                async = true,
-                module = 'blink-cmp-copilot',
-                name = '',
-                score_offset = 100,
-            },
             lazydev = {
                 module = 'lazydev.integrations.blink',
                 name = '',
