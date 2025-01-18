@@ -176,12 +176,13 @@ require('copilot').setup({
 })
 
 require('CopilotChat').setup({
+    model = 'claude-3.5-sonnet',
     question_header = '󰯈 Human ',
     answer_header = ' Copilot ',
     error_header = ' Error ',
     mappings = {
         reset = {
-            normal = '<leader>R',
+            normal = 'gR',
             insert = '',
         },
     },
@@ -195,7 +196,7 @@ require('mason').setup()
 require('mason-lspconfig').setup({
     automatic_installation = true,
     -- TODO: Add 'marksman'?
-    ensure_installed = { 'bashls', 'cssls', 'eslint', 'graphql', 'html', 'jsonls', 'lua_ls', 'tailwindcss', 'ts_ls', 'yamlls', },
+    ensure_installed = { 'bashls', 'cssls', 'eslint', 'graphql', 'html', 'jsonls', 'lua_ls', 'tailwindcss', 'vtsls', 'yamlls', },
 })
 
 local lspconfig = require('lspconfig')
@@ -373,17 +374,18 @@ vim.keymap.set('n', '<C-P>', '<Plug>(YankyCycleForward)',
 vim.keymap.set('n', '<C-N>', '<Plug>(YankyCycleBackward)',
     { desc = 'Cycle backward through the clipboard', noremap = true })
 
--- Telescope ... <C-Q> is not in use and maybe <C-M> but using it can be squirly
+-- The `<C->` commands "Open things", sometimes with context
+-- Telescope, CopilotChat, Neotree
+-- Available: <C-,>
 local builtin = require('telescope.builtin')
 local lga_shortcuts = require('telescope-live-grep-args.shortcuts')
+
 vim.keymap.set('n', '<C-Space>', function() builtin.builtin { include_extensions = true } end,
     { desc = 'Open Telescope with all extensions', noremap = true, silent = true })
 vim.keymap.set('n', '<C-B>', builtin.buffers,
     { desc = 'Fuzzy find buffer files', noremap = true })
-vim.keymap.set('n', '<C-C>', ':CopilotChat<CR>',
+vim.keymap.set({ 'n', 'v' }, '<C-C>', ':CopilotChat<CR>',
     { desc = 'Open CopilotChat', noremap = true, silent = true })
-vim.keymap.set('v', '<C-C>', ':CopilotChat<CR>',
-    { desc = 'Open CopilotChat with context from the visual selection', noremap = true, silent = true })
 vim.keymap.set('n', '<C-E>', builtin.find_files,
     { desc = 'Fuzzy find filesystem files', noremap = true })
 vim.keymap.set('n', '<C-F>', builtin.live_grep,
@@ -392,30 +394,36 @@ vim.keymap.set('v', '<C-F>', lga_shortcuts.grep_visual_selection,
     { desc = 'Fuzzy search the visual selection', noremap = true })
 vim.keymap.set('n', '<C-G>', builtin.git_status,
     { desc = 'Fuzzy find git status files', noremap = true })
+vim.keymap.set('n', '<C-Q>', function()
+    local actions = require("CopilotChat.actions")
+    require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+end, { desc = "CopilotChat - Prompt actions" })
 vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
     { desc = 'Open document symbols explorer', noremap = true, silent = true })
 vim.keymap.set('n', '<C-T>', builtin.resume,
     { desc = 'Open Telescope with the last source used', noremap = true })
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>',
     { desc = 'Open the filesystem tree explorer in the drawer', noremap = true, silent = true })
+-- The `operator` commands
 vim.keymap.set('n', '-', ':Neotree filesystem float<CR>',
     { desc = 'Open the filesystem tree explorer in a float', noremap = true, silent = true })
 vim.keymap.set('n', '_', ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
     { desc = 'Open the filesystem explorer in Telescope relative to the current file', noremap = true, silent = true })
 
--- The `g` commands global ... `go` is not in use
+-- The `g` commands "go somewhere", see the LSP `g` commands below
+-- Available: `g(?|a|o)` is not in use
 vim.keymap.set('n', 'gb', ':e#<CR>',
-    { desc = 'Edit last file', noremap = true })
+    { desc = 'Edit last file', noremap = true, silent = true })
 vim.keymap.set('n', 'gV', '`[v`]',
     { desc = 'Re-select last pasted text', noremap = true })
 
--- Misc commands
+-- Misc + Leader commands
+vim.keymap.set('n', '\\', ':nohlsearch<CR>',
+    { desc = 'Clear search highlighting', noremap = true, silent = true })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist,
     { desc = 'Open diagnostics in a quickfix list', noremap = true })
 vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
     { desc = 'Open the CopilotChat Model selector', noremap = true })
-vim.keymap.set('n', '\\', ':nohlsearch<CR>',
-    { desc = 'Clear search highlighting', noremap = true, silent = true })
 
 -- Auto Commands
 -- -------------------------------------
