@@ -176,7 +176,7 @@ require('copilot').setup({
 })
 
 require('CopilotChat').setup({
-    model = 'claude-3.5-sonnet',
+    -- model = 'claude-3.5-sonnet',
     question_header = '󰯈 Human ',
     answer_header = ' Copilot ',
     error_header = ' Error ',
@@ -224,6 +224,7 @@ lspconfig.eslint.setup({
         })
     end,
 })
+
 lspconfig.graphql.setup({
     capabilities = capabilities,
     root_dir = lspconfig.util.root_pattern('.graphqlrc*', '.graphql.config.*', 'graphql.config.*', 'package.json'),
@@ -410,13 +411,6 @@ vim.keymap.set('n', '-', ':Neotree filesystem float<CR>',
 vim.keymap.set('n', '_', ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
     { desc = 'Open the filesystem explorer in Telescope relative to the current file', noremap = true, silent = true })
 
--- The `g` commands "go somewhere", see the LSP `g` commands below
--- Available: `g(?|a|o)` is not in use
-vim.keymap.set('n', 'gb', ':e#<CR>',
-    { desc = 'Edit last file', noremap = true, silent = true })
-vim.keymap.set('n', 'gV', '`[v`]',
-    { desc = 'Re-select last pasted text', noremap = true })
-
 -- Misc + Leader commands
 vim.keymap.set('n', '\\', ':nohlsearch<CR>',
     { desc = 'Clear search highlighting', noremap = true, silent = true })
@@ -425,12 +419,28 @@ vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist,
 vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
     { desc = 'Open the CopilotChat Model selector', noremap = true })
 
+-- The `g` commands "go somewhere", see the LSP `g` commands below
+-- Available: `g(?|a|o)` is not in use
+vim.keymap.set('n', 'gb', ':e#<CR>',
+    { desc = 'Edit last file', noremap = true, silent = true })
+vim.keymap.set('n', 'gV', '`[v`]',
+    { desc = 'Re-select last pasted text', noremap = true })
+
+
 -- Auto Commands
 -- -------------------------------------
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
     callback = function(e)
         vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
+        vim.keymap.set('n', 'g>', function()
+            vim.lsp.buf.code_action({
+                context = {
+                    diagnostics = vim.diagnostic.get(0),
+                    only = { "source", "refactor", "quickfix" }
+                }
+            })
+        end, { desc = 'code action commands' })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto declaration', buffer = e.buf })
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
         vim.keymap.set('n', 'gf', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
@@ -441,12 +451,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { desc = 'rename', buffer = e.buf })
         vim.keymap.set('n', 'gu', vim.lsp.buf.references, { desc = 'show references', buffer = e.buf })
         vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, { desc = 'goto types definition', buffer = e.buf })
-
         -- vim.keymap.set('n', '<leader>vws', vim.lsp.buf.workspace_symbol, opts)
-        -- vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
-
-        -- Enable LSP inlay hints????
-        vim.lsp.inlay_hint.enable(true)
 
         -- Disable LSP semantic highlights
         local id = vim.tbl_get(e, 'data', 'client_id')
