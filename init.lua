@@ -57,7 +57,7 @@ require('lazy').setup({
     { 'nvim-lua/plenary.nvim', },
     { 'MunifTanjim/nui.nvim', },
     -- Editing
-    { 'nvim-treesitter/nvim-treesitter',              build = ':TSUpdate', },
+    { 'nvim-treesitter/nvim-treesitter',             build = ':TSUpdate', },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring', },
     { 'numToStr/Comment.nvim', },
@@ -66,8 +66,8 @@ require('lazy').setup({
     { 'tpope/vim-unimpaired', },
     { 'gbprod/yanky.nvim', },
     -- AI
-    { 'zbirenbaum/copilot.lua',                       build = ':Copilot auth' },
-    { 'CopilotC-Nvim/CopilotChat.nvim',               branch = 'main',        build = 'make tiktoken', },
+    { 'zbirenbaum/copilot.lua',                      build = ':Copilot auth' },
+    { 'CopilotC-Nvim/CopilotChat.nvim',              branch = 'main',        build = 'make tiktoken', },
     -- GIT
     { 'tpope/vim-fugitive', },
     { 'tpope/vim-rhubarb', },
@@ -81,16 +81,19 @@ require('lazy').setup({
     -- Formatting
     { 'stevearc/conform.nvim', },
     -- CMP
-    { 'saghen/blink.cmp',                             version = '*', },
+    { 'saghen/blink.cmp',                            version = '*', },
     -- Fuzzy
-    { 'nvim-telescope/telescope.nvim', },
-    { 'nvim-telescope/telescope-fzf-native.nvim',     build = 'make' },
-    { 'nvim-telescope/telescope-file-browser.nvim', },
-    { 'nvim-telescope/telescope-live-grep-args.nvim', },
+    { 'ibhagwan/fzf-lua' },
     -- Tree + Outline
-    { 'nvim-neo-tree/neo-tree.nvim',                  branch = 'v3.x', },
+    { 'nvim-neo-tree/neo-tree.nvim',                 branch = 'v3.x', },
 }, {})
 
+-- Store Core Plugins
+local aichat = require('CopilotChat')
+local lspconfig = require('lspconfig')
+local cmp = require('blink.cmp')
+local fuzzy = require('fzf-lua')
+local tree = require('neo-tree')
 
 -- Plugin Setup :: Neovim
 -- -------------------------------------
@@ -175,7 +178,7 @@ require('copilot').setup({
     },
 })
 
-require('CopilotChat').setup({
+aichat.setup({
     -- model = 'claude-3.5-sonnet',
     question_header = '󰯈 Human ',
     answer_header = ' Copilot ',
@@ -189,7 +192,7 @@ require('CopilotChat').setup({
 })
 
 -- Editor/UI
-require 'nvim-web-devicons'.setup()
+require('nvim-web-devicons').setup()
 
 -- LSP
 require('mason').setup()
@@ -199,12 +202,11 @@ require('mason-lspconfig').setup({
     ensure_installed = { 'bashls', 'cssls', 'eslint', 'graphql', 'html', 'jsonls', 'lua_ls', 'tailwindcss', 'vtsls', 'yamlls', },
 })
 
-local lspconfig = require('lspconfig')
 local capabilities = vim.tbl_deep_extend(
     'force',
     {},
     vim.lsp.protocol.make_client_capabilities(),
-    require('blink.cmp').get_lsp_capabilities()
+    cmp.get_lsp_capabilities()
 )
 
 require('mason-lspconfig').setup_handlers({
@@ -228,6 +230,13 @@ lspconfig.eslint.setup({
 lspconfig.graphql.setup({
     capabilities = capabilities,
     root_dir = lspconfig.util.root_pattern('.graphqlrc*', '.graphql.config.*', 'graphql.config.*', 'package.json'),
+})
+
+lspconfig.vtsls.setup({
+    capabilities = capabilities,
+    init_options = {
+        vtsls = { autoUseWorkspaceTsdk = true, },
+    },
 })
 
 require('lazydev').setup()
@@ -254,7 +263,7 @@ require('conform').setup({
 })
 
 -- CMP
-require('blink.cmp').setup({
+cmp.setup({
     completion = {
         documentation = {
             auto_show = true,
@@ -292,25 +301,78 @@ require('blink.cmp').setup({
 })
 
 -- Fuzzy
-local telescope = require('telescope')
-telescope.setup({
-    defaults = {
-        layout_strategy = 'vertical',
-        layout_config = {
-            vertical = { mirror = true, preview_cutoff = 0, prompt_position = 'top', }
-        },
-        prompt_prefix = '👽 ',
-        selection_caret = '• ',
-        sorting_strategy = 'ascending',
+fuzzy.setup({
+    'default',
+    defaults      = {
+        formatter = "path.dirname_first",
+        prompt = "  👽 ",
+        cwd_prompt = false,
     },
+    buffers       = { prompt = "  🗂️ ", },
+    diagnostics   = {
+        prompt = "  🚑 ",
+        winopts = { preview = { hidden = true, } }
+    },
+    files         = {
+        winopts = { preview = { hidden = true, } }
+    },
+    grep          = { prompt = " 🔍 ", },
+    git           = {
+        icons = {
+            ["M"] = { icon = "󰜥", color = "yellow" },
+            ["D"] = { icon = "✖", color = "red" },
+            ["A"] = { icon = "✚", color = "green" },
+            ["R"] = { icon = "󰁕", color = "yellow" },
+            ["C"] = { icon = "", color = "yellow" },
+            ["T"] = { icon = "", color = "magenta" },
+            ["?"] = { icon = "", color = "magenta" },
+        },
+        status = { prompt = " 🚧 ", },
+    },
+    lsp           = {
+        code_actions = {
+            prompt = "  ✨ ",
+            winopts = { preview = { hidden = true, } }
+        }
+    },
+    keymap        = {
+        builtin = {
+            false,
+            ["<Esc>"] = "hide",
+            ["<F1>"]  = "toggle-help",
+            ["<F2>"]  = "toggle-fullscreen",
+            ["<F4>"]  = "toggle-preview",
+            ["<F5>"]  = "toggle-preview-ccw",
+            ["<F6>"]  = "toggle-preview-cw",
+            ["<c-f>"] = "preview-page-down",
+            ["<c-b>"] = "preview-page-up"
+        },
+        fzf = {
+            false,
+            ["ctrl-z"] = "abort",
+            ["ctrl-q"] = "select-all+accept",
+            ["ctrl-u"] = "half-page-up",
+            ["ctrl-d"] = "half-page-down",
+            ["ctrl-x"] = "jump",
+            ["ctrl-f"] = "preview-page-down",
+            ["ctrl-b"] = "preview-page-up",
+            ["ctrl-a"] = "toggle-all",
+        }
+    },
+    spell_suggest = { prompt = " ✏️ ", },
+    winopts       = {
+        title_pos = "left",
+        preview = {
+            layout    = 'vertical',
+            title_pos = "left",
+            vertical  = "down:70%",
+        }
+    }
 })
-telescope.load_extension('fzf')
-telescope.load_extension('file_browser')
-telescope.load_extension('yank_history')
-telescope.load_extension('live_grep_args')
+fuzzy.register_ui_select()
 
 -- Tree + Outline
-require('neo-tree').setup({
+tree.setup({
     default_component_configs = {
         git_status = {
             symbols = {
@@ -352,75 +414,55 @@ require('neo-tree').setup({
 -- :map
 -- -------------------------------------
 -- Move between splits
-vim.keymap.set('n', '<C-H>', '<C-W><C-H>',
-    { desc = 'Move to the left window', noremap = true })
-vim.keymap.set('n', '<C-J>', '<C-W><C-J>',
-    { desc = 'Move to the window below', noremap = true })
-vim.keymap.set('n', '<C-K>', '<C-W><C-K>',
-    { desc = 'Move to the window above', noremap = true })
-vim.keymap.set('n', '<C-L>', '<C-W><C-L>',
-    { desc = 'Move to the right window', noremap = true })
+vim.keymap.set('n', '<C-H>', '<C-W><C-H>', { desc = 'Move to the left window', noremap = true })
+vim.keymap.set('n', '<C-J>', '<C-W><C-J>', { desc = 'Move to the window below', noremap = true })
+vim.keymap.set('n', '<C-K>', '<C-W><C-K>', { desc = 'Move to the window above', noremap = true })
+vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { desc = 'Move to the right window', noremap = true })
 
 -- Yanky
-vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)',
-    { desc = 'Put (paste) clipboard after', noremap = true })
-vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)',
-    { desc = 'Put (paste) clipboard before', noremap = true })
-vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)',
-    { desc = 'Put clipboard after (with cursor)', noremap = true })
-vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)',
-    { desc = 'Put clipboard before (with cursor)', noremap = true })
-vim.keymap.set('n', '<C-P>', '<Plug>(YankyCycleForward)',
-    { desc = 'Cycle forward through the clipboard', noremap = true })
-vim.keymap.set('n', '<C-N>', '<Plug>(YankyCycleBackward)',
-    { desc = 'Cycle backward through the clipboard', noremap = true })
+vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)', { desc = 'Put (paste) cb after', noremap = true })
+vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)', { desc = 'Put (paste) cb before', noremap = true })
+vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)', { desc = 'Put cb after (w/ cursor)', noremap = true })
+vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)', { desc = 'Put cb before (w/ cursor)', noremap = true })
+vim.keymap.set('n', '<C-P>', '<Plug>(YankyCycleForward)', { desc = 'Cycle forward through the cb', noremap = true })
+vim.keymap.set('n', '<C-N>', '<Plug>(YankyCycleBackward)', { desc = 'Cycle backward through the cb', noremap = true })
 
--- The `<C->` commands "Open things", sometimes with context
--- Telescope, CopilotChat, Neotree
--- Available: <C-,>
-local builtin = require('telescope.builtin')
-local lga_shortcuts = require('telescope-live-grep-args.shortcuts')
-
-vim.keymap.set('n', '<C-Space>', function() builtin.builtin { include_extensions = true } end,
-    { desc = 'Open Telescope with all extensions', noremap = true, silent = true })
-vim.keymap.set('n', '<C-B>', builtin.buffers,
-    { desc = 'Fuzzy find buffer files', noremap = true })
-vim.keymap.set({ 'n', 'v' }, '<C-C>', ':CopilotChat<CR>',
-    { desc = 'Open CopilotChat', noremap = true, silent = true })
-vim.keymap.set('n', '<C-E>', builtin.find_files,
-    { desc = 'Fuzzy find filesystem files', noremap = true })
-vim.keymap.set('n', '<C-F>', builtin.live_grep,
-    { desc = 'Fuzzy search within files', noremap = true })
-vim.keymap.set('v', '<C-F>', lga_shortcuts.grep_visual_selection,
-    { desc = 'Fuzzy search the visual selection', noremap = true })
-vim.keymap.set('n', '<C-G>', builtin.git_status,
-    { desc = 'Fuzzy find git status files', noremap = true })
-vim.keymap.set('n', '<C-Q>', function()
-    local actions = require("CopilotChat.actions")
-    require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-end, { desc = "CopilotChat - Prompt actions" })
+-- The `<C->` commands "Open things", sometimes with visual context
+-- fzf-lua, CopilotChat, Neotree
+vim.keymap.set('n', '<C-Space>', fuzzy.builtin, { desc = 'Open fzf-lua builtins', noremap = true })
+vim.keymap.set('n', '<C-B>', fuzzy.buffers, { desc = 'Fuzzy find buffer files', noremap = true })
+vim.keymap.set({ 'n', 'v' }, '<C-C>', aichat.open, { desc = 'Open CopilotChat', noremap = true, })
+vim.keymap.set('n', '<C-E>', fuzzy.files, { desc = 'Fuzzy find filesystem files', noremap = true })
+vim.keymap.set('n', '<C-F>', fuzzy.live_grep, { desc = 'Fuzzy search within files', noremap = true })
+vim.keymap.set('v', '<C-F>', fuzzy.grep_visual, { desc = 'Fuzzy search the visual selection', noremap = true })
+vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status files', noremap = true })
 vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
     { desc = 'Open document symbols explorer', noremap = true, silent = true })
-vim.keymap.set('n', '<C-T>', builtin.resume,
-    { desc = 'Open Telescope with the last source used', noremap = true })
+vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
+vim.keymap.set('n', '<C-Q>', function()
+    require('CopilotChat.integrations.fzflua').pick(require('CopilotChat.actions').prompt_actions())
+end, { desc = "CopilotChat - Prompt actions" })
+-- <C-X> is mapped to lsp.buf.code_action in LspAttach autocmd
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>',
     { desc = 'Open the filesystem tree explorer in the drawer', noremap = true, silent = true })
--- The `operator` commands
-vim.keymap.set('n', '-', ':Neotree filesystem float<CR>',
-    { desc = 'Open the filesystem tree explorer in a float', noremap = true, silent = true })
-vim.keymap.set('n', '_', ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
-    { desc = 'Open the filesystem explorer in Telescope relative to the current file', noremap = true, silent = true })
 
--- Misc + Leader commands
+-- The `operator` commands
+vim.keymap.set('n', '-', ':Neotree filesystem float reveal<CR>',
+    { desc = 'Open the filesystem tree explorer in a float', noremap = true, silent = true })
 vim.keymap.set('n', '\\', ':nohlsearch<CR>',
     { desc = 'Clear search highlighting', noremap = true, silent = true })
+
+-- TODO
+-- lua require'fzf-lua'.fzf_exec("rg --files", { previewer = "builtin" })
+
+-- Leader commands
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist,
     { desc = 'Open diagnostics in a quickfix list', noremap = true })
 vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
     { desc = 'Open the CopilotChat Model selector', noremap = true })
 
 -- The `g` commands "go somewhere", see the LSP `g` commands below
--- Available: `g(?|a|o)` is not in use
+-- Available: `g(?|a|)` is not in use
 vim.keymap.set('n', 'gb', ':e#<CR>',
     { desc = 'Edit last file', noremap = true, silent = true })
 vim.keymap.set('n', 'gV', '`[v`]',
@@ -432,15 +474,7 @@ vim.keymap.set('n', 'gV', '`[v`]',
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
     callback = function(e)
-        vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
-        vim.keymap.set('n', 'g>', function()
-            vim.lsp.buf.code_action({
-                context = {
-                    diagnostics = vim.diagnostic.get(0),
-                    only = { "source", "refactor", "quickfix" }
-                }
-            })
-        end, { desc = 'code action commands' })
+        vim.keymap.set('n', '<C-X>', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto declaration', buffer = e.buf })
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
         vim.keymap.set('n', 'gf', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
@@ -451,13 +485,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { desc = 'rename', buffer = e.buf })
         vim.keymap.set('n', 'gu', vim.lsp.buf.references, { desc = 'show references', buffer = e.buf })
         vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, { desc = 'goto types definition', buffer = e.buf })
-        -- vim.keymap.set('n', '<leader>vws', vim.lsp.buf.workspace_symbol, opts)
+        -- vim.keymap.set('n', 'g????', vim.lsp.buf.workspace_symbol, opts)
 
         -- Disable LSP semantic highlights
         local id = vim.tbl_get(e, 'data', 'client_id')
         local client = id and vim.lsp.get_client_by_id(id)
         if client ~= nil then
             client.server_capabilities.semanticTokensProvider = nil
+
+            if client.server_capabilities.documentHighlightProvider then
+                vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+                    buffer = e.buf,
+                    callback = vim.lsp.buf.document_highlight,
+                })
+                vim.api.nvim_create_autocmd("CursorMoved", {
+                    buffer = e.buf,
+                    callback = vim.lsp.buf.clear_references,
+                })
+            end
         end
     end
 })
@@ -554,8 +599,6 @@ vim.api.nvim_set_hl(0, 'Todo', { ctermbg = 'NONE', ctermfg = 1, underline = true
 vim.api.nvim_set_hl(0, 'CopilotSuggestion', { link = 'NonText' })
 vim.api.nvim_set_hl(0, 'NeoTreeGitIgnored', { ctermbg = 'NONE', ctermfg = 9 })
 vim.api.nvim_set_hl(0, 'NeoTreeRootName', { link = 'Directory' })
-vim.api.nvim_set_hl(0, 'TelescopeBorder', { link = 'WinSeparator' })
-vim.api.nvim_set_hl(0, 'TelescopePromptCounter', { link = 'Constant' })
 vim.api.nvim_set_hl(0, 'BlinkCmpSource', { link = 'Comment' })
 vim.api.nvim_set_hl(0, 'BlinkCmpLabelMatch', { link = 'Special' })
 -- Treesitter https://neovim.io/doc/user/treesitter.html
