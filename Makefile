@@ -1,5 +1,5 @@
 brews = fd fzf git gh node pnpm prettierd ripgrep tree
-casks = gpg-suite
+casks = gpg-suite warp
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 
 # --------------------------------------
@@ -22,6 +22,7 @@ install:
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
 	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
+	@ln -sfv `pwd`/warp/nord-16.yaml $$HOME/.warp/themes/
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -87,4 +88,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install uninstall update fonts macos
+.PHONY: help install uninstall update fonts macos warp

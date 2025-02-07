@@ -90,6 +90,8 @@ require('lazy').setup({
     { 'nvim-neo-tree/neo-tree.nvim',                 branch = 'v3.x', },
 }, {})
 
+-- Plugin Setup :: Neovim
+-- -------------------------------------
 -- Store Core Plugins
 local aichat = require('CopilotChat')
 local lspconfig = require('lspconfig')
@@ -97,8 +99,6 @@ local cmp = require('blink.cmp')
 local fuzzy = require('fzf-lua')
 local tree = require('neo-tree')
 
--- Plugin Setup :: Neovim
--- -------------------------------------
 -- Editing
 ---@diagnostic disable-next-line: missing-fields
 require('nvim-treesitter.configs').setup({
@@ -318,6 +318,7 @@ fuzzy.setup({
     files         = {
         winopts = { preview = { hidden = true, } }
     },
+    fzf_colors    = true,
     grep          = { prompt = " 🔍 ", },
     git           = {
         icons = {
@@ -533,95 +534,102 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 -- Colors
 -- :highlight
 -- -------------------------------------
-local is_apple_terminal = os.getenv("TERM_PROGRAM") == "Apple_Terminal"
-
-local function set_highlight(group, opts)
-    if is_apple_terminal and not opts.link then
-        vim.api.nvim_set_hl(0, group, {
-            ctermbg = opts.ctermbg,
-            ctermfg = opts.ctermfg
-        })
-    else
-        vim.api.nvim_set_hl(0, group, opts)
-    end
-end
-
-local function apply_base16_colors(base16, overrides)
+local function apply_theme(theme, overrides)
     local highlights = {
         -- GUI
-        Normal = { ctermfg = 13, bg = base16.base00, fg = base16.base0D },
-        -- Normal = { ctermfg = 13, fg = base16.base0D },
-        NonText = { ctermfg = 10, fg = base16.base0A },
-        SpecialKey = { ctermfg = 1, fg = base16.base01 },
-        Cursor = { ctermbg = 5, bg = base16.base05 },
-        CursorLine = { ctermbg = 8, bg = base16.base08 },
-        CursorColumn = { ctermbg = 8, bg = base16.base08 },
-        ColorColumn = { ctermbg = 8, bg = base16.base08 },
-        LineNr = { ctermfg = 10, fg = base16.base0A },
-        CursorLineNr = { ctermfg = 5, fg = base16.base05 },
-        WinSeparator = { ctermbg = 8, ctermfg = 8, bg = base16.base08, fg = base16.base08 },
-        -- SignColumn = { ctermbg = 0, bg = base16.base00 },
-        QuickFixLine = { ctermbg = 8, bg = base16.base08 },
-        Directory = { ctermfg = 4, fg = base16.base04 },
-        Conceal = { ctermfg = 4, fg = base16.base04 },
-        Title = { ctermfg = 15, fg = base16.base0F, bold = true },
+        Normal = { bg = theme.base00, fg = theme.base04 },
+        -- Normal = {  fg = theme.base04 },
+        NonText = { fg = theme.base03 },
+        SpecialKey = { fg = theme.base0B },
+        Cursor = { bg = theme.base0F },
+        CursorLine = { bg = theme.base01 },
+        CursorColumn = { link = 'CursorLine' },
+        ColorColumn = { link = 'CursorColumn' },
+        LineNr = { link = 'NonText' },
+        CursorLineNr = { fg = theme.base0F },
+        WinSeparator = { bg = theme.base01, fg = theme.base01 },
+        -- SignColumn = {  bg = theme.base00 },
+        QuickFixLine = { link = 'CursorLine' },
+        Directory = { fg = theme.base09 },
+        Conceal = { fg = theme.base09 },
+        Title = { fg = theme.base06, bold = true },
 
         -- Status & Tab Lines
-        StatusLine = { ctermbg = 8, ctermfg = 12, bg = base16.base08, fg = base16.base0C },
-        StatusLineNC = { ctermbg = 8, ctermfg = 10, bg = base16.base08, fg = base16.base0A },
-        TabLine = { ctermbg = 8, ctermfg = 10, bg = base16.base08, fg = base16.base0A },
+        StatusLine = { bg = theme.base01, fg = theme.base0A },
+        StatusLineNC = { bg = theme.base01, fg = theme.base03 },
+        TabLine = { bg = theme.base01, fg = theme.base03 },
         TabLineSel = { link = "Title" },
-        TabLineFill = { ctermbg = 8, ctermfg = 10, bg = base16.base08, fg = base16.base0A },
+        TabLineFill = { bg = theme.base01, fg = theme.base03 },
 
         -- Search & Selection
-        Visual = { ctermbg = 9, bg = base16.base09 },
-        CurSearch = { ctermbg = 12, ctermfg = 7, bg = base16.base0C, fg = base16.base07 },
-        Search = { ctermbg = 8, bg = base16.base08 },
-        IncSearch = { ctermbg = 8, ctermfg = 11, bg = base16.base08, fg = base16.base0B },
-        MatchParen = { ctermbg = 10, bg = base16.base0A },
+        Visual = { bg = theme.base02 },
+        CurSearch = { bg = theme.base0A, fg = theme.base05 },
+        Search = { bg = theme.base01 },
+        IncSearch = { bg = theme.base01, fg = theme.base0C },
+        MatchParen = { bg = theme.base03 },
         LspReferenceText = { link = 'Search' },
 
         -- Popup Menus & Floating Windows
-        Pmenu = { ctermbg = 8, bg = base16.base08 },
-        PmenuSel = { ctermbg = 10, bg = base16.base0A },
-        PmenuThumb = { ctermbg = 9, bg = base16.base09 },
-        PmenuSbar = { ctermbg = 0, bg = base16.base00 },
+        Pmenu = { bg = theme.base01 },
+        PmenuSel = { bg = theme.base03 },
+        PmenuThumb = { bg = theme.base02 },
+        PmenuSbar = { bg = theme.base00 },
         WildMenu = { link = 'CurSearch' },
         NormalFloat = { link = 'Pmenu' },
         WinBar = { link = 'Pmenu' },
         WinBarNC = { link = 'Pmenu' },
 
+        -- Syntax Highligting [:vert help group-name]
+        Comment = { fg = theme.base03 },
+        Constant = { fg = theme.base07 },  -- + Boolean
+        Number = { fg = theme.base0F },
+        Float = { link = 'Number' },
+        String = { fg = theme.base0E },
+        Character = { link = 'String' },
+        Identifier = { fg = theme.base08 },  -- + Function
+        Statement = { fg = theme.base09 },   -- + Conditional + Repeat + Label + Operator + Keyword + Exception
+        PreProc = { fg = theme.base0A },     -- + Include + Define + Macro + PreCondit
+        Type = { fg = theme.base07 },        -- + StorageClass + Structure + Typedef
+        Special = { fg = theme.base0F },     -- + SpecialChar + SpecialComment
+        Delimiter = { fg = theme.base09 },
+        Tag = { fg = theme.base09 },
+        Debug = { fg = theme.base0C },
+        Underlined = { underline = true },
+        Ignore = { fg = theme.base08 },
+        Error = { fg = theme.base0B },
+        Todo = { fg = theme.base0B, underline = true },
+
         -- Messages and diagnostics
-        Added = { ctermfg = 2, fg = base16.base02 },
-        Changed = { ctermfg = 3, fg = base16.base03 },
-        Removed = { ctermfg = 1, fg = base16.base01 },
-        DiagnosticError = { ctermfg = 1, fg = base16.base01 },
-        DiagnosticWarn = { ctermfg = 3, fg = base16.base03 },
-        DiagnosticInfo = { ctermfg = 6, fg = base16.base06 },
-        DiagnosticHint = { ctermfg = 4, fg = base16.base04 },
-        DiagnosticOk = { ctermfg = 2, fg = base16.base02 },
-        DiagnosticDeprecated = { ctermfg = 11, fg = base16.base0B },
+        Added = { fg = theme.base0E },
+        Changed = { fg = theme.base0D },
+        Removed = { fg = theme.base0B },
+        DiagnosticError = { fg = theme.base0B },
+        DiagnosticWarn = { fg = theme.base0D },
+        DiagnosticInfo = { fg = theme.base07 },
+        DiagnosticHint = { fg = theme.base09 },
+        DiagnosticOk = { fg = theme.base0E },
+        DiagnosticDeprecated = { fg = theme.base0C },
         DiagnosticUnnecessary = { underline = true },
-        DiagnosticUnderlineError = { ctermfg = 1, fg = base16.base01, underline = true },
-        DiagnosticUnderlineWarn = { ctermfg = 3, fg = base16.base03, underline = true },
-        DiagnosticUnderlineInfo = { ctermfg = 6, fg = base16.base06, underline = true },
-        DiagnosticUnderlineHint = { ctermfg = 4, fg = base16.base04, underline = true },
-        DiagnosticUnderlineOk = { ctermfg = 2, fg = base16.base02, underline = true },
+        DiagnosticUnderlineError = { fg = theme.base0B, underline = true },
+        DiagnosticUnderlineWarn = { fg = theme.base0D, underline = true },
+        DiagnosticUnderlineInfo = { fg = theme.base07, underline = true },
+        DiagnosticUnderlineHint = { fg = theme.base09, underline = true },
+        DiagnosticUnderlineOk = { fg = theme.base0E, underline = true },
         ErrorMsg = { link = "DiagnosticError" },
         ModeMsg = { link = "DiagnosticHint" },
         MoreMsg = { link = "DiagnosticHint" },
-        Question = { ctermfg = 11, fg = base16.base0B },
         WarningMsg = { link = "DiagnosticWarn" },
+        Question = { fg = theme.base0C },
 
         -- Diffs
-        DiffAdd = { ctermbg = 2, ctermfg = 9, bg = base16.base02, fg = base16.base09 },
-        DiffChange = { ctermbg = 3, ctermfg = 9, bg = base16.base03, fg = base16.base09 },
-        DiffDelete = { ctermbg = 1, ctermfg = 9, bg = base16.base01, fg = base16.base09 },
-        DiffText = { ctermbg = 4, bg = base16.base04, fg = base16.base09 },
+        DiffAdd = { bg = theme.base0E, fg = theme.base02 },
+        DiffChange = { bg = theme.base0D, fg = theme.base02 },
+        DiffDelete = { bg = theme.base0B, fg = theme.base02 },
+        DiffText = { bg = theme.base09, fg = theme.base02 },
 
         -- Folds
-        Folded = { ctermfg = 10, fg = base16.base0A },
-        FoldColumn = { ctermfg = 10, fg = base16.base0A },
+        Folded = { fg = theme.base03 },
+        FoldColumn = { link = 'Folded' },
 
         -- Spelling
         SpellBad = { underline = true },
@@ -629,111 +637,94 @@ local function apply_base16_colors(base16, overrides)
         SpellLocal = { underline = true },
         SpellRare = { underline = true },
 
-        -- Syntax Highligting [:vert help group-name]
-        Comment = { ctermfg = 10, fg = base16.base0A },
-        Constant = { ctermfg = 6, fg = base16.base06 }, -- + Boolean
-        Number = { ctermfg = 5, fg = base16.base05 },
-        Float = { link = 'Number' },
-        String = { ctermfg = 2, fg = base16.base02 },
-        Character = { ctermfg = 2, fg = base16.base02 },
-        Identifier = { ctermfg = 14, fg = base16.base0E }, -- + Function
-        Statement = { ctermfg = 4, fg = base16.base04 },   -- + Conditional + Repeat + Label + Operator + Keyword + Exception
-        PreProc = { ctermfg = 12, fg = base16.base0C },    -- + Include + Define + Macro + PreCondit
-        Type = { ctermfg = 6, fg = base16.base06 },        -- + StorageClass + Structure + Typedef
-        Special = { ctermfg = 5, fg = base16.base05 },     -- + SpecialChar + SpecialComment
-        Delimiter = { ctermfg = 4, fg = base16.base04 },
-        Tag = { ctermfg = 4, fg = base16.base04 },
-        Debug = { ctermfg = 11, fg = base16.base0B },
-        Underlined = { underline = true },
-        Ignore = { ctermfg = 14, fg = base16.base0E },
-        Error = { ctermfg = 1, fg = base16.base01 },
-        Todo = { ctermfg = 1, fg = base16.base01, underline = true },
-
         -- Treesitter https://neovim.io/doc/user/treesitter.html
         ['@conceal'] = { link = 'Conceal' },
         ['@constructor'] = { link = 'Identifier' },
         ['@exception'] = { link = 'Special' },
-        ['@punctuation.bracket'] = { ctermfg = 13, fg = base16.base0D },
+        ['@punctuation.bracket'] = { fg = theme.base04 },
         ['@punctuation.special'] = { link = 'Debug' },
         ['@string.regex'] = { link = 'WarningMsg' },
         ['@tag.attribute'] = { link = 'Statement' },
-        ['@text.literal'] = { ctermfg = 13, fg = base16.base0D },
-        ['@variable'] = { ctermfg = 13, fg = base16.base0D },
+        ['@text.literal'] = { fg = theme.base04 },
+        ['@variable'] = { fg = theme.base04 },
 
-        -- Plugins :(
-        FzfLuaBackdrop = { ctermbg = 0, bg = base16.base00 },
-
-        NeoTreeFloatTitle = { link = "Title" },
-        NeoTreeTitleBar = { link = "Title" },
-        NeoTreeMessage = { link = "DiagnosticHint" },
+        -- Plugins
+        FzfLuaBorder = { fg = theme.base00, bg = theme.base00, },
+        FzfLuaTitle = { link = "Title" },
+        FzfLuaHeaderText = { link = "NonText" },
+        FzfLuaTabTitle = { link = "NonText" },
+        FzfLuaHeaderBind = { link = "NonText" },
+        FzfLuaPathColNr = { link = "Debug" },
+        FzfLuaPathLineNr = { link = "Debug" },
+        FzfLuaBufNr = { link = "Debug" },
+        FzfLuaBufFlagCur = { link = "Debug" },
+        FzfLuaBufFlagAlt = { link = "Debug" },
+        FzfLuaTabMarker = { link = "Debug" },
+        FzfLuaLivePrompt = { link = "Debug" },
+        FzfLuaLiveSym = { link = "Debug" },
+        -- Tree Elements
+        NeoTreeDimText = { link = "NonText" },
+        NeoTreeDotfile = { link = "NonText" },
         NeoTreeFadeText1 = { link = "NonText" },
         NeoTreeFadeText2 = { link = "NonText" },
-        NeoTreeDotfile = { link = "NonText" },
-        NeoTreeDimText = { link = "NonText" },
+        NeoTreeFloatTitle = { link = "Title" },
+        NeoTreeMessage = { link = "DiagnosticHint" },
         NeoTreeRootName = { link = "Title" },
-        NeoTreeModified = { link = "Changed" },
-        NeoTreeAdded = { link = "Added" },
-        NeoTreeDeleted = { link = "Removed" },
-        NeoTreeGitDeleted = { link = "Removed" },
-        NeoTreeGitIgnored = { link = "NonText" },
-        NeoTreeGitConflict = { link = "Error" },
-        NeoTreeGitUntracked = { link = "Added" },
-        NeoTreeTabInactive = { link = "Tabline" },
+        NeoTreeTitleBar = { link = "Title" },
+        -- Tab Related
         NeoTreeTabActive = { link = "TablineSel" },
+        NeoTreeTabInactive = { link = "Tabline" },
         NeoTreeTabSeparatorActive = { link = "TablineFill" },
         NeoTreeTabSeparatorInactive = { link = "TablineFill" },
+        -- File Status
+        NeoTreeAdded = { link = "Added" },
+        NeoTreeDeleted = { link = "Removed" },
+        NeoTreeModified = { link = "Changed" },
         NeoTreeFileStats = { link = "NonText" },
-        NeoTreeFileStatsHeader = { link = "NeoTreeTitleBar" },
-
+        NeoTreeFileStatsHeader = { link = "Title" },
+        -- Git Status
+        NeoTreeGitAdded = { link = "Added" },
+        NeoTreeGitConflict = { link = "Error" },
+        NeoTreeGitDeleted = { link = "Removed" },
+        NeoTreeGitIgnored = { link = "NonText" },
+        NeoTreeGitModified = { link = "Changed" },
+        NeoTreeGitUntracked = { link = "Added" },
+        -- Misc
+        YankyPut = { link = "Search" },
         YankyYanked = { link = "MatchParen" },
-        YankyPut = { link = "MatchParen" },
     }
-
     -- Apply overrides
     for group, opts in pairs(overrides or {}) do
         highlights[group] = vim.tbl_extend('force', highlights[group] or {}, opts)
     end
-
     -- Set highlights
     for group, opts in pairs(highlights) do
-        set_highlight(group, opts)
+        vim.api.nvim_set_hl(0, group, opts)
     end
 end
 
+-- @see https://www.nordtheme.com/docs/colors-and-palettes
+-- @see https://github.com/chriskempson/base16/blob/main/styling.md
+
 local nordish = {
-    base00 = '#2e3440', -- ANSI (00) Black
-    base01 = '#bf616a', -- ANSI (01) Red
-    base02 = '#a3be8c', -- ANSI (02) Green
-    base03 = '#ebcb8b', -- ANSI (03) Yellow
-    base04 = '#81a1c1', -- ANSI (04) Blue
-    base05 = '#b48ead', -- ANSI (05) Magenta
-    base06 = '#8fbcbb', -- ANSI (06) Cyan
-    base07 = '#e5e9f0', -- ANSI (07) White
-    base08 = '#3b4252', -- ANSI (08) Bright Black (Gray)
-    base09 = '#434c5e', -- ANSI (09) Bright Red
-    base0A = '#666978', -- ANSI (10) Bright Green - 20% lighter from Nord's #4c566a
-    base0B = '#d08770', -- ANSI (11) Bright Yellow
-    base0C = '#5e81ac', -- ANSI (12) Bright Blue
-    base0D = '#d8dee9', -- ANSI (13) Bright Magenta
-    base0E = '#88c0d0', -- ANSI (14) Bright Cyan
-    base0F = '#eceff4', -- ANSI (15) Bright White
+    base00 = '#2e3440', -- Background
+    base01 = '#3b4252', -- UI Elements
+    base02 = '#434c5e', -- Selections
+    base03 = '#666978', -- Comments, NonText (20% lighter from Nord's #4c566a)
+    base04 = '#d8dee9', -- Foreground
+    base05 = '#e5e9f0', -- Subtle Elements
+    base06 = '#eceff4', -- Brighter Elements
+    base07 = '#8fbcbb', -- Classes, Types, Primitives (Cyanish)
+    base08 = '#88c0d0', -- Functions, Methods, Routines (Blueish)
+    base09 = '#81a1c1', -- Statements, Conditionals, Operators, Keywords (Bluish)
+    base0A = '#5e81ac', -- Pragmas, PreProcs (Bluish)
+    base0B = '#bf616a', -- Errors, Deletions (Redish)
+    base0C = '#d08770', -- Annotations, Support (Orangeish)
+    base0D = '#ebcb8b', -- Warnings, Changes (Yellowish)
+    base0E = '#a3be8c', -- Strings, Additions (Greenish)
+    base0F = '#b48ead', -- Numbers, Specials (Purpleish)
 }
-apply_base16_colors(nordish, {
-    -- Pmenu = { ctermbg = 8, bg = base16.base1, fg = base16.base5 },
+
+apply_theme(nordish, {
+    -- Pmenu = {  bg = theme.base1, fg = theme.base5 },
 })
--- base00: "2e3440" is base00 / ANSI (00) Black
--- base01: "3b4252" is base08 / ANSI (08) Bright Black (Gray)
--- base02: "434c5e" is base09 / ANSI (09) Bright Red
--- base03: "4c566a" is base10 / ANSI (10) Bright Green
--- base04: "d8dee9" is base0D / ANSI (13) Bright Magenta
--- base05: "e5e9f0" is base07 / ANSI (07) White
--- base06: "eceff4" is base0F / ANSI (15) Bright White
--- base07: "8fbcbb" is base06 / ANSI (06) Cyan
--- base08: "88c0d0" is base0E / ANSI (14) Bright Cyan
--- base09: "81a1c1" is base04 / ANSI (04) Blue
--- base0A: "5e81ac" is base0C / ANSI (12) Bright Blue
--- base0B: "bf616a" is base01 / ANSI (01) Red
--- base0C: "d08770" is base0B / ANSI (11) Bright Yellow
--- base0D: "ebcb8b" is base03 / ANSI (03) Yellow
--- base0E: "a3be8c" is base02 / ANSI (02) Green
--- base0F: "b48ead" is base05 / ANSI (05) Magenta

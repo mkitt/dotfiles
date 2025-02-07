@@ -2,7 +2,7 @@
 
 # dotfiles
 
-My personal dotfiles for macOS. Tuned to work with Apple's Terminal.app
+The dotfiles for macOS.
 
 &hearts; the Vim.
 
@@ -26,9 +26,8 @@ make help
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install`
 1. Follow post install instructions (Vim plugins)
-1. Install SF Mono Nerd Font from the fonts directory - [build if necessary](#build-sf-mono-nerd-font)
-1. Import Terminal colors from profiles directory
 1. Map caps lock to the control key
+1. Install SF Mono Nerd Font from the fonts directory - [build if necessary](#build-sf-mono-nerd-font)
 1. Set other reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
