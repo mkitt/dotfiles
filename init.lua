@@ -128,29 +128,29 @@ require('nvim-treesitter.configs').setup({
             enable = true,
             set_jumps = true,
             goto_next_start = {
+                [']c'] = '@comment.outer',
                 [']m'] = '@function.outer',
-                [']]'] = '@class.outer',
             },
             goto_next_end = {
+                [']C'] = '@comment.outer',
                 [']M'] = '@function.outer',
-                [']['] = '@class.outer',
             },
             goto_previous_start = {
+                ['[c'] = '@comment.outer',
                 ['[m'] = '@function.outer',
-                ['[['] = '@class.outer',
             },
             goto_previous_end = {
+                ['[C'] = '@comment.outer',
                 ['[M'] = '@function.outer',
-                ['[]'] = '@class.outer',
             },
         },
         swap = {
             enable = true,
             swap_next = {
-                [']a'] = '@parameter.inner',
+                [']w'] = '@parameter.inner',
             },
             swap_previous = {
-                ['[a'] = '@parameter.inner',
+                ['[w'] = '@parameter.inner',
             },
         },
     }
@@ -172,7 +172,11 @@ require('yanky').setup({
 -- AI
 require('copilot').setup({
     filetypes = { ['*'] = true, },
-    panel = { enabled = false },
+    panel = {
+        enabled = true,
+        auto_refresh = true,
+        layout = { position = "vertical", },
+    },
     suggestion = {
         enabled = true,
         auto_trigger = true,
@@ -200,8 +204,7 @@ require('nvim-web-devicons').setup()
 require('mason').setup()
 require('mason-lspconfig').setup({
     automatic_installation = true,
-    -- TODO: Add 'marksman'?
-    ensure_installed = { 'bashls', 'cssls', 'eslint', 'graphql', 'html', 'jsonls', 'lua_ls', 'tailwindcss', 'vtsls', 'yamlls', },
+    ensure_installed = { 'bashls', 'cssls', 'eslint', 'graphql', 'html', 'jsonls', 'lua_ls', 'marksman', 'tailwindcss', 'vtsls', 'yamlls', },
 })
 
 local capabilities = vim.tbl_deep_extend(
@@ -439,12 +442,12 @@ vim.keymap.set('n', '<C-E>', fuzzy.files, { desc = 'Fuzzy find filesystem files'
 vim.keymap.set('n', '<C-F>', fuzzy.live_grep, { desc = 'Fuzzy search within files', noremap = true })
 vim.keymap.set('v', '<C-F>', fuzzy.grep_visual, { desc = 'Fuzzy search the visual selection', noremap = true })
 vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status files', noremap = true })
-vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
-    { desc = 'Open document symbols explorer', noremap = true, silent = true })
-vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
 vim.keymap.set('n', '<C-Q>', function()
     require('CopilotChat.integrations.fzflua').pick(require('CopilotChat.actions').prompt_actions())
 end, { desc = "CopilotChat - Prompt actions" })
+vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
+    { desc = 'Open document symbols explorer', noremap = true, silent = true })
+vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
 -- <C-X> is mapped to lsp.buf.code_action in LspAttach autocmd
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>',
     { desc = 'Open the filesystem tree explorer in the drawer', noremap = true, silent = true })
@@ -459,6 +462,8 @@ vim.keymap.set('n', '\\', ':nohlsearch<CR>',
 -- lua require'fzf-lua'.fzf_exec("rg --files", { previewer = "builtin" })
 
 -- Leader commands
+vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>',
+    { desc = 'Open the Copilot panel', noremap = true })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist,
     { desc = 'Open diagnostics in a quickfix list', noremap = true })
 vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
@@ -581,16 +586,16 @@ local function apply_theme(theme, overrides)
 
         -- Syntax Highligting [:vert help group-name]
         Comment = { fg = theme.base03 },
-        Constant = { fg = theme.base07 },  -- + Boolean
+        Constant = { fg = theme.base07 }, -- + Boolean
         Number = { fg = theme.base0F },
         Float = { link = 'Number' },
         String = { fg = theme.base0E },
         Character = { link = 'String' },
-        Identifier = { fg = theme.base08 },  -- + Function
-        Statement = { fg = theme.base09 },   -- + Conditional + Repeat + Label + Operator + Keyword + Exception
-        PreProc = { fg = theme.base0A },     -- + Include + Define + Macro + PreCondit
-        Type = { fg = theme.base07 },        -- + StorageClass + Structure + Typedef
-        Special = { fg = theme.base0F },     -- + SpecialChar + SpecialComment
+        Identifier = { fg = theme.base08 }, -- + Function
+        Statement = { fg = theme.base09 },  -- + Conditional + Repeat + Label + Operator + Keyword + Exception
+        PreProc = { fg = theme.base0A },    -- + Include + Define + Macro + PreCondit
+        Type = { fg = theme.base07 },       -- + StorageClass + Structure + Typedef
+        Special = { fg = theme.base0F },    -- + SpecialChar + SpecialComment
         Delimiter = { fg = theme.base09 },
         Tag = { fg = theme.base09 },
         Debug = { fg = theme.base0C },
