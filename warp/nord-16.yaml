@@ -1,6 +1,7 @@
 accent: "#81a1c1"
 background: "#2e3440"
 foreground: "#e5e9f0"
+cursor: '#ff00ff'
 details: darker
 terminal_colors:
   bright:
