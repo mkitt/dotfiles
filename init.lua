@@ -80,6 +80,7 @@ require('lazy').setup({
     { 'williamboman/mason-lspconfig.nvim', },
     { 'neovim/nvim-lspconfig', },
     { 'folke/lazydev.nvim', },
+    { 'yioneko/nvim-vtsls', },
     -- Formatting
     { 'stevearc/conform.nvim', },
     -- CMP
@@ -169,6 +170,7 @@ require('yanky').setup({
     highlight = { timer = 100 },
 })
 
+
 -- AI
 require('copilot').setup({
     filetypes = { ['*'] = true, },
@@ -189,12 +191,6 @@ aichat.setup({
     question_header = '󰯈 Human ',
     answer_header = ' Copilot ',
     error_header = ' Error ',
-    mappings = {
-        reset = {
-            normal = 'gR',
-            insert = '',
-        },
-    },
 })
 
 -- Editor/UI
@@ -282,6 +278,9 @@ cmp.setup({
             max_height = 20,
         },
     },
+    cmdline = {
+        enabled = false
+    },
     keymap = {
         preset = 'enter',
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback', },
@@ -290,7 +289,6 @@ cmp.setup({
     signature = { enabled = true, },
     sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
-        cmdline = {},
         providers = {
             lazydev = {
                 module = 'lazydev.integrations.blink',
@@ -308,22 +306,12 @@ cmp.setup({
 -- Fuzzy
 fuzzy.setup({
     'default',
-    defaults      = {
+    defaults   = {
         formatter = "path.dirname_first",
-        prompt = "  👽 ",
         cwd_prompt = false,
     },
-    buffers       = { prompt = "  🗂️ ", },
-    diagnostics   = {
-        prompt = "  🚑 ",
-        winopts = { preview = { hidden = true, } }
-    },
-    files         = {
-        winopts = { preview = { hidden = true, } }
-    },
-    fzf_colors    = true,
-    grep          = { prompt = " 🔍 ", },
-    git           = {
+    fzf_colors = true,
+    git        = {
         icons = {
             ["M"] = { icon = "󰜥", color = "yellow" },
             ["D"] = { icon = "✖", color = "red" },
@@ -333,15 +321,8 @@ fuzzy.setup({
             ["T"] = { icon = "", color = "magenta" },
             ["?"] = { icon = "", color = "magenta" },
         },
-        status = { prompt = " 🚧 ", },
     },
-    lsp           = {
-        code_actions = {
-            prompt = "  ✨ ",
-            winopts = { preview = { hidden = true, } }
-        }
-    },
-    keymap        = {
+    keymap     = {
         builtin = {
             false,
             ["<Esc>"] = "hide",
@@ -365,10 +346,10 @@ fuzzy.setup({
             ["ctrl-a"] = "toggle-all",
         }
     },
-    spell_suggest = { prompt = " ✏️ ", },
-    winopts       = {
+    winopts    = {
         title_pos = "left",
         preview = {
+            hidden    = true,
             layout    = 'vertical',
             title_pos = "left",
             vertical  = "down:70%",
@@ -448,7 +429,6 @@ end, { desc = "CopilotChat - Prompt actions" })
 vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
     { desc = 'Open document symbols explorer', noremap = true, silent = true })
 vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
--- <C-X> is mapped to lsp.buf.code_action in LspAttach autocmd
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>',
     { desc = 'Open the filesystem tree explorer in the drawer', noremap = true, silent = true })
 
@@ -482,7 +462,8 @@ vim.keymap.set('n', 'gV', '`[v`]',
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
     callback = function(e)
-        vim.keymap.set('n', '<C-X>', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
+        vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
+        vim.keymap.set('n', 'g>', ':VtsExec source_actions<CR>', { desc = 'source actions (vtsls)', buffer = e.buf })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto declaration', buffer = e.buf })
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
         vim.keymap.set('n', 'gf', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
@@ -520,9 +501,13 @@ vim.cmd [[
         return (c =~ a:pat) ? '' : c
     endfunc
 ]]
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    command = "iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\\s')<CR>",
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+    callback = function()
+        vim.cmd("iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\\s')<CR>")
+        vim.keymap.set("n", "gq", "gw", { buffer = true, noremap = true })
+        vim.keymap.set("v", "gq", "gw", { buffer = true, noremap = true })
+    end,
 })
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'md', 'markdown', 'text', 'txt' },
