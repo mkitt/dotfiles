@@ -8,7 +8,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Preferences
+-- Options
 -- -------------------------------------
 -- Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -170,6 +170,8 @@ require('yanky').setup({
     highlight = { timer = 100 },
 })
 
+-- Editor/UI
+require('nvim-web-devicons').setup()
 
 -- AI
 require('copilot').setup({
@@ -192,9 +194,6 @@ aichat.setup({
     answer_header = ' Copilot ',
     error_header = ' Error ',
 })
-
--- Editor/UI
-require('nvim-web-devicons').setup()
 
 -- LSP
 require('mason').setup()

@@ -21,8 +21,8 @@ install:
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
-	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
-	@ln -sfv `pwd`/warp/nord-16.yaml $$HOME/.warp/themes/
+	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
+	@ln -sfv `pwd`/warp $$HOME/.warp
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -32,6 +32,7 @@ uninstall:
 	brew uninstall --cask $(casks)
 	@rm -rfv $$HOME/.config
 	@rm -rfv $$HOME/.local
+	@rm -rfv $$HOME/.warp
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
 #/ update          Updates homebrews and casks
@@ -46,7 +47,7 @@ update:
 	@printf "%s----\n"
 	brew doctor
 	@printf "%s----\n"
-	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :Mason\n"
+	@printf "%sUpdate nvim plugins: :Lazy update, :Mason\n"
 
 #/ fonts           Patch SF Mono fonts with Nerd fonts
 fonts:
@@ -88,4 +89,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install uninstall update fonts macos warp
+.PHONY: help install uninstall update fonts macos
