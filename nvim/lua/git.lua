@@ -1,0 +1,3 @@
+-- Auto required from plugins.lua
+-- @see https://github.com/tpope/vim-fugitive
+-- @see https://github.com/tpope/vim-rhubarb
