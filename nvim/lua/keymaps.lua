@@ -1,4 +1,3 @@
--- Key Mappings
 -- :map
 -- -------------------------------------
 local aichat = require('CopilotChat')
@@ -19,7 +18,6 @@ vim.keymap.set('n', '<C-P>', '<Plug>(YankyCycleForward)', { desc = 'Cycle forwar
 vim.keymap.set('n', '<C-N>', '<Plug>(YankyCycleBackward)', { desc = 'Cycle backward through the cb', noremap = true })
 
 -- The `<C->` commands "Open things", sometimes with visual context
--- fzf-lua, CopilotChat, Neotree
 vim.keymap.set('n', '<C-Space>', fuzzy.builtin, { desc = 'Open fzf-lua builtins', noremap = true })
 vim.keymap.set('n', '<C-B>', fuzzy.buffers, { desc = 'Fuzzy find buffer files', noremap = true })
 vim.keymap.set({ 'n', 'v' }, '<C-C>', aichat.open, { desc = 'Open CopilotChat', noremap = true, })
@@ -27,9 +25,9 @@ vim.keymap.set('n', '<C-E>', fuzzy.files, { desc = 'Fuzzy find filesystem files'
 vim.keymap.set('n', '<C-F>', fuzzy.live_grep, { desc = 'Fuzzy search within files', noremap = true })
 vim.keymap.set('v', '<C-F>', fuzzy.grep_visual, { desc = 'Fuzzy search the visual selection', noremap = true })
 vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status files', noremap = true })
-vim.keymap.set('n', '<C-Q>', function()
-    require('CopilotChat.integrations.fzflua').pick(require('CopilotChat.actions').prompt_actions())
-end, { desc = "CopilotChat - Prompt actions" })
+vim.keymap.set('n', '<C-Q>',
+    function() require('CopilotChat.integrations.fzflua').pick(require('CopilotChat.actions').prompt_actions()) end,
+    { desc = "CopilotChat - Prompt actions" })
 vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
     { desc = 'Open document symbols explorer', noremap = true, silent = true })
 vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
@@ -41,9 +39,6 @@ vim.keymap.set('n', '-', ':Neotree filesystem float reveal<CR>',
     { desc = 'Open the filesystem tree explorer in a float', noremap = true, silent = true })
 vim.keymap.set('n', '\\', ':nohlsearch<CR>',
     { desc = 'Clear search highlighting', noremap = true, silent = true })
-
--- TODO
--- lua require'fzf-lua'.fzf_exec("rg --files", { previewer = "builtin" })
 
 -- Leader commands
 vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>',
@@ -60,7 +55,7 @@ vim.keymap.set('n', 'gb', ':e#<CR>',
 vim.keymap.set('n', 'gV', '`[v`]',
     { desc = 'Re-select last pasted text', noremap = true })
 
--- LSP Key commands
+-- LSP Key mappings
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
     callback = function(e)

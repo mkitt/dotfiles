@@ -100,7 +100,7 @@ vim.api.nvim_create_autocmd('FileType', {
     command = 'setlocal textwidth=80 linebreak nolist wrap spell',
 })
 
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-    pattern = { 'COMMIT_EDITMSG' },
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'BufEnter' }, {
+    pattern = { 'COMMIT_EDITMSG', 'copilot-*' },
     command = 'setlocal spell',
 })
