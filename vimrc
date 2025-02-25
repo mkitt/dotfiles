@@ -18,14 +18,10 @@ set number
 set smartindent
 set smarttab
 set splitright splitbelow
-if &t_Co == 8 && $TERM !~# '^linux' | set t_Co=16 | endif
 set title
-set ttyfast
 set undolevels=1000
 set wildignore+=*.DS_Store
 set wildmenu
-
-let g:markdown_fenced_languages=['css', 'html', 'javascript', 'json', 'graphql', 'sh', 'typescript=javascript', 'yaml']
 let g:netrw_liststyle=3
 
 noremap <C-h> <C-w>h
@@ -35,8 +31,6 @@ noremap <C-l> <C-w>l
 noremap <silent><leader>\ :nohlsearch<CR>
 noremap <silent><leader>CW :%s/\s\+$//<CR>
 
-" Auto Commands
-" --------------------------------------
 if has("autocmd")
   augroup FTOptions
     autocmd!
