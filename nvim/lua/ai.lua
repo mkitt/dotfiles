@@ -15,7 +15,7 @@ require('copilot').setup({
 
 -- @see https://github.com/CopilotC-Nvim/CopilotChat.nvim
 require('CopilotChat').setup({
-    model = 'claude-3.5-sonnet',
+    model = 'claude-3.7-sonnet',
     question_header = '󰯈 Human ',
     answer_header = ' Copilot ',
     error_header = ' Error ',
