@@ -1,34 +1,43 @@
 [alias]
   co = checkout
   st = status
-  empty = commit --allow-empty -m
   glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
   clog = log --pretty='- [x] %h %s'
   slog = log --pretty='- %h %s (%an)'
-  resolve-all-theirs = "!f() { git diff --name-only --diff-filter=U | xargs -I {} sh -c 'git checkout --theirs \"{}\" && git add \"{}\"'; }; f"
 [branch]
-  autosetupmerge = always
   autosetuprebase = always
-[color]
-  ui = auto
+  sort = -committerdate
 [commit]
   gpgsign = true
 [core]
+  excludesfile = ~/.gitignore
   pager = /opt/homebrew/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
   trustctime = false
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
 [fetch]
+  all = true
   prune = true
+  pruneTags = true
 [gpg]
   program = /usr/local/MacGPG2/bin/gpg2
+[help]
+  autocorrect = prompt
+[include]
+  path = ~/.gitconfig.local
 [init]
   defaultBranch = main
 [merge]
   ff = only
 [push]
-  default = current
+  autoSetupRemote = true
+  followTags = true
 [rebase]
   autosquash = true
 [rerere]
-  enabled = 1
-[include]
-  path = ~/.gitconfig.local
+  autoupdate = true
+  enabled = true
+[tag]
+  sort = version:refname
