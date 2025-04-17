@@ -34,7 +34,8 @@ if vim.fn.executable('rg') > 0 then vim.opt.grepprg = 'rg --vimgrep' end
 -- Diagnostics Configuration
 vim.diagnostic.config({
     severity_sort = true,
-    virtual_lines = { current_line = true, },
+    virtual_text = { current_line = true, },
+    -- virtual_lines = { current_line = true, },
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "☠️",
