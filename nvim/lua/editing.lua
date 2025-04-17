@@ -102,5 +102,5 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile', 'BufEnter' }, {
     pattern = { 'COMMIT_EDITMSG', 'copilot-*' },
-    command = 'setlocal spell',
+    command = 'setlocal spell nowrap',
 })

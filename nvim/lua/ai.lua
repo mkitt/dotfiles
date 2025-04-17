@@ -4,7 +4,7 @@ require('copilot').setup({
     panel = {
         enabled = true,
         auto_refresh = true,
-        layout = { position = "vertical", },
+        layout = { position = "bottom", },
     },
     suggestion = {
         enabled = true,

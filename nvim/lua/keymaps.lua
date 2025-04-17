@@ -26,7 +26,7 @@ vim.keymap.set('n', '<C-F>', fuzzy.live_grep, { desc = 'Fuzzy search within file
 vim.keymap.set('v', '<C-F>', fuzzy.grep_visual, { desc = 'Fuzzy search the visual selection', noremap = true })
 vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status files', noremap = true })
 vim.keymap.set('n', '<C-Q>',
-    function() require('CopilotChat.integrations.fzflua').pick(require('CopilotChat.actions').prompt_actions()) end,
+    function() require('CopilotChat').select_prompt() end,
     { desc = "CopilotChat - Prompt actions" })
 vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
     { desc = 'Open document symbols explorer', noremap = true, silent = true })
@@ -59,6 +59,7 @@ vim.keymap.set('n', 'gV', '`[v`]',
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
     callback = function(e)
+        -- @deprecate in favor of the native `gra`
         vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
         vim.keymap.set('n', 'g>', ':VtsExec source_actions<CR>', { desc = 'source actions (vtsls)', buffer = e.buf })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto declaration', buffer = e.buf })
@@ -66,11 +67,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gf', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
         vim.keymap.set('n', 'gF', '<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>',
             { desc = 'goto definition in vsplit', buffer = e.buf })
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'goto implementation', buffer = e.buf })
         vim.keymap.set('n', 'gS', vim.lsp.buf.signature_help, { desc = 'show signature', buffer = e.buf })
-        vim.keymap.set('n', 'gR', vim.lsp.buf.rename, { desc = 'rename', buffer = e.buf })
-        vim.keymap.set('n', 'gu', vim.lsp.buf.references, { desc = 'show references', buffer = e.buf })
         vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, { desc = 'goto types definition', buffer = e.buf })
-        -- vim.keymap.set('n', 'g????', vim.lsp.buf.workspace_symbol, opts)
     end
+
 })

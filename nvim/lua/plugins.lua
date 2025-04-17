@@ -15,8 +15,8 @@ require('lazy').setup({
     -- UI
     { 'nvim-tree/nvim-web-devicons', },
     -- AI
-    { 'zbirenbaum/copilot.lua',                      build = ':Copilot auth' },
-    { 'CopilotC-Nvim/CopilotChat.nvim',              branch = 'main',        build = 'make tiktoken', },
+    { 'zbirenbaum/copilot.lua', },
+    { 'CopilotC-Nvim/CopilotChat.nvim',              branch = 'main',     build = 'make tiktoken', },
     -- GIT
     { 'tpope/vim-fugitive', },
     { 'tpope/vim-rhubarb', },

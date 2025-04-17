@@ -45,6 +45,7 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
+alias awake="caffeinate -i -d -t 3600"
 alias reload="source ~/.zprofile && cd ../ && cd -"
 alias kill_git="(ps aux | head -n 1; ps aux | grep '[g]it')"
 
