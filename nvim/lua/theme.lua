@@ -111,6 +111,8 @@ M.apply = function(theme)
         ['@text.literal'] = { fg = theme.base04 },
         ['@variable'] = { fg = theme.base04 },
         -- Plugins
+        CopilotSuggestion = { link = "Comment" },
+        -- Fuzzy
         FzfLuaBorder = { fg = theme.base00, bg = theme.base00, },
         FzfLuaTitle = { link = "Title" },
         FzfLuaHeaderText = { link = "NonText" },

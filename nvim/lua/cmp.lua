@@ -23,12 +23,17 @@ require('blink.cmp').setup({
     },
     signature = { enabled = true, },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lsp', 'copilot', 'path', 'snippets', 'buffer' },
         providers = {
             lazydev = {
                 module = 'lazydev.integrations.blink',
                 name = '',
                 score_offset = 100,
+            },
+            copilot = {
+                async = true,
+                module = 'blink-copilot',
+                name = '',
             },
             lsp = { name = '' },
             path = { name = '' },

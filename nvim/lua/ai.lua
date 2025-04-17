@@ -1,16 +1,9 @@
--- @see https://github.com/zbirenbaum/copilot.lua
-require('copilot').setup({
-    filetypes = { ['*'] = true, },
-    panel = {
-        enabled = true,
-        auto_refresh = true,
-        layout = { position = "bottom", },
-    },
-    suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = { accept = '<C-\\>', }
-    },
+-- @see https://github.com/github/copilot.vim
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_filetypes = { ["*"] = true, }
+vim.keymap.set('i', '<C-\\>', 'copilot#Accept("\\<CR>")', {
+    expr = true,
+    replace_keycodes = false
 })
 
 -- @see https://github.com/CopilotC-Nvim/CopilotChat.nvim

@@ -15,7 +15,7 @@ require('lazy').setup({
     -- UI
     { 'nvim-tree/nvim-web-devicons', },
     -- AI
-    { 'zbirenbaum/copilot.lua', },
+    { 'github/copilot.vim', },
     { 'CopilotC-Nvim/CopilotChat.nvim',              branch = 'main',     build = 'make tiktoken', },
     -- GIT
     { 'tpope/vim-fugitive', },
@@ -29,6 +29,7 @@ require('lazy').setup({
     { 'stevearc/conform.nvim', },
     -- CMP
     { 'saghen/blink.cmp',                            version = '*', },
+    { 'fang2hou/blink-copilot' },
     -- Fuzzy
     { 'ibhagwan/fzf-lua' },
     -- Tree + Outline
