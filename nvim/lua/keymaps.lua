@@ -28,8 +28,6 @@ vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status f
 vim.keymap.set('n', '<C-Q>',
     function() require('CopilotChat').select_prompt() end,
     { desc = "CopilotChat - Prompt actions" })
-vim.keymap.set('n', '<C-S>', ':Neotree document_symbols toggle right<CR>',
-    { desc = 'Open document symbols explorer', noremap = true, silent = true })
 vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>',
     { desc = 'Open the filesystem tree explorer in the drawer', noremap = true, silent = true })
@@ -59,7 +57,6 @@ vim.keymap.set('n', 'gV', '`[v`]',
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
     callback = function(e)
-        -- @deprecate in favor of the native `gra`
         vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
         vim.keymap.set('n', 'g>', ':VtsExec source_actions<CR>', { desc = 'source actions (vtsls)', buffer = e.buf })
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto declaration', buffer = e.buf })

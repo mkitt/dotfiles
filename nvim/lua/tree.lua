@@ -9,13 +9,14 @@ require('neo-tree').setup({
         },
     },
     popup_border_style = 'solid',
-    sources = { 'filesystem', 'buffers', 'git_status', 'document_symbols', },
+    sources = { 'filesystem', 'buffers', 'git_status', },
     window = {
         mappings = {
             ['<C-V>'] = 'open_vsplit',
         },
         popup = {
             size = { width = '80%', },
+            title = function() return "File Explorer" end,
         },
     },
     filesystem = {
@@ -28,10 +29,5 @@ require('neo-tree').setup({
         follow_current_file = {
             enabled = true,
         },
-    },
-    document_symbols = {
-        -- The graphql language server currently blows up the symbols list 🙁
-        client_filters = { ignore = { 'graphql' }, },
-        follow_cursor = true,
     },
 })
