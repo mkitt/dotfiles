@@ -1,6 +1,6 @@
 -- :map
 -- -------------------------------------
-local aichat = require('CopilotChat')
+-- local aichat = require('CopilotChat')
 local fuzzy = require('fzf-lua')
 
 -- Move between splits
@@ -20,14 +20,15 @@ vim.keymap.set('n', '<C-N>', '<Plug>(YankyCycleBackward)', { desc = 'Cycle backw
 -- The `<C->` commands "Open things", sometimes with visual context
 vim.keymap.set('n', '<C-Space>', fuzzy.builtin, { desc = 'Open fzf-lua builtins', noremap = true })
 vim.keymap.set('n', '<C-B>', fuzzy.buffers, { desc = 'Fuzzy find buffer files', noremap = true })
-vim.keymap.set({ 'n', 'v' }, '<C-C>', aichat.open, { desc = 'Open CopilotChat', noremap = true, })
+vim.keymap.set({ 'n', 'v' }, "<C-C>", '<cmd>CodeCompanionChat<cr>',
+    { desc = 'CodeCompanion Chat', noremap = true, silent = true })
 vim.keymap.set('n', '<C-E>', fuzzy.files, { desc = 'Fuzzy find filesystem files', noremap = true })
 vim.keymap.set('n', '<C-F>', fuzzy.live_grep, { desc = 'Fuzzy search within files', noremap = true })
 vim.keymap.set('v', '<C-F>', fuzzy.grep_visual, { desc = 'Fuzzy search the visual selection', noremap = true })
 vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status files', noremap = true })
-vim.keymap.set('n', '<C-Q>',
-    function() require('CopilotChat').select_prompt() end,
-    { desc = "CopilotChat - Prompt actions" })
+vim.keymap.set({ 'n', 'v' }, '<C-Q>', '<cmd>CodeCompanionActions<cr>',
+    { desc = 'CodeCompanion Actions', noremap = true, silent = true })
+
 vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used', noremap = true })
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>',
     { desc = 'Open the filesystem tree explorer in the drawer', noremap = true, silent = true })
@@ -43,11 +44,15 @@ vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>',
     { desc = 'Open the Copilot panel', noremap = true })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist,
     { desc = 'Open diagnostics in a quickfix list', noremap = true })
-vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
-    { desc = 'Open the CopilotChat Model selector', noremap = true })
+-- vim.keymap.set('n', '<leader>M', ':CopilotChatModels<CR>',
+--     { desc = 'Open the CopilotChat Model selector', noremap = true })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
 
 -- The `g` commands "go somewhere", see the LSP `g` commands below
--- Available: `g(?|a|)` is not in use
+vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>",
+    { desc = "Add selection to Chat", noremap = true, silent = true })
 vim.keymap.set('n', 'gb', ':e#<CR>',
     { desc = 'Edit last file', noremap = true, silent = true })
 vim.keymap.set('n', 'gV', '`[v`]',

@@ -16,6 +16,7 @@ require('lazy').setup({
     { 'nvim-tree/nvim-web-devicons', },
     -- AI
     { 'github/copilot.vim', },
+    { "olimorris/codecompanion.nvim" },
     { 'CopilotC-Nvim/CopilotChat.nvim',              branch = 'main',     build = 'make tiktoken', },
     -- GIT
     { 'tpope/vim-fugitive', },

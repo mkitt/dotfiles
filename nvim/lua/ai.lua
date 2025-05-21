@@ -6,6 +6,32 @@ vim.keymap.set('i', '<C-\\>', 'copilot#Accept("\\<CR>")', {
     replace_keycodes = false
 })
 
+vim.g.copilot_workspace_folders = {
+    -- Drop workspace paths in here
+}
+
+-- @see https://codecompanion.olimorris.dev/
+require("codecompanion").setup({
+    adapters = {
+        copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+                schema = {
+                    model = { default = "claude-3.7-sonnet", },
+                },
+            })
+        end,
+    },
+    display = {
+        chat = { show_header_separator = true, },
+    },
+    strategies = {
+        chat = {
+            roles = { user = "󰯈 Human", },
+        },
+    },
+})
+
+-- @deprecate
 -- @see https://github.com/CopilotC-Nvim/CopilotChat.nvim
 require('CopilotChat').setup({
     model = 'claude-3.7-sonnet',
