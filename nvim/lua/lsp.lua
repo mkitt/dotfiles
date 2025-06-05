@@ -22,13 +22,13 @@ local capabilities = vim.tbl_deep_extend(
 )
 
 -- Configure individual language servers
-require('mason-lspconfig').setup_handlers({
+require('mason-lspconfig').handlers = {
     function(server_name)
         lspconfig[server_name].setup({
             capabilities = capabilities,
         })
     end,
-})
+}
 
 lspconfig.eslint.setup({
     capabilities = capabilities,
