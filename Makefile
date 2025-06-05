@@ -1,5 +1,5 @@
-brews = fd fzf git gh node pnpm prettierd ripgrep tree
-casks = gpg-suite warp
+brews = fd fzf git gh node pnpm pngpaste prettierd ripgrep tree
+casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 
 # --------------------------------------
@@ -22,7 +22,7 @@ install:
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
-	@ln -sfv `pwd`/warp $$HOME/.warp
+	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks and dotfiles
@@ -32,7 +32,7 @@ uninstall:
 	brew uninstall --cask $(casks)
 	@rm -rfv $$HOME/.config
 	@rm -rfv $$HOME/.local
-	@rm -rfv $$HOME/.warp
+	@rm -rfv $$HOME/.config/ghostty
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
 #/ update          Updates homebrews and casks

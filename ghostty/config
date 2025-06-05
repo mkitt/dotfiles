@@ -1,0 +1,24 @@
+# Ghostty Configuration
+# https://ghostty.org/docs/config/reference
+
+auto-update = check
+
+# theme = beamish
+theme = nordish
+# macos-icon = retro
+
+adjust-cell-height = 30%
+# background-opacity = 0.98
+# background-blur = true
+cursor-style-blink = false
+font-family = SF Mono
+font-size = 13
+
+window-padding-balance = true
+window-padding-x = 4
+
+shell-integration-features = no-cursor
+window-inherit-working-directory = false
+
+# Fix for Claude return key
+keybind = shift+enter=text:\n

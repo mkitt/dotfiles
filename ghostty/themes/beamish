@@ -1,0 +1,32 @@
+# Beamish theme for Ghostty
+# Based on light theme
+
+background = ffffff
+foreground = 000000
+
+cursor-color = cc0066
+
+# Selection colors
+selection-background = e5e5e5
+selection-foreground = 000000
+
+# Split divider color (light theme equivalent)
+split-divider-color = d0d0d0
+
+# Standard colors (0-15)
+palette = 0=#f5f5f5
+palette = 1=#cc0000
+palette = 2=#008833
+palette = 3=#ff6600
+palette = 4=#0055dd
+palette = 5=#6633cc
+palette = 6=#0044aa
+palette = 7=#000000
+palette = 8=#505050
+palette = 9=#cc0000
+palette = 10=#008833
+palette = 11=#ff9900
+palette = 12=#0044aa
+palette = 13=#cc0066
+palette = 14=#003399
+palette = 15=#000000
