@@ -18,7 +18,8 @@ make help
 ## New Machine
 
 1. Setup iCloud
-1. Download App store applications
+1. Install App store applications
+1. Install [Ghostty][ghostty]
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
 1. Run `/opt/homebrew/bin/brew install git`
@@ -27,7 +28,6 @@ make help
 1. Run `make install`
 1. Follow post install instructions (Vim plugins)
 1. Map caps lock to the control key
-1. Install SF Mono Nerd Font from the fonts directory - [build if necessary](#build-sf-mono-nerd-font)
 1. Set other reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
@@ -64,13 +64,6 @@ either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
 `.gitconfig.local` file. If you are transferring a key to a new computer
 see [the knowledge base article][gpg_transfer]
 
-### Build SF Mono Nerd Font
-
-- Run `brew install fontforge`
-- Download the latest release of [Apple's SF Mono Font][applesfmono]
-- Download the latest release of [Nerd Fonts][nerdfonts]
-- Run `make fonts ~/PATH/TO/nerd-fonts/font-patcher`
-- In the `./fonts` directory, select all and double click to install/update
 
 ---
 
@@ -78,8 +71,8 @@ see [the knowledge base article][gpg_transfer]
 
 <!-- Markdown Links! -->
 
-[applesfmono]: https://developer.apple.com/fonts/ "apple sf mono"
 [gh-ssh-gpg]: https://github.com/settings/keys
+[ghostty]: https://ghostty.org "ghostty"
 [git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt "github.com/mkitt"
 [gpg_tools]: https://gpgtools.org/ "gpg tools"
@@ -87,5 +80,4 @@ see [the knowledge base article][gpg_transfer]
 [homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: http://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"
-[nerdfonts]: https://github.com/ryanoasis/nerd-fonts "nerd fonts"
 [wipe]: https://support.apple.com/en-us/HT201065 "wipe"
