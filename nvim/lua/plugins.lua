@@ -14,10 +14,10 @@ require('lazy').setup({
     { 'gbprod/yanky.nvim' },
     -- UI
     { 'nvim-tree/nvim-web-devicons' },
+    { 'HakonHarnes/img-clip.nvim' },
     -- AI
     { 'github/copilot.vim' },
     { "olimorris/codecompanion.nvim" },
-    { 'CopilotC-Nvim/CopilotChat.nvim',             branch = 'main',    build = 'make tiktoken', },
     -- GIT
     { 'tpope/vim-fugitive' },
     { 'tpope/vim-rhubarb' },

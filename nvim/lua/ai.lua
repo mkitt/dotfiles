@@ -7,7 +7,14 @@ vim.keymap.set('i', '<C-\\>', 'copilot#Accept("\\<CR>")', {
 })
 
 vim.g.copilot_workspace_folders = {
-    -- Drop workspace paths in here
+    "~/Sites/aura-finance/aura",
+    "~/Sites/cakeflight/balance",
+    "~/Sites/mkitt/binarymilkshake.com",
+    "~/Sites/mkitt/dotfiles",
+    "~/Sites/mkitt/mkitt.net",
+    "~/Sites/mkitt/slush",
+    "~/Sites/nauwork/nauwork-portal-frontend",
+    "~/Sites/nauwork/portal-ts-client"
 }
 
 -- @see https://codecompanion.olimorris.dev/
@@ -15,27 +22,18 @@ require("codecompanion").setup({
     adapters = {
         copilot = function()
             return require("codecompanion.adapters").extend("copilot", {
-                schema = {
-                    model = { default = "claude-3.7-sonnet", },
-                },
+                schema = { model = { default = "claude-sonnet-4", }, },
             })
         end,
     },
-    display = {
-        chat = { show_header_separator = true, },
-    },
-    strategies = {
-        chat = {
-            roles = { user = "󰯈 Human", },
-        },
-    },
+    display = { chat = { show_header_separator = true, }, },
+    strategies = { chat = { roles = { user = "󰯈 Human", }, }, },
 })
 
--- @deprecate
--- @see https://github.com/CopilotC-Nvim/CopilotChat.nvim
-require('CopilotChat').setup({
-    model = 'claude-3.7-sonnet',
-    question_header = '󰯈 Human ',
-    answer_header = ' Copilot ',
-    error_header = ' Error ',
+vim.api.nvim_create_autocmd("User", {
+    pattern = { "CodeCompanionChatSubmitted", "CodeCompanionRequestFinished" },
+    callback = function(args)
+        local msg = args.match == "CodeCompanionChatSubmitted" and "🤖 CodeCompanion is working..." or ""
+        vim.notify(msg, vim.log.levels.INFO, { replace = true })
+    end,
 })
