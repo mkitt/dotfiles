@@ -12,6 +12,12 @@ require('blink.cmp').setup({
             },
             max_height = 20,
         },
+        list = {
+            selection = {
+                preselect = false,
+                auto_insert = false,
+            },
+        },
     },
     cmdline = {
         enabled = false
@@ -21,20 +27,13 @@ require('blink.cmp').setup({
         ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback', },
         ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback', },
     },
-    signature = { enabled = true, },
+    signature = {
+        enabled = true,
+    },
     sources = {
-        default = { 'lsp', 'copilot', 'path', 'snippets', 'buffer' },
+        default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
         providers = {
-            lazydev = {
-                module = 'lazydev.integrations.blink',
-                name = '',
-                score_offset = 100,
-            },
-            copilot = {
-                async = true,
-                module = 'blink-copilot',
-                name = '',
-            },
+            copilot = { name = '', module = 'blink-copilot', async = true },
             lsp = { name = '' },
             path = { name = '' },
             snippets = { name = '' },
