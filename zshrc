@@ -59,4 +59,9 @@ zstyle ':completion:*' expand prefix suffix
 
 # Load zsh completion engine
 autoload -Uz compinit && compinit
+
+# Load local zshrc file if it exists
+if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
+  source "${ZDOTDIR:-$HOME}/.zshrc.local"
+fi
 true
