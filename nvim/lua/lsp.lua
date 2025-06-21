@@ -10,7 +10,7 @@ require('mason').setup()
 -- @see https://github.com/williamboman/mason-lspconfig.nvim
 require('mason-lspconfig').setup({
     automatic_installation = true,
-    ensure_installed = { 'bashls', 'cssls', 'eslint', 'graphql', 'html', 'jsonls', 'lua_ls', 'marksman', 'tailwindcss', 'vtsls', 'yamlls', },
+    ensure_installed = { 'bashls', 'biome', 'cssls', 'eslint', 'graphql', 'html', 'markdown_oxide', 'jsonls', 'lua_ls', 'tailwindcss', 'vtsls', 'yamlls', },
 })
 
 -- Merge default LSP and nvim-cmp capabilities for language servers
@@ -29,6 +29,25 @@ require('mason-lspconfig').handlers = {
         })
     end,
 }
+
+lspconfig.biome.setup({
+    capabilities = capabilities,
+    on_attach = function(_, bufnr)
+        vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.code_action({
+                    ---@diagnostic disable-next-line: missing-fields
+                    context = {
+                        ---@diagnostic disable-next-line: assign-type-mismatch
+                        only = { 'source.fixAll.biome', 'source.organizeImports.biome', 'source.action.useSortedAttributes.biome', 'source.action.useSortedKeys.biome', 'source.action.useSortedProperties.biome', 'quickfix.biome.nursery.useSortedClasses' },
+                    },
+                    apply = true,
+                })
+            end,
+        })
+    end,
+})
 
 lspconfig.eslint.setup({
     capabilities = capabilities,
