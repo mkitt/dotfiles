@@ -1,19 +1,12 @@
--- Auto required from plugins.lua
--- @see https://github.com/yioneko/nvim-vtsls
+-- Native LSP configuration for Neovim 0.11+
+-- @see https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp
 
 local cmp = require('blink.cmp')
-local lspconfig = require('lspconfig')
 
 -- @see https://github.com/williamboman/mason.nvim
 require('mason').setup()
 
--- @see https://github.com/williamboman/mason-lspconfig.nvim
-require('mason-lspconfig').setup({
-  automatic_installation = true,
-  ensure_installed = { 'bashls', 'biome', 'cssls', 'eslint', 'graphql', 'html', 'markdown_oxide', 'jsonls', 'lua_ls', 'oxlint', 'tailwindcss', 'vtsls', 'yamlls', },
-})
-
--- Merge default LSP and nvim-cmp capabilities for language servers
+-- Merge default LSP and blink.cmp capabilities
 local capabilities = vim.tbl_deep_extend(
   'force',
   {},
@@ -21,67 +14,21 @@ local capabilities = vim.tbl_deep_extend(
   cmp.get_lsp_capabilities()
 )
 
--- Configure individual language servers
-require('mason-lspconfig').handlers = {
-  function(server_name)
-    lspconfig[server_name].setup({
-      capabilities = capabilities,
-    })
-  end,
+-- Global configuration for all LSP servers
+vim.lsp.config('*', {
+  capabilities = capabilities,
+})
+
+-- Server-specific configurations
+vim.lsp.config.graphql = {
+  root_markers = { '.graphqlrc*', '.graphql.config.*', 'graphql.config.*', 'package.json' },
 }
 
-lspconfig.biome.setup({
-  capabilities = capabilities,
-  on_attach = function(_, bufnr)
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.code_action({
-          ---@diagnostic disable-next-line: missing-fields
-          context = {
-            ---@diagnostic disable-next-line: assign-type-mismatch
-            only = { 'source.fixAll.biome', 'source.organizeImports.biome', 'source.action.useSortedAttributes.biome', 'source.action.useSortedKeys.biome', 'source.action.useSortedProperties.biome', 'quickfix.biome.nursery.useSortedClasses' },
-          },
-          apply = true,
-        })
-      end,
-    })
-  end,
-})
-
-lspconfig.eslint.setup({
-  capabilities = capabilities,
-  on_attach = function(_, bufnr)
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = bufnr,
-      command = 'EslintFixAll',
-    })
-  end,
-})
-
-lspconfig.oxlint.setup({
-  capabilities = capabilities,
-  on_attach = function(_, bufnr)
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = bufnr,
-      callback = function()
-        vim.cmd('OxcFixAll')
-      end,
-    })
-  end,
-})
-
-lspconfig.graphql.setup({
-  capabilities = capabilities,
-  root_dir = lspconfig.util.root_pattern('.graphqlrc*', '.graphql.config.*', 'graphql.config.*', 'package.json'),
-})
-
-lspconfig.vtsls.setup({
-  capabilities = capabilities,
-  init_options = {
+vim.lsp.config.vtsls = {
+  settings = {
     vtsls = { autoUseWorkspaceTsdk = true, },
   },
-})
+}
 
 -- @see https://github.com/folke/lazydev.nvim
 require('lazydev').setup()
@@ -89,17 +36,17 @@ require('lazydev').setup()
 -- @see https://github.com/stevearc/conform.nvim
 require('conform').setup({
   formatters_by_ft = {
-    css = { 'prettierd', 'prettier', stop_after_first = true },
-    graphql = { 'prettierd', 'prettier', stop_after_first = true },
-    html = { 'prettierd', 'prettier', stop_after_first = true },
-    javascript = { 'prettierd', 'prettier', stop_after_first = true },
-    javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-    json = { 'prettierd', 'prettier', stop_after_first = true },
+    css = { 'prettier', stop_after_first = true },
+    graphql = { 'prettier', stop_after_first = true },
+    html = { 'prettier', stop_after_first = true },
+    javascript = { 'prettier', stop_after_first = true },
+    javascriptreact = { 'prettier', stop_after_first = true },
+    json = { 'prettier', stop_after_first = true },
     lua = { 'stylua' },
-    markdown = { 'prettierd', 'prettier', stop_after_first = true },
-    typescript = { 'prettierd', 'prettier', stop_after_first = true },
-    typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-    yaml = { 'prettierd', 'prettier', stop_after_first = true },
+    markdown = { 'prettier', stop_after_first = true },
+    typescript = { 'prettier', stop_after_first = true },
+    typescriptreact = { 'prettier', stop_after_first = true },
+    yaml = { 'prettier', stop_after_first = true },
   },
   format_on_save = {
     lsp_fallback = true,
@@ -107,10 +54,62 @@ require('conform').setup({
   },
 })
 
+-- Enable all LSP servers
+-- Install these via :Mason if not already installed
+vim.lsp.enable({
+  'bashls',
+  'cssls',
+  'eslint',
+  'graphql',
+  'html',
+  'jsonls',
+  'lua_ls',
+  'oxlint',
+  'tailwindcss',
+  'vtsls',
+  'yamlls',
+})
+
 -- -------------------------------------
 -- Auto Commands
+
+-- Server-specific on_attach behavior
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('theLspAttach', { clear = true }),
+  group = vim.api.nvim_create_augroup('LspOnAttach', { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then return end
+
+    -- ESLint: auto-fix on save
+    if client.name == 'eslint' then
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('EslintAutoFix', { clear = false }),
+        buffer = args.buf,
+        callback = function()
+          vim.lsp.buf.code_action({
+            context = { only = { 'source.fixAll.eslint' }, diagnostics = {} },
+            apply = true,
+          })
+        end,
+      })
+    end
+
+    -- Oxlint: auto-fix on save
+    if client.name == 'oxlint' then
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = vim.api.nvim_create_augroup('OxlintAutoFix', { clear = false }),
+        buffer = args.buf,
+        callback = function()
+          vim.cmd('OxcFixAll')
+        end,
+      })
+    end
+  end,
+})
+
+-- Document highlighting
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('LspHighlighting', { clear = true }),
   callback = function(e)
     local id = vim.tbl_get(e, 'data', 'client_id')
     local client = id and vim.lsp.get_client_by_id(id)

@@ -1,4 +1,4 @@
-brews = fd fzf git gh node pnpm pngpaste prettierd ripgrep tree
+brews = fd fzf git gh node pnpm pngpaste ripgrep tree
 casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 

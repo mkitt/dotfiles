@@ -44,7 +44,7 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
-alias awake="caffeinate -i -d -t 3600"
+alias bake="caffeinate -i -d -t 3600"
 alias reload="source ~/.zprofile && cd ../ && cd -"
 
 # case insensitive path-completion

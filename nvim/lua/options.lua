@@ -25,6 +25,7 @@ vim.opt.splitright = true
 -- File Handling
 vim.opt.backup = false
 vim.opt.clipboard = 'unnamed'
+vim.opt.exrc = true
 vim.opt.swapfile = false
 vim.opt.wildignore:append({ '.DS_Store' })
 vim.opt.writebackup = false
@@ -33,14 +34,14 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect', 'preview' }
 if vim.fn.executable('rg') > 0 then vim.opt.grepprg = 'rg --vimgrep' end
 -- Diagnostics Configuration
 vim.diagnostic.config({
-    severity_sort = true,
-    virtual_text = { current_line = true, },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = "☠️",
-            [vim.diagnostic.severity.WARN] = "⚠️",
-            [vim.diagnostic.severity.HINT] = "💡",
-            [vim.diagnostic.severity.INFO] = "ℹ️",
-        },
+  severity_sort = true,
+  virtual_text = { current_line = true, },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "☠️",
+      [vim.diagnostic.severity.WARN] = "⚠️",
+      [vim.diagnostic.severity.HINT] = "💡",
+      [vim.diagnostic.severity.INFO] = "ℹ️",
     },
+  },
 })

@@ -6,18 +6,15 @@ vim.keymap.set('i', '<C-\\>', 'copilot#Accept("\\<CR>")', {
   replace_keycodes = false
 })
 
-vim.g.copilot_workspace_folders = {
-}
+-- To add ADDITIONAL workspace folders for cross-project context,
+-- create a .nvim.lua file in your project root with:
+-- vim.g.copilot_workspace_folders = {
+--   vim.fn.expand("~/Sites/foo/bar"),
+--   vim.fn.expand("~/Sites/foo/baz"),
+-- }
 
 -- @see https://codecompanion.olimorris.dev/
 require("codecompanion").setup({
-  adapters = {
-    copilot = function()
-      return require("codecompanion.adapters").extend("copilot", {
-        schema = { model = { default = "claude-sonnet-4", }, },
-      })
-    end,
-  },
   display = { chat = { show_header_separator = true, }, },
   strategies = { chat = { roles = { user = "󰯈 Human", }, }, },
 })
