@@ -2,9 +2,16 @@
 -- @see https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp
 
 local cmp = require('blink.cmp')
+local conform = require('conform')
+
+-- -------------------------------------
+-- Mason
 
 -- @see https://github.com/williamboman/mason.nvim
 require('mason').setup()
+
+-- -------------------------------------
+-- LSP Configuration
 
 -- Merge default LSP and blink.cmp capabilities
 local capabilities = vim.tbl_deep_extend(
@@ -26,33 +33,9 @@ vim.lsp.config.graphql = {
 
 vim.lsp.config.vtsls = {
   settings = {
-    vtsls = { autoUseWorkspaceTsdk = true, },
+    vtsls = { autoUseWorkspaceTsdk = true },
   },
 }
-
--- @see https://github.com/folke/lazydev.nvim
-require('lazydev').setup()
-
--- @see https://github.com/stevearc/conform.nvim
-require('conform').setup({
-  formatters_by_ft = {
-    css = { 'prettier', stop_after_first = true },
-    graphql = { 'prettier', stop_after_first = true },
-    html = { 'prettier', stop_after_first = true },
-    javascript = { 'prettier', stop_after_first = true },
-    javascriptreact = { 'prettier', stop_after_first = true },
-    json = { 'prettier', stop_after_first = true },
-    lua = { 'stylua' },
-    markdown = { 'prettier', stop_after_first = true },
-    typescript = { 'prettier', stop_after_first = true },
-    typescriptreact = { 'prettier', stop_after_first = true },
-    yaml = { 'prettier', stop_after_first = true },
-  },
-  format_on_save = {
-    lsp_fallback = true,
-    timeout_ms = 500,
-  },
-})
 
 -- Enable all LSP servers
 -- Install these via :Mason if not already installed
@@ -71,62 +54,89 @@ vim.lsp.enable({
 })
 
 -- -------------------------------------
+-- Plugin Setup
+
+-- @see https://github.com/folke/lazydev.nvim
+require('lazydev').setup()
+
+-- @see https://github.com/stevearc/conform.nvim
+conform.setup({
+  formatters_by_ft = {
+    css = { 'prettier', stop_after_first = true },
+    graphql = { 'prettier', stop_after_first = true },
+    html = { 'prettier', stop_after_first = true },
+    javascript = { 'prettier', stop_after_first = true },
+    javascriptreact = { 'prettier', stop_after_first = true },
+    json = { 'prettier', stop_after_first = true },
+    lua = { 'stylua' },
+    markdown = { 'prettier', stop_after_first = true },
+    typescript = { 'prettier', stop_after_first = true },
+    typescriptreact = { 'prettier', stop_after_first = true },
+    yaml = { 'prettier', stop_after_first = true },
+  },
+})
+
+-- -------------------------------------
 -- Auto Commands
 
--- Server-specific on_attach behavior
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('LspOnAttach', { clear = true }),
+-- Format on save: oxlint fix -> eslint fix -> prettier/stylua
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
   callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if not client then return end
-
-    -- ESLint: auto-fix on save
-    if client.name == 'eslint' then
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        group = vim.api.nvim_create_augroup('EslintAutoFix', { clear = false }),
-        buffer = args.buf,
-        callback = function()
-          vim.lsp.buf.code_action({
-            context = { only = { 'source.fixAll.eslint' }, diagnostics = {} },
-            apply = true,
-          })
-        end,
-      })
+    -- 1. Oxlint auto-fix
+    local oxlint = vim.lsp.get_clients({ bufnr = args.buf, name = 'oxlint' })[1]
+    if oxlint then
+      oxlint:request_sync('workspace/executeCommand', {
+        command = 'oxc.fixAll',
+        arguments = { { uri = vim.uri_from_bufnr(args.buf) } },
+      }, 1000, args.buf)
     end
 
-    -- Oxlint: auto-fix on save
-    if client.name == 'oxlint' then
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        group = vim.api.nvim_create_augroup('OxlintAutoFix', { clear = false }),
-        buffer = args.buf,
-        callback = function()
-          vim.cmd('OxcFixAll')
-        end,
-      })
+    -- 2. ESLint auto-fix
+    local eslint = vim.lsp.get_clients({ bufnr = args.buf, name = 'eslint' })[1]
+    if eslint then
+      local params = {
+        textDocument = { uri = vim.uri_from_bufnr(args.buf) },
+        range = {
+          start = { line = 0, character = 0 },
+          ['end'] = { line = vim.api.nvim_buf_line_count(args.buf), character = 0 },
+        },
+        context = { only = { 'source.fixAll.eslint' }, diagnostics = {} },
+      }
+      local result = eslint:request_sync('textDocument/codeAction', params, 1000, args.buf)
+      if result and result.result and result.result[1] then
+        vim.lsp.util.apply_workspace_edit(result.result[1].edit, eslint.offset_encoding)
+      end
     end
+
+    -- 3. Conform (prettier/stylua)
+    conform.format({ bufnr = args.buf, lsp_fallback = true, timeout_ms = 500 })
   end,
 })
 
 -- Document highlighting
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('LspHighlighting', { clear = true }),
-  callback = function(e)
-    local id = vim.tbl_get(e, 'data', 'client_id')
-    local client = id and vim.lsp.get_client_by_id(id)
-    if client ~= nil then
-      -- Disable LSP semantic highlights
-      client.server_capabilities.semanticTokensProvider = nil
-      -- Highlight the word under the cursor
-      if client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-          buffer = e.buf,
-          callback = vim.lsp.buf.document_highlight,
-        })
-        vim.api.nvim_create_autocmd("CursorMoved", {
-          buffer = e.buf,
-          callback = vim.lsp.buf.clear_references,
-        })
-      end
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then return end
+
+    -- Disable LSP semantic highlights
+    client.server_capabilities.semanticTokensProvider = nil
+
+    -- Highlight the word under the cursor
+    if client.server_capabilities.documentHighlightProvider then
+      local group = vim.api.nvim_create_augroup('LspDocumentHighlight_' .. args.buf, { clear = true })
+      vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+        group = group,
+        buffer = args.buf,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd('CursorMoved', {
+        group = group,
+        buffer = args.buf,
+        callback = vim.lsp.buf.clear_references,
+      })
     end
-  end
+  end,
 })
