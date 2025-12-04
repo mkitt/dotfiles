@@ -1,6 +1,9 @@
 # @see https://scriptingosx.com/2019/06/moving-to-zsh/
 
-export PATH="/usr/local/bin:/usr/local/sbin:/opt/homebrew/bin:$PATH"
+# Initialize Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export EDITOR="nvim"
 
 # Add color to man pages
