@@ -5,13 +5,9 @@ local cmp = require('blink.cmp')
 local conform = require('conform')
 
 -- -------------------------------------
--- Mason
-
+-- LSP Configuration
 -- @see https://github.com/williamboman/mason.nvim
 require('mason').setup()
-
--- -------------------------------------
--- LSP Configuration
 
 -- Merge default LSP and blink.cmp capabilities
 local capabilities = vim.tbl_deep_extend(
@@ -24,6 +20,13 @@ local capabilities = vim.tbl_deep_extend(
 -- Global configuration for all LSP servers
 vim.lsp.config('*', {
   capabilities = capabilities,
+  on_init = function(client)
+    -- Load and merge local project files like `.vscode/settings.json` or `lspsettings.json`
+    local codesettings = require('codesettings')
+    local merged = codesettings.with_local_settings(client.name, { settings = client.settings })
+    client.settings = vim.tbl_deep_extend('force', client.settings or {}, merged.settings or {})
+  end,
+
 })
 
 -- Server-specific configurations

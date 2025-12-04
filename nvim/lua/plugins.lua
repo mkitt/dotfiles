@@ -22,6 +22,7 @@ require('lazy').setup({
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-rhubarb' },
   -- LSP
+  { "mrjones2014/codesettings.nvim" },
   { 'williamboman/mason.nvim' },
   { 'neovim/nvim-lspconfig' },
   { 'folke/lazydev.nvim' },
