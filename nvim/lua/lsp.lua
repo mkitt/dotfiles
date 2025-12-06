@@ -43,17 +43,18 @@ vim.lsp.config.vtsls = {
 -- Enable all LSP servers
 -- Install these via :Mason if not already installed
 vim.lsp.enable({
-  'bashls',
-  'cssls',
-  'eslint',
-  'graphql',
-  'html',
-  'jsonls',
-  'lua_ls',
+  'actionlint',
+  'bash-language-server',
+  'css-lsp',
+  'eslint-lsp',
+  'graphql-language-service-cli',
+  'html-lsp',
+  'json-lsp',
+  'lua-language-server',
   'oxlint',
-  'tailwindcss',
+  'tailwindcss-language-server',
   'vtsls',
-  'yamlls',
+  'yaml-language-server',
 })
 
 -- -------------------------------------
