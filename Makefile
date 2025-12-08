@@ -14,7 +14,7 @@ help:
 #/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
-	/opt/homebrew/bin/brew bundle install --global --all
+	/opt/homebrew/bin/brew bundle install --all
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@mkdir -pv $$HOME/.config/nvim
