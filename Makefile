@@ -20,7 +20,7 @@ install:
 	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
-	@mkdir -pv $$HOME/.config/nvim
+	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
 	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
 	@printf "%s\nSetup macOS defaults: make macos\n"
