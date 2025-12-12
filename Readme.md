@@ -74,7 +74,7 @@ see [the knowledge base article][gpg_transfer]
 
 <!-- Markdown Links! -->
 
-claude_code: https://claude.com/product/claude-code
+[claude_code]: https://claude.com/product/claude-code
 [gh-ssh-gpg]: https://github.com/settings/keys
 [ghostty]: https://ghostty.org "ghostty"
 [git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
