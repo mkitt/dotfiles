@@ -35,7 +35,7 @@ make help
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Run `gh repo clone mkitt/botfiles.git && cd botfiles`
 1. Run `make install` for botfiles
-1. Install [Claude Code](claude_code)
+1. Install [Claude Code][claude_code]
 1. Pull down key repositories
 1. Setup all Application settings
 1. [Wipe old computer][wipe]
