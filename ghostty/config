@@ -12,7 +12,7 @@ adjust-cell-height = 30%
 # background-blur = true
 cursor-style-blink = false
 font-size = 13
-font-feature = -calt # Disable ligatures
+font-feature = -calt
 
 window-padding-balance = true
 window-padding-x = 4
