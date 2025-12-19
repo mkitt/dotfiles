@@ -11,8 +11,8 @@ adjust-cell-height = 30%
 # background-opacity = 0.98
 # background-blur = true
 cursor-style-blink = false
-font-family = SF Mono
 font-size = 13
+font-feature = -calt # Disable ligatures
 
 window-padding-balance = true
 window-padding-x = 4
