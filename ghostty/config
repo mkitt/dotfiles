@@ -1,15 +1,11 @@
 # Ghostty Configuration
 # https://ghostty.org/docs/config/reference
-
 auto-update = check
 
 # theme = beamish
 theme = nordish
-# macos-icon = retro
 
 adjust-cell-height = 30%
-# background-opacity = 0.98
-# background-blur = true
 cursor-style-blink = false
 font-size = 13
 font-feature = -calt
