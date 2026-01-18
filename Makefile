@@ -1,6 +1,13 @@
-brews = fd fzf git gh node pnpm pngpaste ripgrep tree
+brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree
 casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
+lsps = \
+	@tailwindcss/language-server@latest \
+	@vtsls/language-server@latest \
+	bash-language-server@latest \
+	graphql-language-service-cli@latest \
+	vscode-langservers-extracted@latest \
+	yaml-language-server@latest
 
 # --------------------------------------
 
@@ -11,8 +18,9 @@ help:
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
 	@printf "%scask: $(casks)\n"
+	@printf "%slsp:  $(lsps)\n"
 
-#/ install         Installs homebrews, casks and dotfiles
+#/ install         Installs homebrews, casks, dotfiles and LSP servers
 install:
 	sudo -v
 	/opt/homebrew/bin/brew install $(brews)
@@ -23,19 +31,21 @@ install:
 	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
 	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
+	pnpm install -g $(lsps)
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
-#/ uninstall       Removes homebrews, casks and dotfiles
+#/ uninstall       Removes homebrews, casks, dotfiles and LSP servers
 uninstall:
 	sudo -v
 	brew uninstall $(brews) neovim
 	brew uninstall --cask $(casks)
+	pnpm uninstall -g $(lsps)
 	@rm -rfv $$HOME/.config
 	@rm -rfv $$HOME/.local
 	@rm -rfv $$HOME/.config/ghostty
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
-#/ update          Updates homebrews and casks
+#/ update          Updates homebrews, casks and LSP servers
 update:
 	brew update
 	@printf "%s----\n"
@@ -47,7 +57,9 @@ update:
 	@printf "%s----\n"
 	brew doctor
 	@printf "%s----\n"
-	@printf "%sUpdate nvim plugins: :Lazy update, :Mason\n"
+	pnpm install -g $(lsps)
+	@printf "%s----\n"
+	@printf "%sUpdate nvim plugins: :Lazy update\n"
 
 #/ fonts           Patch SF Mono fonts with Nerd fonts
 fonts:
@@ -89,4 +101,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install uninstall update fonts macos
+.PHONY: fonts help install macos uninstall update

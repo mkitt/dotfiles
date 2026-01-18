@@ -23,7 +23,6 @@ require('lazy').setup({
   { 'tpope/vim-rhubarb' },
   -- LSP
   { "mrjones2014/codesettings.nvim" },
-  { 'williamboman/mason.nvim' },
   { 'neovim/nvim-lspconfig' },
   { 'folke/lazydev.nvim' },
   { 'yioneko/nvim-vtsls' },
