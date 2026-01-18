@@ -61,21 +61,6 @@ update:
 	@printf "%s----\n"
 	@printf "%sUpdate nvim plugins: :Lazy update\n"
 
-#/ fonts           Patch SF Mono fonts with Nerd fonts
-fonts:
-	@if [ -z "$(word 2, $(MAKECMDGOALS))" ]; then \
-		echo "Error: Path to font-patcher is not provided."; \
-		echo "Usage: make fonts ~/path/to/font-patcher"; \
-		exit 1; \
-	fi
-	@if [ -z "$(wildcard ~/Library/Fonts/SF-Mono*.otf)" ]; then \
-		echo "Error: No SF-Mono fonts found in ~/Library/Fonts."; \
-		exit 1; \
-	fi
-	@for font in ~/Library/Fonts/SF-Mono*.otf; do \
-		fontforge --script $(word 2, $(MAKECMDGOALS)) --complete "$$font" --output-dir ./fonts; \
-	done
-
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
 	sudo -v
@@ -101,4 +86,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: fonts help install macos uninstall update
+.PHONY: help install macos uninstall update

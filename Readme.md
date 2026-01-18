@@ -67,7 +67,6 @@ either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
 `.gitconfig.local` file. If you are transferring a key to a new computer
 see [the knowledge base article][gpg_transfer]
 
-
 ---
 
 [mkitt.net][mkitt.net] | [github/mkitt][github]
