@@ -17,12 +17,12 @@ require('lazy').setup({
   { 'HakonHarnes/img-clip.nvim' },
   -- AI
   { 'github/copilot.vim' },
-  { "olimorris/codecompanion.nvim" },
+  { 'olimorris/codecompanion.nvim' },
   -- GIT
   { 'tpope/vim-fugitive' },
   { 'tpope/vim-rhubarb' },
   -- LSP
-  { "mrjones2014/codesettings.nvim" },
+  { 'mrjones2014/codesettings.nvim' },
   { 'neovim/nvim-lspconfig' },
   { 'folke/lazydev.nvim' },
   { 'yioneko/nvim-vtsls' },

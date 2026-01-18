@@ -68,3 +68,13 @@ if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
   source "${ZDOTDIR:-$HOME}/.zshrc.local"
 fi
 true
+
+# pnpm
+export PNPM_HOME="/Users/mk/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+#
+export ENABLE_LSP_TOOL=1
