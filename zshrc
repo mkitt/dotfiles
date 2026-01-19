@@ -70,7 +70,7 @@ fi
 true
 
 # pnpm
-export PNPM_HOME="/Users/mk/Library/pnpm"
+export PNPM_HOME="${ZDOTDIR:-$HOME}/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
