@@ -1,3 +1,22 @@
+# Helper to detect MDM/Jamf-installed apps
+def mdm_installed?(app_name)
+  Dir.glob("/var/db/receipts/com.jamf.appinstallers.#{app_name}*.plist").any?
+end
+
+# Machine use detection via DOTFILES_MACHINE_USE env var (values: "work" or "personal")
+# Defaults to "personal" if not set
+def machine_use
+  (ENV["DOTFILES_MACHINE_USE"] || "personal").downcase
+end
+
+def work_machine?
+  machine_use == "work"
+end
+
+def personal_machine?
+  machine_use == "personal"
+end
+
 tap "aws/tap"
 tap "github/gh"
 tap "golangci/tap"
@@ -34,29 +53,22 @@ brew "sqlite", link: true
 brew "tree"
 brew "unzip"
 brew "wget"
-cask "1password@beta"
+cask "1password@beta" unless mdm_installed?("1Password")
 cask "1password-cli"
-cask "appcleaner"
-cask "backblaze"
+cask "backblaze" if personal_machine?
 cask "dynamodb-local"
-cask "discord"
-cask "dropbox"
-cask "iterm2"
-cask "keybase"
+cask "dropbox" if personal_machine?
+cask "ghostty"
 cask "muzzle"
 cask "obsidian"
 cask "postman"
 cask "proxyman"
-cask "raycast"
-cask "remarkable"
 cask "gitx"
 cask "notion-calendar"
 cask "secretive"
-cask "signal"
-cask "slack@beta"
+cask "signal" if personal_machine?
+cask "slack@beta" unless mdm_installed?("Slack")
 cask "sonos"
 cask "spotify"
-cask "zulu@17"
-cask "visual-studio-code"
 cask "xquartz"
-cask "zoom"
+cask "zoom" unless mdm_installed?("Zoom")
