@@ -14,6 +14,13 @@ help:
 #/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
+	@if [ -z "$$DOTFILES_MACHINE_USE" ]; then \
+		printf "%s\n⚠️  DOTFILES_MACHINE_USE not set. Defaulting to 'personal'.\n"; \
+		printf "%s   Set to 'work' to skip personal apps (Dropbox, etc.):\n"; \
+		printf "%s   export DOTFILES_MACHINE_USE=work\n\n"; \
+	else \
+		printf "%s\n✓ DOTFILES_MACHINE_USE=$$DOTFILES_MACHINE_USE\n\n"; \
+	fi
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	brew bundle install --global --all
 	npm install -g $(npms)

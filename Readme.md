@@ -15,6 +15,23 @@ the `install`, `uninstall`, `update` and `help` scripts run:
 make help
 ```
 
+## Configuration
+
+### Machine Use
+
+Set `DOTFILES_MACHINE_USE` to control which apps get installed:
+
+```bash
+export DOTFILES_MACHINE_USE=work    # Skip personal apps (Dropbox, etc.)
+export DOTFILES_MACHINE_USE=personal # Install everything (default)
+```
+
+Add this to your shell before running `make install`, or add it to a
+`.zshrc.local` file that gets sourced.
+
+The Brewfile also automatically skips apps that are already installed via
+MDM/Jamf (1Password, Slack, VS Code, Zoom).
+
 ## Tips
 
 ### Git credentials
