@@ -17,20 +17,17 @@ make help
 
 ## Configuration
 
-### Machine Use
+### Work vs Personal Machine Detection
 
-Set `DOTFILES_MACHINE_USE` to control which apps get installed:
+The Brewfile automatically detects work vs personal machines by checking for
+Jamf MDM presence (`/var/db/receipts/com.jamf*.plist`).
 
-```bash
-export DOTFILES_MACHINE_USE=work    # Skip personal apps (Dropbox, etc.)
-export DOTFILES_MACHINE_USE=personal # Install everything (default)
-```
+**On work machines (Jamf detected):**
+- Skips personal apps: Dropbox, Backblaze, Signal
+- Skips apps already installed via MDM: 1Password, Slack, Zoom
 
-Add this to your shell before running `make install`, or add it to a
-`.zshrc.local` file that gets sourced.
-
-The Brewfile also automatically skips apps that are already installed via
-MDM/Jamf (1Password, Slack, VS Code, Zoom).
+**On personal machines (no Jamf):**
+- Installs all apps
 
 ## Tips
 

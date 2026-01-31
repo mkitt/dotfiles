@@ -14,12 +14,11 @@ help:
 #/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
-	@if [ -z "$$DOTFILES_MACHINE_USE" ]; then \
-		printf "%s\n⚠️  DOTFILES_MACHINE_USE not set. Defaulting to 'personal'.\n"; \
-		printf "%s   Set to 'work' to skip personal apps (Dropbox, etc.):\n"; \
-		printf "%s   export DOTFILES_MACHINE_USE=work\n\n"; \
+	@if ls /var/db/receipts/com.jamf*.plist >/dev/null 2>&1; then \
+		printf "%s\n✓ Jamf MDM detected - treating as work machine\n"; \
+		printf "%s  Skipping personal apps (Dropbox, Backblaze, Signal)\n\n"; \
 	else \
-		printf "%s\n✓ DOTFILES_MACHINE_USE=$$DOTFILES_MACHINE_USE\n\n"; \
+		printf "%s\n✓ No MDM detected - treating as personal machine\n\n"; \
 	fi
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	brew bundle install --global --all

@@ -1,20 +1,16 @@
-# Helper to detect MDM/Jamf-installed apps
+# Helper to detect MDM/Jamf-installed apps (memoized)
+@mdm_cache = {}
 def mdm_installed?(app_name)
-  Dir.glob("/var/db/receipts/com.jamf.appinstallers.#{app_name}*.plist").any?
+  @mdm_cache[app_name] ||= Dir.glob("/var/db/receipts/com.jamf.appinstallers.#{app_name}*.plist").any?
 end
 
-# Machine use detection via DOTFILES_MACHINE_USE env var (values: "work" or "personal")
-# Defaults to "personal" if not set
-def machine_use
-  (ENV["DOTFILES_MACHINE_USE"] || "personal").downcase
-end
-
+# Machine use detection based on Jamf MDM presence (memoized)
 def work_machine?
-  machine_use == "work"
+  @is_work_machine ||= Dir.glob("/var/db/receipts/com.jamf*.plist").any?
 end
 
 def personal_machine?
-  machine_use == "personal"
+  !work_machine?
 end
 
 tap "aws/tap"
