@@ -77,4 +77,3 @@ case ":$PATH:" in
 esac
 # pnpm end
 #
-export ENABLE_LSP_TOOL=1
