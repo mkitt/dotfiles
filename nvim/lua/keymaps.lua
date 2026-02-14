@@ -25,10 +25,6 @@ vim.keymap.set('v', '<C-F>', fuzzy.grep_visual, { desc = 'Fuzzy search the visua
 vim.keymap.set('n', '<C-G>', fuzzy.git_status, { desc = 'Fuzzy find git status files' })
 vim.keymap.set('n', '<C-T>', fuzzy.resume, { desc = 'Open fzf-lua with the last source used' })
 vim.keymap.set('n', '<C-Y>', ':Neotree toggle left<CR>', { desc = 'Toggle tree explorer', silent = true })
-vim.keymap.set("v", "<C-S>", "<cmd>CodeCompanionChat Add<cr>", { desc = "Add selection to Chat", silent = true })
-vim.keymap.set({ 'n', 'v' }, "<C-C>", '<cmd>CodeCompanionChat<cr>', { desc = 'Toggle CodeCompanion Chat', silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-Q>', '<cmd>CodeCompanionActions<cr>',
-  { desc = 'Open CodeCompanion Actions', silent = true })
 
 -- The `operator` commands
 vim.keymap.set('n', '-', ':Neotree filesystem float reveal<CR>',
@@ -42,9 +38,6 @@ vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagno
 -- The `g` commands "go somewhere", see the LSP `g` commands below
 vim.keymap.set('n', 'gb', ':e#<CR>', { desc = 'Edit last file', silent = true })
 vim.keymap.set('n', 'gV', '`[v`]', { desc = 'Re-select last pasted text' })
-
--- Expand 'cc' into 'CodeCompanion' in the command line
-vim.cmd([[cab cc CodeCompanion]])
 
 -- LSP Key mappings
 vim.api.nvim_create_autocmd('LspAttach', {
