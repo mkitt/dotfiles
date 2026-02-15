@@ -2,7 +2,6 @@
 -- @see https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp
 
 local cmp = require('blink.cmp')
-local conform = require('conform')
 
 -- -------------------------------------
 -- LSP Configuration
@@ -54,7 +53,6 @@ require('lazydev').setup()
 vim.lsp.enable({
   'bashls',
   'cssls',
-  'eslint',
   'graphql',
   'html',
   'jsonls',
@@ -67,63 +65,40 @@ vim.lsp.enable({
 })
 
 -- -------------------------------------
--- Conform (prettier fallback for legacy projects)
--- @see https://github.com/stevearc/conform.nvim
-conform.setup({
-  formatters_by_ft = {
-    css = { 'prettier' },
-    graphql = { 'prettier' },
-    html = { 'prettier' },
-    javascript = { 'prettier' },
-    javascriptreact = { 'prettier' },
-    json = { 'prettier' },
-    lua = { 'stylua' },
-    markdown = { 'prettier' },
-    typescript = { 'prettier' },
-    typescriptreact = { 'prettier' },
-    yaml = { 'prettier' },
-  },
-})
-
--- -------------------------------------
 -- Auto Commands
 
--- Format on save: fixAll (oxlint/eslint) → format (oxfmt/prettier)
+-- Format on save: fixAll (oxlint) → format (oxfmt)
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
   callback = function(args)
     local buf = args.buf
 
-    -- 1. Fix all lint issues (both oxlint and eslint if attached)
-    for _, name in ipairs({ 'oxlint', 'eslint' }) do
-      local client = vim.lsp.get_clients({ bufnr = buf, name = name })[1]
-      if client then
-        local params = {
-          textDocument = { uri = vim.uri_from_bufnr(buf) },
-          context = { only = { 'source.fixAll.' .. (name == 'oxlint' and 'oxc' or 'eslint') }, diagnostics = {} },
-          range = {
-            start = { line = 0, character = 0 },
-            ['end'] = { line = vim.api.nvim_buf_line_count(buf), character = 0 },
-          },
-        }
-        local result = client:request_sync('textDocument/codeAction', params, 1000, buf)
-        if result and result.result and result.result[1] then
-          local action = result.result[1]
-          if action.edit then
-            vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
-          elseif action.command then
-            client:request_sync('workspace/executeCommand', action.command, 1000, buf)
-          end
+    -- 1. Fix all lint issues
+    local oxlint = vim.lsp.get_clients({ bufnr = buf, name = 'oxlint' })[1]
+    if oxlint then
+      local params = {
+        textDocument = { uri = vim.uri_from_bufnr(buf) },
+        context = { only = { 'source.fixAll.oxc' }, diagnostics = {} },
+        range = {
+          start = { line = 0, character = 0 },
+          ['end'] = { line = vim.api.nvim_buf_line_count(buf), character = 0 },
+        },
+      }
+      local result = oxlint:request_sync('textDocument/codeAction', params, 1000, buf)
+      if result and result.result and result.result[1] then
+        local action = result.result[1]
+        if action.edit then
+          vim.lsp.util.apply_workspace_edit(action.edit, oxlint.offset_encoding)
+        elseif action.command then
+          oxlint:request_sync('workspace/executeCommand', action.command, 1000, buf)
         end
       end
     end
 
-    -- 2. Format (oxfmt takes precedence, conform/prettier as fallback)
+    -- 2. Format
     local oxfmt = vim.lsp.get_clients({ bufnr = buf, name = 'oxfmt' })[1]
     if oxfmt then
       vim.lsp.buf.format({ bufnr = buf, timeout_ms = 500, name = 'oxfmt' })
-    else
-      conform.format({ bufnr = buf, lsp_fallback = true, timeout_ms = 500 })
     end
   end,
 })

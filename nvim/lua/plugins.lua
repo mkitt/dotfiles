@@ -24,7 +24,6 @@ require('lazy').setup({
   { 'neovim/nvim-lspconfig' },
   { 'folke/lazydev.nvim' },
   { 'yioneko/nvim-vtsls' },
-  { 'stevearc/conform.nvim' },
   -- Fuzzy
   { 'ibhagwan/fzf-lua' },
   -- CMP
