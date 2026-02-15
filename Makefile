@@ -1,6 +1,6 @@
 brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
 casks = gpg-suite
-dots = gitconfig gitconfig.local vimrc zprofile zshrc
+dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
 lsps = \
 	@tailwindcss/language-server@latest \
 	@vtsls/language-server@latest \
@@ -23,6 +23,13 @@ help:
 #/ install         Installs homebrews, casks, dotfiles and LSP servers
 install:
 	sudo -v
+	@if ls /var/db/receipts/com.jamf*.plist >/dev/null 2>&1; then \
+		printf "%s\n✓ Jamf MDM detected - treating as work machine\n"; \
+		printf "%s  Skipping personal apps (Dropbox, Backblaze, Signal)\n\n"; \
+	else \
+		printf "%s\n✓ No MDM detected - treating as personal machine\n\n"; \
+	fi
+	/opt/homebrew/bin/brew bundle install --all
 	/opt/homebrew/bin/brew install $(brews)
 	/opt/homebrew/bin/brew install neovim
 	/opt/homebrew/bin/brew install --cask $(casks)
