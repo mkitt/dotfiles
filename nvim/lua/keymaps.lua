@@ -34,6 +34,7 @@ vim.keymap.set('n', '\\', ':nohlsearch<CR>', { desc = 'Clear search highlighting
 -- Leader commands
 vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>', { desc = 'Open the Copilot panel' })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagnostics in a quickfix list' })
+vim.keymap.set('n', '<leader>Y', ':Neotree reveal<CR>', { desc = 'Reveal the file in Neotree' })
 
 -- The `g` commands "go somewhere", see the LSP `g` commands below
 vim.keymap.set('n', 'gb', ':e#<CR>', { desc = 'Edit last file', silent = true })

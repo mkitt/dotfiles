@@ -7,7 +7,7 @@ require('blink.cmp').setup({
     },
     menu = {
       draw = {
-        columns = { { 'kind_icon' }, { 'label', 'label_description', 'source_name', gap = 1 } },
+        columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 } },
         treesitter = { 'lsp' },
       },
       max_height = 20,
@@ -34,10 +34,6 @@ require('blink.cmp').setup({
     default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
     providers = {
       copilot = { name = '', module = 'blink-copilot', async = true },
-      lsp = { name = '' },
-      path = { name = '' },
-      snippets = { name = '' },
-      buffer = { name = '' },
     },
   },
 })

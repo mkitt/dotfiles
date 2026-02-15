@@ -9,7 +9,6 @@ require('neo-tree').setup({
     },
   },
   popup_border_style = 'solid',
-  sources = { 'filesystem', 'buffers', 'git_status', },
   window = {
     mappings = {
       ['<C-V>'] = 'open_vsplit',
@@ -25,9 +24,6 @@ require('neo-tree').setup({
       hide_dotfiles = false,
       hide_gitignored = false,
       visible = true,
-    },
-    follow_current_file = {
-      enabled = true,
     },
   },
 })
