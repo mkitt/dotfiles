@@ -76,6 +76,13 @@ claude:
 	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
 	@ln -sfv `pwd`/claude $$HOME/.claude
 
+#/ lint            Lint shell scripts, Brewfile syntax and git config
+lint:
+	@shellcheck -s bash -e SC1090,SC1091,SC2016,SC2034,SC2046,SC2086,SC2155 zshrc zprofile
+	@ruby -c Brewfile
+	@git config --file gitconfig --list >/dev/null
+	@printf "%s✓ All checks passed\n"
+
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
 	sudo -v
@@ -101,4 +108,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: claude help install macos uninstall update
+.PHONY: claude help install lint macos uninstall update
