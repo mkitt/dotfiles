@@ -79,28 +79,7 @@ require('yanky').setup({
 
 -- -------------------------------------
 -- Auto Commands
-vim.cmd [[
-    func! Eatchar(pat)
-        let c = nr2char(getchar(0))
-        return (c =~ a:pat) ? '' : c
-    endfunc
-]]
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
-  callback = function()
-    vim.cmd("iabbrev <buffer> cdl console.log()<Left><C-R>=Eatchar('\\s')<CR>")
-    vim.keymap.set("n", "gq", "gw", { buffer = true })
-    vim.keymap.set("v", "gq", "gw", { buffer = true })
-  end,
-})
-
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'md', 'markdown', 'text', 'txt' },
-  command = 'setlocal textwidth=80 linebreak nolist wrap spell',
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'gitcommit' },
-  command = 'setlocal spell',
+  pattern = { 'gitcommit', 'markdown', 'text' },
+  command = 'setlocal linebreak nolist wrap spell',
 })
