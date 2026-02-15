@@ -1,5 +1,6 @@
 [alias]
   co = checkout
+  empty = commit --allow-empty -m
   st = status
   glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
   clog = log --pretty='- [x] %h %s'
@@ -7,6 +8,8 @@
 [branch]
   autosetuprebase = always
   sort = -committerdate
+[column]
+  ui = auto
 [commit]
   gpgsign = true
 [core]
@@ -22,7 +25,7 @@
   prune = true
   pruneTags = true
 [gpg]
-  program = /usr/local/MacGPG2/bin/gpg2
+  program = /opt/homebrew/bin/gpg
 [help]
   autocorrect = prompt
 [include]
