@@ -1,0 +1,37 @@
+{
+  "coc.preferences.formatOnSave": true,
+  "diagnostic.errorSign": "☠️'",
+  "diagnostic.hintSign": "💡",
+  "diagnostic.infoSign": "ℹ️",
+  "diagnostic.warningSign": "⚠️'",
+  "eslint.autoFixOnSave": true,
+  "Lua.diagnostics.globals": ["vim"],
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "languageserver": {
+    "graphql": {
+      "command": "graphql-lsp",
+      "args": ["server", "-m", "stream"],
+      "filetypes": ["typescript", "typescriptreact", "graphql"]
+    },
+    "tailwind-lsp": {
+      "command": "tailwindcss-language-server",
+      "args": ["--stdio"],
+      "filetypes": [
+        "css",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+      ],
+      "rootPatterns": [
+        "tailwind.config.js",
+        "package.json",
+        "node_modules",
+        ".git"
+      ]
+    }
+  }
+}

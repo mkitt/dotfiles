@@ -8,18 +8,22 @@
 [branch]
   autosetupmerge = always
   autosetuprebase = always
-	sort = -committerdate
+  sort = -committerdate
 [color]
+  ui = auto
+[column]
   ui = auto
 [commit]
   gpgsign = false
 [core]
-  pager = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
+  pager = /opt/homebrew/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
   trustctime = false
 [fetch]
   prune = true
 [gpg]
   program = /usr/local/MacGPG2/bin/gpg2
+[init]
+  defaultBranch = main
 [merge]
   ff = only
 [push]
@@ -31,7 +35,7 @@
 [include]
   path = ~/.gitconfig.local
 [user]
-	name = Jay Zeschin
-	email = jay@zeschin.org
+  name = Jay Zeschin
+  email = jay@zeschin.org
 [column]
 	ui = auto

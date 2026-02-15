@@ -1,7 +1,6 @@
-npms = eslint_d serve
-dots = bash_profile bashrc gitconfig gitconfig.local inputrc vimrc Brewfile
-tmps = tmp/ctrlp tmp/swap tmp/yankring
-plug = https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
+npms = @tailwindcss/language-server graphql-language-service-cli
+dots = gitconfig gitconfig.local vimrc zprofile zshrc inputrc Brewfile
 
 # --------------------------------------
 
@@ -10,33 +9,51 @@ help:
 	@printf "%sUsage: make TARGET\n"
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
-	@printf "%snpm: $(npms)\n"
+	@printf "%scocs: $(cocs)\n"
 
-#/ install         Installs homebrews, casks, global npms and dotfiles
+#/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
+	@if ls /var/db/receipts/com.jamf*.plist >/dev/null 2>&1; then \
+		printf "%s\n✓ Jamf MDM detected - treating as work machine\n"; \
+		printf "%s  Skipping personal apps (Dropbox, Backblaze, Signal)\n\n"; \
+	else \
+		printf "%s\n✓ No MDM detected - treating as personal machine\n\n"; \
+	fi
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	brew bundle install --global --all
-	npm install $(npms) --global
-	@if [[ -d $$HOME/.vim ]]; then rm -rf $$HOME/.vim; fi
-	@for tmp in $(tmps); do mkdir -pv $$HOME/.vim/$$tmp; done
-	@curl -fLo ~/.vim/autoload/plug.vim --create-dirs $(plug)
-	@printf "%s\nInstall vim plugins: :PlugInstall"
+	npm install -g $(npms)
+	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
+	@mkdir -pv $$HOME/.config/nvim
+	@ln -sfv `pwd`/coc-settings.json $$HOME/.config/nvim/
+	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
+	@printf "%s\nInstall global npm packages: npm install $(npms) --global"
+	@printf "%s\nOpen nvim and (auto)run: :Lazy install"
+	@printf "%s\nInstall nvim coc plugins: :CocInstall $(cocs)"
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
-#/ uninstall       Removes homebrews, casks, global npms and dotfiles
+#/ uninstall       Removes homebrews, casks and dotfiles
 uninstall:
 	sudo -v
-	npm uninstall $(npms) --global
-	@rm -rfv $$HOME/.vim
+	@rm -rfv $$HOME/.config
+	@rm -rfv $$HOME/.local
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
-#/ update          Updates homebrews, casks and global npm packages
+#/ update          Updates homebrews and casks
 update:
 	brew update
+	@printf "%s----\n"
 	brew outdated
+	@printf "%s----\n"
 	brew upgrade
+	@printf "%s----\n"
 	brew cleanup
+	brew autoremove
+	@printf "%s----\n"
+	brew doctor
+	@printf "%s----\n"
+	npm update -g $(npms)
+	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :CocUpdate\n"
 	brew autoremove
 	brew prune
 	brew doctor
@@ -50,11 +67,11 @@ macos:
 	defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 	@# Disable press-and-hold for keys in favor of key repeat
 	defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-	@# Set a blazingly fast keyboard repeat rate
+	@# Set a blazingly fast keyboard repeat rate -- REQUIRES LOGOUT!
 	defaults write NSGlobalDomain KeyRepeat -int 1
 	defaults write NSGlobalDomain InitialKeyRepeat -int 15
 	@# Save screenshots to the desktop
-	defaults write com.apple.screencapture location -string "${HOME}/Desktop"
+	defaults write com.apple.screencapture location -string "${HOME}/Downloads"
 	@# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 	defaults write com.apple.screencapture type -string "png"
 	@# Disable shadow in screenshots
