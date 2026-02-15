@@ -28,9 +28,11 @@ install:
 	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
-	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
+	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
 	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
+	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
+	@ln -sfv `pwd`/claude $$HOME/.claude
 	pnpm install -g $(lsps)
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
@@ -40,6 +42,7 @@ uninstall:
 	brew uninstall $(brews) neovim
 	brew uninstall --cask $(casks)
 	pnpm uninstall -g $(lsps)
+	@rm -rfv $$HOME/.claude
 	@rm -rfv $$HOME/.config
 	@rm -rfv $$HOME/.local
 	@rm -rfv $$HOME/.config/ghostty
@@ -60,6 +63,11 @@ update:
 	pnpm install -g $(lsps)
 	@printf "%s----\n"
 	@printf "%sUpdate nvim plugins: :Lazy update\n"
+
+#/ claude          Symlink botfile directories
+claude:
+	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
+	@ln -sfv `pwd`/claude $$HOME/.claude
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
@@ -86,4 +94,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install macos uninstall update
+.PHONY: claude help install macos uninstall update

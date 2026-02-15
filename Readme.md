@@ -26,6 +26,7 @@ make help
 1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
+1. Install [Claude Code][claude_code]
 1. Follow post install instructions (Vim plugins)
 1. Map caps lock to the control key
 1. Set other reasonable [macOS defaults][macos_defaults]
@@ -33,9 +34,6 @@ make help
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
-1. Run `gh repo clone mkitt/botfiles.git && cd botfiles`
-1. Run `make install` for botfiles
-1. Install [Claude Code][claude_code]
 1. Pull down key repositories
 1. Setup all Application settings
 1. [Wipe old computer][wipe]

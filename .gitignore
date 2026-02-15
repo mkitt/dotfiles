@@ -1,4 +1,25 @@
+lazy-lock.json
+
+
+# Claude Code runtime (claude/ is symlinked to ~/.claude)
+claude/*
+!claude/CLAUDE.md
+!claude/agents/
+!claude/agents/**/*.md
+!claude/settings.json
+!claude/skills/
+!claude/skills/**/*.md
+
+# OS files
 .DS_Store
+
+# Local overrides
 *.local
 *.local.*
-lazy-lock.json
+
+# API keys and secrets
+*.key
+*.token
+*.secret
+.env
+.env.local
