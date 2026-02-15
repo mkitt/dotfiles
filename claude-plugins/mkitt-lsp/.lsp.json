@@ -1,0 +1,81 @@
+{
+  "bash": {
+    "args": ["start"],
+    "command": "bash-language-server",
+    "extensionToLanguage": {
+      ".bash": "bash",
+      ".sh": "shellscript"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  },
+  "css": {
+    "args": ["--stdio"],
+    "command": "vscode-css-language-server",
+    "extensionToLanguage": {
+      ".css": "css",
+      ".less": "less",
+      ".scss": "scss"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  },
+  "html": {
+    "args": ["--stdio"],
+    "command": "vscode-html-language-server",
+    "extensionToLanguage": {
+      ".htm": "html",
+      ".html": "html"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  },
+  "json": {
+    "args": ["--stdio"],
+    "command": "vscode-json-language-server",
+    "extensionToLanguage": {
+      ".json": "json",
+      ".jsonc": "jsonc"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  },
+  "typescript": {
+    "args": ["--stdio"],
+    "command": "vtsls",
+    "extensionToLanguage": {
+      ".cjs": "javascript",
+      ".cts": "typescript",
+      ".js": "javascript",
+      ".jsx": "javascriptreact",
+      ".mjs": "javascript",
+      ".mts": "typescript",
+      ".ts": "typescript",
+      ".tsx": "typescriptreact"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  },
+  "yaml": {
+    "args": ["--stdio"],
+    "command": "yaml-language-server",
+    "extensionToLanguage": {
+      ".yaml": "yaml",
+      ".yml": "yaml"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  }
+}

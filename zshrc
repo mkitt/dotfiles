@@ -1,11 +1,9 @@
 # @see https://scriptingosx.com/2019/06/moving-to-zsh/
 
-# Load Homebrew path
-eval $(/opt/homebrew/bin/brew shellenv)
+# Initialize Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Load ASDF
-. $(brew --prefix asdf)/libexec/asdf.sh
-
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export EDITOR="nvim"
 
 # Add color to man pages
@@ -20,7 +18,6 @@ setopt HIST_IGNORE_SPACE
 setopt INC_APPEND_HISTORY
 setopt NO_CASE_GLOB
 setopt SHARE_HISTORY
-# TODO: Need to find equivalent of Readline's `set history-preserve-point`
 
 # @see http://zsh.sourceforge.net/Doc/Release/Parameters.html
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
@@ -37,9 +34,9 @@ if [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
   . $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
   setopt PROMPT_SUBST
   GIT_PS1_SHOWDIRTYSTATE="true"
-  PROMPT='%F{5}[%m]%f %F{4}%1~%f %F{6}$(__git_ps1 "[%s] ")%f%F{8}%#%f '
+  PROMPT='%F{5}[%n]%f %F{4}%1~%f %F{6}$(__git_ps1 "[%s] ")%f%F{8}%#%f '
 else
-  PROMPT='%F{5}[%m]%f %F{4}%1~%f %F{8}%#%f '
+  PROMPT='%F{5}[%n]%f %F{4}%1~%f %F{8}%#%f '
 fi
 
 # Handy stuff
@@ -50,8 +47,8 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
+alias bake="caffeinate -i -d -t 3600"
 alias reload="source ~/.zprofile && cd ../ && cd -"
-alias be="bundle exec"
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
@@ -65,7 +62,16 @@ zstyle ':completion:*' expand prefix suffix
 
 # Load zsh completion engine
 autoload -Uz compinit && compinit
+
+# Load local zshrc file if it exists
+if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
+  source "${ZDOTDIR:-$HOME}/.zshrc.local"
+fi
 true
 
-# Load local overrides (not tracked in git)
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+# pnpm
+export PNPM_HOME="${ZDOTDIR:-$HOME}/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac

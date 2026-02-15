@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "mkitt",
+  "owner": {
+    "name": "mkitt",
+    "url": "https://github.com/mkitt"
+  },
+  "plugins": [
+    {
+      "name": "mkitt-lsp",
+      "source": "./mkitt-lsp",
+      "description": "Personal LSP server configurations"
+    }
+  ]
+}
