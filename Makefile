@@ -1,4 +1,4 @@
-brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree
+brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
 casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 lsps = \

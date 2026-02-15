@@ -1,13 +1,9 @@
--- Native LSP configuration for Neovim 0.11+
+-- -------------------------------------
+-- LSP Configuration (servers installed globally via: make lsp)
 -- @see https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp
 
-local cmp = require('blink.cmp')
-
--- -------------------------------------
--- LSP Configuration
--- LSP servers installed globally via: make lsp (in dotfiles)
-
 -- Merge default LSP and blink.cmp capabilities
+local cmp = require('blink.cmp')
 local capabilities = vim.tbl_deep_extend(
   'force',
   {},
@@ -16,11 +12,11 @@ local capabilities = vim.tbl_deep_extend(
 )
 
 -- Global configuration for all LSP servers
+local codesettings = require('codesettings')
 vim.lsp.config('*', {
   capabilities = capabilities,
   on_init = function(client)
     -- Load and merge local project files like `.vscode/settings.json` or `lspsettings.json`
-    local codesettings = require('codesettings')
     local merged = codesettings.with_local_settings(client.name, { settings = client.settings })
     client.settings = vim.tbl_deep_extend('force', client.settings or {}, merged.settings or {})
   end,
@@ -46,7 +42,6 @@ vim.lsp.config('vtsls', {
   },
 })
 
--- @see https://github.com/folke/lazydev.nvim
 require('lazydev').setup()
 
 -- Enable all LSP servers
@@ -66,13 +61,11 @@ vim.lsp.enable({
 
 -- -------------------------------------
 -- Auto Commands
-
 -- Format on save: fixAll (oxlint) → format (oxfmt)
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = vim.api.nvim_create_augroup('FormatOnSave', { clear = true }),
   callback = function(args)
     local buf = args.buf
-
     -- 1. Fix all lint issues
     local oxlint = vim.lsp.get_clients({ bufnr = buf, name = 'oxlint' })[1]
     if oxlint then
@@ -80,7 +73,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
         textDocument = { uri = vim.uri_from_bufnr(buf) },
         context = { only = { 'source.fixAll.oxc' }, diagnostics = {} },
         range = {
-          start = { line = 0, character = 0 },
+          ['start'] = { line = 0, character = 0 },
           ['end'] = { line = vim.api.nvim_buf_line_count(buf), character = 0 },
         },
       }
@@ -94,7 +87,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
         end
       end
     end
-
     -- 2. Format
     local oxfmt = vim.lsp.get_clients({ bufnr = buf, name = 'oxfmt' })[1]
     if oxfmt then
