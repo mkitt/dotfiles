@@ -79,6 +79,10 @@ require('yanky').setup({
 
 -- -------------------------------------
 -- Auto Commands
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+  command = 'checktime',
+})
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'gitcommit', 'markdown', 'text' },
   command = 'setlocal linebreak nolist wrap spell',
