@@ -34,9 +34,9 @@ if [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
   . $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
   setopt PROMPT_SUBST
   GIT_PS1_SHOWDIRTYSTATE="true"
-  PROMPT='%F{5}[%n]%f %F{4}%1~%f %F{6}$(__git_ps1 "[%s] ")%f%F{8}%#%f '
+  PROMPT='%F{5}[%m]%f %F{4}%1~%f %F{6}$(__git_ps1 "[%s] ")%f%F{8}%#%f '
 else
-  PROMPT='%F{5}[%n]%f %F{4}%1~%f %F{8}%#%f '
+  PROMPT='%F{5}[%m]%f %F{4}%1~%f %F{8}%#%f '
 fi
 
 # Handy stuff
@@ -47,7 +47,7 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
-alias bake="caffeinate -i -d -t 3600"
+alias be="bundle exec"
 alias reload="source ~/.zprofile && cd ../ && cd -"
 
 # case insensitive path-completion
@@ -63,11 +63,13 @@ zstyle ':completion:*' expand prefix suffix
 # Load zsh completion engine
 autoload -Uz compinit && compinit
 
-# Load local zshrc file if it exists
-if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
-  source "${ZDOTDIR:-$HOME}/.zshrc.local"
+# ASDF version manager
+if [ -f $(brew --prefix asdf)/libexec/asdf.sh ]; then
+  . $(brew --prefix asdf)/libexec/asdf.sh
 fi
-true
+
+# Load local zshrc file if it exists
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # pnpm
 export PNPM_HOME="${ZDOTDIR:-$HOME}/Library/pnpm"
