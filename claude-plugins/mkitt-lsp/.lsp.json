@@ -24,6 +24,18 @@
     "settings": {},
     "transport": "stdio"
   },
+  "graphql": {
+    "args": ["server", "-m", "stream"],
+    "command": "graphql-lsp",
+    "extensionToLanguage": {
+      ".gql": "graphql",
+      ".graphql": "graphql"
+    },
+    "initializationOptions": {},
+    "maxRestarts": 3,
+    "settings": {},
+    "transport": "stdio"
+  },
   "html": {
     "args": ["--stdio"],
     "command": "vscode-html-language-server",
