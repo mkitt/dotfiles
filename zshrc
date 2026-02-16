@@ -44,7 +44,7 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
-alias reload="exec zsh"
+alias reload="source ~/.zshrc && cd ../ && cd -"
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
