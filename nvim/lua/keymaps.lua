@@ -50,13 +50,13 @@ vim.keymap.set('n', 'gV', '`[v`]', { desc = 'Re-select last pasted text' })
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('LspKeymaps', { clear = true }),
   callback = function(e)
-    vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, { desc = 'code actions', buffer = e.buf })
+    vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, { desc = 'code actions (default is gra)', buffer = e.buf })
     vim.keymap.set('n', 'g>', ':VtsExec source_actions<CR>', { desc = 'source actions (vtsls)', buffer = e.buf })
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { desc = 'goto declaration', buffer = e.buf })
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
-    vim.keymap.set('n', 'gF', '<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>',
-      { desc = 'goto definition in vsplit', buffer = e.buf })
+    vim.keymap.set('n', 'gF', '<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>', { desc = 'goto definition in vsplit', buffer = e.buf })
     vim.keymap.set('n', 'gS', vim.lsp.buf.signature_help, { desc = 'show signature', buffer = e.buf })
-    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, { desc = 'goto types definition', buffer = e.buf })
+    -- TODO: `grt` is the default in 0.12, remove when that version is stable
+    vim.keymap.set('n', 'grt', vim.lsp.buf.type_definition, { desc = 'goto types definition', buffer = e.buf })
   end
 })

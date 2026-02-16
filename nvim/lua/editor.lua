@@ -34,6 +34,7 @@ require('yanky').setup({
 -- Editor
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_filetypes = { ["*"] = true, }
+
 require('nvim-web-devicons').setup()
 
 require('blink.cmp').setup({

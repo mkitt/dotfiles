@@ -15,6 +15,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 -- Editor Behavior
+vim.opt.confirm = true
 vim.opt.expandtab = true
 vim.opt.mouse = 'a'
 vim.opt.shiftwidth = 2
@@ -39,6 +40,7 @@ vim.opt.backup = false
 vim.opt.clipboard = 'unnamed'
 vim.opt.exrc = true
 vim.opt.swapfile = false
+vim.opt.undofile = true
 vim.opt.wildignore:append({ '.DS_Store' })
 vim.opt.writebackup = false
 -- Search and Completion
