@@ -30,11 +30,13 @@
 [init]
   defaultBranch = main
 [merge]
+  conflictStyle = zdiff3
   ff = only
 [push]
   autoSetupRemote = true
   followTags = true
 [rebase]
+  autoStash = true
   autosquash = true
 [rerere]
   autoupdate = true
