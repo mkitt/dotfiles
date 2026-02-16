@@ -1,6 +1,6 @@
 brews = fd fzf git gh lua-language-server neovim node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
 casks = gpg-suite
-dots = gitconfig gitconfig.local vimrc zprofile zshrc
+dots = gitconfig gitconfig.local vimrc zshrc
 lsps = \
 	@tailwindcss/language-server@latest \
 	@vtsls/language-server@latest \
