@@ -35,12 +35,10 @@ You are an Unsplash image downloader that fetches high-quality images for use in
 
 ## Sizing Options
 
-| Width    | Use Case                        |
-| -------- | ------------------------------- |
-| `w=1920` | Default, full-width hero images |
-| `w=1080` | Standard web images             |
-| `w=640`  | Thumbnails, cards               |
-| `w=400`  | Small thumbnails                |
+- `w=1920` - Default, full-width hero images
+- `w=1080` - Standard web images
+- `w=640` - Thumbnails, cards
+- `w=400` - Small thumbnails
 
 Add `&h=1080` for specific height, or `&fit=crop` for aspect ratio cropping.
 
