@@ -14,7 +14,6 @@ window-padding-balance = true
 window-padding-x = 4
 
 shell-integration-features = no-cursor
-window-inherit-working-directory = false
 
 # Fix for Claude return key
 keybind = shift+enter=text:\n
