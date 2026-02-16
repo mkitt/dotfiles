@@ -38,6 +38,19 @@ make help
 1. Setup all Application settings
 1. [Wipe old computer][wipe]
 
+## MDM Detection
+
+The `Brewfile` automatically detects whether you're on a work or personal
+machine by checking for [Jamf MDM][jamf] receipts in `/var/db/receipts/`. This
+controls which apps get installed:
+
+- **Work machine** (Jamf detected): Skips personal apps like Dropbox, Backblaze,
+  and Signal. Also skips cask installs for apps already managed by MDM (1Password,
+  Slack, Zoom).
+- **Personal machine** (no MDM): Installs everything.
+
+The `make install` target prints which mode was detected before running.
+
 ## Tips
 
 ### Git Credentials
@@ -79,6 +92,7 @@ see [the knowledge base article][gpg_transfer]
 [gpg_tools]: https://gpgtools.org/ "gpg tools"
 [gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys "transfer gpg"
 [homebrew]: https://brew.sh "homebrew's home"
+[jamf]: https://www.jamf.com "Jamf MDM"
 [macos_defaults]: http://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"
 [wipe]: https://support.apple.com/en-us/HT201065 "wipe"

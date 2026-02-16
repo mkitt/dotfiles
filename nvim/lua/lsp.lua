@@ -54,7 +54,9 @@ vim.lsp.enable({
   'lua_ls',
   'oxfmt',
   'oxlint',
+  'ruby_lsp',
   'tailwindcss',
+  'terraformls',
   'vtsls',
   'yamlls',
 })

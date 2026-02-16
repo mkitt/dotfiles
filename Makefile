@@ -1,5 +1,4 @@
 brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
-casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
 lsps = \
 	@tailwindcss/language-server@latest \
@@ -17,7 +16,6 @@ help:
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
-	@printf "%scask: $(casks)\n"
 	@printf "%slsp:  $(lsps)\n"
 
 #/ install         Installs homebrews, casks, dotfiles and LSP servers
@@ -32,7 +30,6 @@ install:
 	/opt/homebrew/bin/brew bundle install --all
 	/opt/homebrew/bin/brew install $(brews)
 	/opt/homebrew/bin/brew install neovim
-	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
@@ -47,7 +44,6 @@ install:
 uninstall:
 	sudo -v
 	brew uninstall $(brews) neovim
-	brew uninstall --cask $(casks)
 	pnpm uninstall -g $(lsps)
 	@rm -rfv $$HOME/.claude
 	@rm -rfv $$HOME/.config
