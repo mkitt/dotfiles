@@ -50,18 +50,6 @@ Read Copilot's review comments on the current PR and triage each one with an act
 
 ---
 
-### Dismiss
-
-#### <path>:<line>
-> <quoted Copilot comment — brief>
-
-**Why dismiss:** <short explanation>
-
-**Dismiss response:**
-> <ready-to-paste dismissal message for the PR comment>
-
----
-
 ### Decide
 
 #### <path>:<line>
@@ -71,6 +59,18 @@ Read Copilot's review comments on the current PR and triage each one with an act
 
 **If you agree:** <what to change>
 **If you disagree:** <dismissal response to paste>
+
+---
+
+### Dismiss
+
+#### <path>:<line>
+> <quoted Copilot comment — brief>
+
+**Why dismiss:** <short explanation>
+
+**Dismiss response:**
+> <ready-to-paste dismissal message for the PR comment>
 ```
 
 ## Guidelines
