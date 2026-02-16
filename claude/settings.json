@@ -32,39 +32,28 @@
       "Bash(grep:*)",
       "Bash(jq:*)",
       "Bash(ls:*)",
-      "Bash(npm view:*)",
-      "Bash(make:*)",
       "Bash(mkdir:*)",
+      "Bash(npm view:*)",
       "Bash(rg:*)",
       "Bash(sed:*)",
       "Bash(tree:*)",
       "Bash(wc:*)",
       "WebFetch",
-      "WebSearch",
-      "Bash(pnpm add:*)",
-      "Bash(pnpm check:*)",
-      "Bash(pnpm exec oxlint:*)",
-      "Bash(pnpm exec oxfmt:*)",
-      "Bash(pnpm fix:*)",
-      "Bash(pnpm format:*)",
-      "Bash(pnpm generate:*)",
-      "Bash(pnpm install:*)",
-      "Bash(pnpm lint:*)",
-      "Bash(pnpm list:*)",
-      "Bash(pnpm test:*)",
-      "Bash(pnpm typecheck:*)"
+      "WebSearch"
     ],
     "deny": [
       "Bash(git add:*)",
       "Bash(git checkout:*)",
       "Bash(git clean -fd:*)",
+      "Bash(git push -f:*)",
       "Bash(git push --force:*)",
+      "Bash(git push --force-with-lease:*)",
       "Bash(git reset --hard:*)",
-      "Bash(sudo:*)",
-      "Bash(pnpm dev:*)"
+      "Bash(sudo:*)"
     ],
-    "ask": ["Bash(git commit:*)"],
-    "defaultMode": "default"
+    "ask": [
+      "Bash(git commit:*)"
+    ]
   },
   "enabledPlugins": {
     "Notion@claude-plugins-official": true,
