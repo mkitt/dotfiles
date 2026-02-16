@@ -63,10 +63,8 @@ zstyle ':completion:*' expand prefix suffix
 # Load zsh completion engine
 autoload -Uz compinit && compinit
 
-# ASDF version manager
-if [ -f $(brew --prefix asdf)/libexec/asdf.sh ]; then
-  . $(brew --prefix asdf)/libexec/asdf.sh
-fi
+# Mise version manager
+eval "$(mise activate zsh)"
 
 # Load local zshrc file if it exists
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
