@@ -1,4 +1,4 @@
-brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
+brews = fd fzf git gh lua-language-server neovim node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
 casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zprofile zshrc
 lsps = \
@@ -24,7 +24,6 @@ help:
 install:
 	sudo -v
 	/opt/homebrew/bin/brew install $(brews)
-	/opt/homebrew/bin/brew install neovim
 	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
@@ -39,13 +38,12 @@ install:
 #/ uninstall       Removes homebrews, casks, dotfiles and LSP servers
 uninstall:
 	sudo -v
-	brew uninstall $(brews) neovim
+	brew uninstall $(brews)
 	brew uninstall --cask $(casks)
 	pnpm uninstall -g $(lsps)
-	@rm -rfv $$HOME/.claude
-	@rm -rfv $$HOME/.config
-	@rm -rfv $$HOME/.local
 	@rm -rfv $$HOME/.config/ghostty
+	@rm -rfv $$HOME/.config/nvim
+	@rm -rfv $$HOME/.claude
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
 #/ update          Updates homebrews, casks and LSP servers
@@ -63,11 +61,6 @@ update:
 	pnpm install -g $(lsps)
 	@printf "%s----\n"
 	@printf "%sUpdate nvim plugins: :Lazy update\n"
-
-#/ claude          Symlink botfile directories
-claude:
-	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
-	@ln -sfv `pwd`/claude $$HOME/.claude
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
@@ -94,4 +87,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: claude help install macos uninstall update
+.PHONY: help install macos uninstall update
