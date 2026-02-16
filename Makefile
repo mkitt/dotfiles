@@ -1,6 +1,12 @@
-cocs = coc-css coc-eslint coc-html coc-json coc-lists coc-prettier coc-sh coc-sumneko-lua coc-tsserver coc-vimlsp coc-yaml
-npms = @tailwindcss/language-server graphql-language-service-cli
-dots = gitconfig gitconfig.local vimrc zprofile zshrc inputrc Brewfile
+brews = fd fzf git gh lua-language-server node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
+dots = gitconfig gitconfig.local vimrc zprofile zshrc Brewfile
+lsps = \
+	@tailwindcss/language-server@latest \
+	@vtsls/language-server@latest \
+	bash-language-server@latest \
+	graphql-language-service-cli@latest \
+	vscode-langservers-extracted@latest \
+	yaml-language-server@latest
 
 # --------------------------------------
 
@@ -9,9 +15,10 @@ help:
 	@printf "%sUsage: make TARGET\n"
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
-	@printf "%scocs: $(cocs)\n"
+	@printf "%sbrew: $(brews)\n"
+	@printf "%slsp:  $(lsps)\n"
 
-#/ install         Installs homebrews, casks and dotfiles
+#/ install         Installs homebrews, casks, dotfiles and LSP servers
 install:
 	sudo -v
 	@if ls /var/db/receipts/com.jamf*.plist >/dev/null 2>&1; then \
@@ -20,26 +27,31 @@ install:
 	else \
 		printf "%s\n✓ No MDM detected - treating as personal machine\n\n"; \
 	fi
+	/opt/homebrew/bin/brew bundle install --all
+	/opt/homebrew/bin/brew install $(brews)
+	/opt/homebrew/bin/brew install neovim
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
-	brew bundle install --global --all
-	npm install -g $(npms)
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
-	@mkdir -pv $$HOME/.config/nvim
-	@ln -sfv `pwd`/coc-settings.json $$HOME/.config/nvim/
-	@ln -sfv `pwd`/init.lua $$HOME/.config/nvim/
-	@printf "%s\nInstall global npm packages: npm install $(npms) --global"
-	@printf "%s\nOpen nvim and (auto)run: :Lazy install"
-	@printf "%s\nInstall nvim coc plugins: :CocInstall $(cocs)"
+	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
+	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
+	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
+	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
+	@ln -sfv `pwd`/claude $$HOME/.claude
+	pnpm install -g $(lsps)
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
-#/ uninstall       Removes homebrews, casks and dotfiles
+#/ uninstall       Removes homebrews, casks, dotfiles and LSP servers
 uninstall:
 	sudo -v
+	brew uninstall $(brews) neovim
+	pnpm uninstall -g $(lsps)
+	@rm -rfv $$HOME/.claude
 	@rm -rfv $$HOME/.config
 	@rm -rfv $$HOME/.local
+	@rm -rfv $$HOME/.config/ghostty
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
-#/ update          Updates homebrews and casks
+#/ update          Updates homebrews, casks and LSP servers
 update:
 	brew update
 	@printf "%s----\n"
@@ -48,17 +60,24 @@ update:
 	brew upgrade
 	@printf "%s----\n"
 	brew cleanup
-	brew autoremove
 	@printf "%s----\n"
 	brew doctor
 	@printf "%s----\n"
-	npm update -g $(npms)
-	@printf "%sUpdate nvim plugins: :Lazy update, :TSUpdate, :CocUpdate\n"
-	brew autoremove
-	brew prune
-	brew doctor
-	npm update $(npms) --global
-	@printf "%s\nUpdate vim plugins: :PlugUpgrade, :PlugUpdate\n"
+	pnpm install -g $(lsps)
+	@printf "%s----\n"
+	@printf "%sUpdate nvim plugins: :Lazy update\n"
+
+#/ claude          Symlink botfile directories
+claude:
+	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
+	@ln -sfv `pwd`/claude $$HOME/.claude
+
+#/ lint            Lint shell scripts, Brewfile syntax and git config
+lint:
+	@shellcheck -s bash -e SC1090,SC1091,SC2016,SC2034,SC2046,SC2086,SC2155 zshrc zprofile
+	@ruby -c Brewfile
+	@git config --file gitconfig --list >/dev/null
+	@printf "%s✓ All checks passed\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
@@ -70,7 +89,7 @@ macos:
 	@# Set a blazingly fast keyboard repeat rate -- REQUIRES LOGOUT!
 	defaults write NSGlobalDomain KeyRepeat -int 1
 	defaults write NSGlobalDomain InitialKeyRepeat -int 15
-	@# Save screenshots to the desktop
+	@# Save screenshots to Downloads
 	defaults write com.apple.screencapture location -string "${HOME}/Downloads"
 	@# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 	defaults write com.apple.screencapture type -string "png"
@@ -85,4 +104,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install uninstall update macos
+.PHONY: claude help install lint macos uninstall update

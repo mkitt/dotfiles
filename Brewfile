@@ -75,11 +75,14 @@ brew "neovim"
 brew "readline"
 brew "redis", restart_service: true
 brew "ripgrep"
+brew "ruby-lsp"
 brew "shared-mime-info"
 brew "sqlite", link: true
+brew "terraform-ls"
 brew "tree"
 brew "unzip"
 brew "wget"
+cask "gpg-suite"
 cask "1password@beta" unless mdm_installed?("1Password")
 cask "1password-cli"
 cask "backblaze" if personal_machine?

@@ -1,11 +1,9 @@
 # @see https://scriptingosx.com/2019/06/moving-to-zsh/
 
-# Load Homebrew path
-eval $(/opt/homebrew/bin/brew shellenv)
+# Initialize Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Load ASDF
-. $(brew --prefix asdf)/libexec/asdf.sh
-
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export EDITOR="nvim"
 
 # Add color to man pages
@@ -20,7 +18,6 @@ setopt HIST_IGNORE_SPACE
 setopt INC_APPEND_HISTORY
 setopt NO_CASE_GLOB
 setopt SHARE_HISTORY
-# TODO: Need to find equivalent of Readline's `set history-preserve-point`
 
 # @see http://zsh.sourceforge.net/Doc/Release/Parameters.html
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
@@ -50,8 +47,8 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
-alias reload="source ~/.zprofile && cd ../ && cd -"
 alias be="bundle exec"
+alias reload="source ~/.zprofile && cd ../ && cd -"
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
@@ -65,7 +62,18 @@ zstyle ':completion:*' expand prefix suffix
 
 # Load zsh completion engine
 autoload -Uz compinit && compinit
-true
 
-# Load local overrides (not tracked in git)
+# ASDF version manager
+if [ -f $(brew --prefix asdf)/libexec/asdf.sh ]; then
+  . $(brew --prefix asdf)/libexec/asdf.sh
+fi
+
+# Load local zshrc file if it exists
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# pnpm
+export PNPM_HOME="${ZDOTDIR:-$HOME}/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac

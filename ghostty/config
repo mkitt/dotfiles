@@ -1,0 +1,20 @@
+# Ghostty Configuration
+# https://ghostty.org/docs/config/reference
+auto-update = check
+
+# theme = beamish
+theme = nordish
+
+adjust-cell-height = 30%
+cursor-style-blink = false
+font-size = 13
+font-feature = -calt
+
+window-padding-balance = true
+window-padding-x = 4
+
+shell-integration-features = no-cursor
+window-inherit-working-directory = false
+
+# Fix for Claude return key
+keybind = shift+enter=text:\n
