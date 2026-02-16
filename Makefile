@@ -1,4 +1,20 @@
-brews = fd fzf git gh lua-language-server neovim node pnpm pngpaste ripgrep tree tree-sitter tree-sitter-cli
+brews = \
+	cocoapods \
+	colima \
+	docker \
+	docker-compose \
+	fd \
+	fzf \
+	gh \
+	git \
+	lua-language-server \
+	neovim \
+	node \
+	pnpm \
+	ripgrep \
+	tree \
+	tree-sitter \
+	tree-sitter-cli
 casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zshrc
 lsps = \
