@@ -7,7 +7,7 @@ allowed-tools: Bash, Skill
 
 Create a git commit for the currently staged files.
 
-1. **Load the git skill** for commit message standards
+1. **Invoke the `git` skill** (via the Skill tool) to load commit message standards into context
 2. **Check staged changes** with `git diff --cached --stat` and `git diff --cached`
 3. **Review recent commits** with `git log --oneline -5` for style consistency
 4. **Draft the commit message** following the git skill guidelines:
