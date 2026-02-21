@@ -1,4 +1,3 @@
--- -------------------------------------
 -- LSP Configuration (servers installed globally via: make lsp)
 -- @see https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp
 
@@ -22,18 +21,16 @@ vim.lsp.config('*', {
   end,
 })
 
--- Server-specific configurations
-vim.lsp.config('graphql', {
-  root_markers = { '.graphqlrc*', '.graphql.config.*', 'graphql.config.*', 'package.json' },
+-- Server-specific configurations (nvim-lspconfig provides base defaults)
+vim.lsp.config('oxfmt', {
+  cmd = { 'npx', 'oxfmt', '--lsp' },
 })
 
 vim.lsp.config('oxlint', {
   cmd = { 'npx', 'oxlint', '--lsp' },
-})
-
-vim.lsp.config('oxfmt', {
-  cmd = { 'npx', 'oxfmt', '--lsp' },
-  root_markers = { '.oxfmtrc.json', 'package.json', '.git' },
+  settings = {
+    typeAware = true,
+  },
 })
 
 vim.lsp.config('vtsls', {
@@ -87,11 +84,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
         end
       end
     end
-    -- 2. Format
-    local oxfmt = vim.lsp.get_clients({ bufnr = buf, name = 'oxfmt' })[1]
-    if oxfmt then
-      vim.lsp.buf.format({ bufnr = buf, timeout_ms = 500, name = 'oxfmt' })
-    end
+    -- 2. Format (no-ops if oxfmt is not attached)
+    vim.lsp.buf.format({ bufnr = buf, timeout_ms = 500, name = 'oxfmt' })
   end,
 })
 
