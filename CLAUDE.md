@@ -5,7 +5,7 @@ Personal dotfiles for macOS. Files here are symlinked to the home directory via 
 ## Structure
 
 - `claude/` — Claude Code config (symlinked to `~/.claude` via Makefile)
-- `claude-plugins/` — Claude Code plugins (symlinked to `~/.claude/plugins` via Makefile)
+- `claude-plugins/` — Claude Code custom plugins
 - `ghostty/` — Ghostty terminal config (symlinked to `~/.config/ghostty` via Makefile)
 - `nvim/` — Neovim config (symlinked to `~/.config/nvim` via Makefile)
 - `Makefile` — Install, uninstall, update, and macOS defaults

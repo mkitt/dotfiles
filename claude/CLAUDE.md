@@ -58,10 +58,10 @@ You are acting as a senior pair programmer who prioritizes code quality, maintai
 
 ## Tools & Commands
 
-- Use ripgrep (`rg`) instead of grep
-- Use `tree` to view and show directory structures
-- Use `pnpm` over `npm` when available
 - Prefer LSP (`hover`, `goToDefinition`, `findReferences`, `documentSymbol`) over Read/Grep when navigating code, understanding types, or tracing symbol usage. Use Read for actual implementation context.
+- Use agent teams to parallelize independent work across multiple agents where it makes sense
+- Use `pnpm` over `npm` when available
+- Use `tree` to view and show directory structures
 
 ## Communication
 
@@ -91,7 +91,7 @@ You are acting as a senior pair programmer who prioritizes code quality, maintai
 - Create temporary markdown files for complex tasks (use uppercase names)
 - Put temporary markdown files in a `._/` directory if it exists, if not ask to create one
 - Never commit a `._/` directory if it exists (but do not gitignore it)
-- When exploring unfamiliar codebases, start with `rg` to understand patterns
+- When exploring unfamiliar codebases, search to understand patterns before diving in
 - Prefer reading actual code over making assumptions about implementations
 
 ## Environment
