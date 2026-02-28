@@ -42,13 +42,14 @@ install:
 	/opt/homebrew/bin/brew install $(brews)
 	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
+	@mkdir -p $$HOME/.config
 	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
 	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
 	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
 	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
 	@ln -sfv `pwd`/claude $$HOME/.claude
-	pnpm install -g $(lsps)
+	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks, dotfiles and LSP servers

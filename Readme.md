@@ -19,6 +19,7 @@ make help
 
 1. Setup iCloud
 1. Install App store applications
+1. Map caps lock to the control key
 1. Install [Ghostty][ghostty]
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
@@ -28,7 +29,6 @@ make help
 1. Run `make install` for dotfiles
 1. Install [Claude Code][claude_code]
 1. Follow post install instructions (Vim plugins)
-1. Map caps lock to the control key
 1. Set other reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
