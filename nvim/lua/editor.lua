@@ -134,9 +134,35 @@ require('neo-tree').setup({
 
 -- -------------------------------------
 -- Auto Commands
-vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+
+-- Reload buffers changed on disk. FocusGained/BufEnter handle the active
+-- window case. The timer covers the background case (e.g. Claude Code in a
+-- neighbouring Ghostty split editing files while Neovim is unfocused).
+local checktime_paused = false
+
+vim.api.nvim_create_autocmd('FocusGained', {
+  callback = function()
+    checktime_paused = true
+    vim.cmd.checktime()
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufEnter', {
   command = 'checktime',
 })
+
+vim.api.nvim_create_autocmd('FocusLost', {
+  callback = function()
+    checktime_paused = false
+  end,
+})
+
+---@diagnostic disable-next-line: undefined-field
+local checktime_timer = vim.uv.new_timer()
+checktime_timer:start(1000, 1000, vim.schedule_wrap(function()
+  if checktime_paused or vim.fn.getcmdwintype() ~= '' then return end
+  vim.cmd.checktime()
+end))
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'gitcommit', 'markdown', 'text' },
