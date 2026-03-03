@@ -1,5 +1,5 @@
 ---
-name: create-pr
+name: pr-create
 description: Create a pull request for the current branch
 disable-model-invocation: true
 allowed-tools: Bash, Skill
