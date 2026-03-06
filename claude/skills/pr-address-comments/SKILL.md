@@ -1,5 +1,5 @@
 ---
-name: pr-review-comments
+name: pr-address-comments
 description: Triage PR review comments, apply fixes, and reply back. Categorizes each as Fix, Dismiss, or Decide with actionable recommendations.
 disable-model-invocation: true
 allowed-tools: Bash, Read, Grep, Glob
