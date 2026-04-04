@@ -1,9 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
-    "CLAUDE_CODE_COORDINATOR_MODE": "1",
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "ENABLE_LSP_TOOL": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
     "allow": [
@@ -25,6 +23,7 @@
       "Bash(gh search:*)",
       "Bash(gh workflow list:*)",
       "Bash(git branch:*)",
+      "Bash(git commit:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
       "Bash(git push --force-with-lease:*)",
@@ -52,9 +51,6 @@
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)",
       "Bash(sudo:*)"
-    ],
-    "ask": [
-      "Bash(git commit:*)"
     ]
   },
   "enabledPlugins": {
