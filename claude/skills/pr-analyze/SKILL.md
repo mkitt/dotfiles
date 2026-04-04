@@ -51,6 +51,14 @@ Only proceed here when the user asks to post comments (e.g., "post those", "subm
 
 ## Output Format
 
+Findings are numbered sequentially across all sections so the user can
+reference them by number (e.g., "drop 3", "post 1 and 4").
+
+File references are GitHub links to the PR branch so they're clickable:
+`https://github.com/{owner}/{repo}/blob/{branch}/{file}#L{line}`
+
+Derive `{owner}/{repo}` from the PR URL and `{branch}` from `headRefName`.
+
 ```
 ## PR #<number>: <title>
 <url>
@@ -64,22 +72,22 @@ Only proceed here when the user asks to post comments (e.g., "post those", "subm
 
 ### Must-fix
 
-**<file>:<line> — <short title>**
-<description of the issue and why it matters>
-Suggested fix: <concrete suggestion or code snippet>
+1. [<file>:<line>](<github-blob-url>) — **<short title>**
+   <description of the issue and why it matters>
+   Suggested fix: <concrete suggestion or code snippet>
 
 ---
 
 ### Worth discussing
 
-**<file>:<line> — <short title>**
-<description and trade-off>
+2. [<file>:<line>](<github-blob-url>) — **<short title>**
+   <description and trade-off>
 
 ---
 
 ### Looks good
 
-- <file> — <what's good about it>
+3. [<file>](<github-blob-url>) — <what's good about it>
 
 ---
 
