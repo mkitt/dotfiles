@@ -1,5 +1,5 @@
 ---
-name: git-standards
+name: git
 description: Git conventions for commits, branches, and using git as a context source. Use when committing code, creating branches, or needing to understand repository history.
 ---
 
