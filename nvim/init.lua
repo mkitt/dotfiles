@@ -1,13 +1,3 @@
--- Bootstrap lazy.nvim (plugin manager)
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
----@diagnostic disable-next-line: undefined-field
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then error('Error cloning lazy.nvim:\n' .. out) end
-end
-vim.opt.rtp:prepend(lazypath)
-
 -- -------------------------------------
 -- Options
 -- Remap space as leader key
@@ -17,7 +7,6 @@ vim.g.maplocalleader = ' '
 -- Editor Behavior
 vim.opt.confirm = true
 vim.opt.expandtab = true
-vim.opt.mouse = 'a'
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.updatetime = 50
@@ -62,34 +51,31 @@ vim.diagnostic.config({
 
 -- -------------------------------------
 -- Plugins
--- @see https://lazy.folke.io
-require('lazy').setup({
+-- @see https://neovim.io/doc/user/vim.pack/
+vim.pack.add({
   -- Utility Dependencies
-  { 'https://github.com/MunifTanjim/nui.nvim' },
-  { 'https://github.com/nvim-lua/plenary.nvim' },
+  'https://github.com/MunifTanjim/nui.nvim',
+  'https://github.com/nvim-lua/plenary.nvim',
   -- Editing
-  { 'https://github.com/JoosepAlviste/nvim-ts-context-commentstring' },
-  { 'https://github.com/gbprod/yanky.nvim' },
-  { 'https://github.com/numToStr/Comment.nvim' },
-  { 'https://github.com/nvim-treesitter/nvim-treesitter',            build = ':TSUpdate' },
-  { 'https://github.com/tpope/vim-repeat' },
-  { 'https://github.com/tpope/vim-surround' },
-  { 'https://github.com/tpope/vim-unimpaired' },
+  'https://github.com/gbprod/yanky.nvim',
+  'https://github.com/nvim-treesitter/nvim-treesitter',
+  'https://github.com/tpope/vim-repeat',
+  'https://github.com/tpope/vim-surround',
   -- Editor
-  { 'https://github.com/fang2hou/blink-copilot' },
-  { 'https://github.com/github/copilot.vim' },
-  { 'https://github.com/ibhagwan/fzf-lua' },
-  { 'https://github.com/nvim-neo-tree/neo-tree.nvim',                branch = 'v3.x' },
-  { 'https://github.com/nvim-tree/nvim-web-devicons' },
-  { 'https://github.com/saghen/blink.cmp',                           version = '*' },
-  { 'https://github.com/tpope/vim-fugitive' },
-  { 'https://github.com/tpope/vim-rhubarb' },
+  'https://github.com/fang2hou/blink-copilot',
+  'https://github.com/github/copilot.vim',
+  'https://github.com/ibhagwan/fzf-lua',
+  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = vim.version.range('3') },
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('^1') },
+  'https://github.com/tpope/vim-fugitive',
+  'https://github.com/tpope/vim-rhubarb',
   -- LSP
-  { 'https://github.com/folke/lazydev.nvim' },
-  { 'https://github.com/mrjones2014/codesettings.nvim' },
-  { 'https://github.com/neovim/nvim-lspconfig' },
-  { 'https://github.com/yioneko/nvim-vtsls' },
-}, {})
+  'https://github.com/folke/lazydev.nvim',
+  'https://github.com/mrjones2014/codesettings.nvim',
+  'https://github.com/neovim/nvim-lspconfig',
+  'https://github.com/yioneko/nvim-vtsls',
+})
 
 -- -------------------------------------
 -- Setup

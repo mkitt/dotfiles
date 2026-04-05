@@ -77,7 +77,7 @@ update:
 	@printf "%s----\n"
 	pnpm install -g $(lsps)
 	@printf "%s----\n"
-	@printf "%sUpdate nvim plugins: :Lazy update\n"
+	@printf "%sUpdate nvim plugins: :lua vim.pack.update()\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:

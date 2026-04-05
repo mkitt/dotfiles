@@ -28,7 +28,7 @@ make help
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
 1. Install [Claude Code][claude_code]
-1. Follow post install instructions (Vim plugins)
+1. Open Neovim and confirm plugin installation
 1. Set other reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]

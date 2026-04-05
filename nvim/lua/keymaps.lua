@@ -37,6 +37,11 @@ vim.keymap.set('n', '-', ':Neotree filesystem float reveal<CR>',
   { desc = 'Open the filesystem tree explorer in a float', silent = true })
 vim.keymap.set('n', '\\', ':nohlsearch<CR>', { desc = 'Clear search highlighting', silent = true })
 
+-- Conflict markers (unimpaired)
+local conflict = [[^\(<<<<<<<\|=======\|>>>>>>>\||||||||\)]]
+vim.keymap.set('n', '[n', function() vim.fn.search(conflict, 'bW') end, { desc = 'Previous conflict marker' })
+vim.keymap.set('n', ']n', function() vim.fn.search(conflict, 'W') end, { desc = 'Next conflict marker' })
+
 -- Leader commands
 vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>', { desc = 'Open the Copilot panel' })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagnostics in a quickfix list' })
@@ -56,7 +61,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'goto definition', buffer = e.buf })
     vim.keymap.set('n', 'gF', '<Cmd>vsplit | lua vim.lsp.buf.definition()<CR>', { desc = 'goto definition in vsplit', buffer = e.buf })
     vim.keymap.set('n', 'gS', vim.lsp.buf.signature_help, { desc = 'show signature', buffer = e.buf })
-    -- TODO: `grt` is the default in 0.12, remove when that version is stable
-    vim.keymap.set('n', 'grt', vim.lsp.buf.type_definition, { desc = 'goto types definition', buffer = e.buf })
   end
 })

@@ -1,5 +1,5 @@
 -- LSP Configuration (servers installed globally via: make lsp)
--- @see https://gpanders.com/blog/whats-new-in-neovim-0-11/#lsp
+-- @see https://neovim.io/doc/user/news-0.12/
 
 -- Merge default LSP and blink.cmp capabilities
 local cmp = require('blink.cmp')

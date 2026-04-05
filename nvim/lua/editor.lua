@@ -1,11 +1,8 @@
 -- -------------------------------------
 -- Editing
 require('nvim-treesitter').install({
-  'bash', 'css', 'diff', 'dockerfile', 'git_config', 'git_rebase',
-  'gitignore', 'go', 'graphql', 'html', 'javascript', 'jsdoc',
-  'json', 'jsonc', 'make', 'mermaid', 'python', 'regex', 'ruby',
-  'scss', 'sql', 'swift', 'terraform', 'toml', 'tsx', 'typescript',
-  'xml', 'yaml',
+  'bash', 'css', 'diff', 'dockerfile', 'git_config', 'git_rebase', 'gitignore', 'go', 'graphql', 'html', 'javascript', 'jsdoc', 'json',
+  'make', 'mermaid', 'python', 'regex', 'ruby', 'scss', 'sql', 'swift', 'terraform', 'toml', 'tsx', 'typescript', 'xml', 'yaml',
 })
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -15,15 +12,6 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end
   end,
-})
-
-require('ts_context_commentstring').setup({
-  enable_autocmd = false,
-})
-
----@diagnostic disable-next-line: missing-fields
-require('Comment').setup({
-  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 })
 
 require('yanky').setup({
@@ -159,6 +147,7 @@ vim.api.nvim_create_autocmd('FocusLost', {
 
 ---@diagnostic disable-next-line: undefined-field
 local checktime_timer = vim.uv.new_timer()
+---@diagnostic disable-next-line: need-check-nil
 checktime_timer:start(1000, 1000, vim.schedule_wrap(function()
   if checktime_paused or vim.fn.getcmdwintype() ~= '' then return end
   vim.cmd.checktime()
