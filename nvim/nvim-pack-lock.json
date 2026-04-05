@@ -25,6 +25,10 @@
       "rev": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d",
       "src": "https://github.com/folke/lazydev.nvim"
     },
+    "mini.surround": {
+      "rev": "2715e04bea3ec9244f15b421dc5b18c0fe326210",
+      "src": "https://github.com/echasnovski/mini.surround"
+    },
     "neo-tree.nvim": {
       "rev": "84c75e7a7e443586f60508d12fc50f90d9aee14e",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim",
@@ -58,17 +62,9 @@
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
       "src": "https://github.com/tpope/vim-fugitive"
     },
-    "vim-repeat": {
-      "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
-      "src": "https://github.com/tpope/vim-repeat"
-    },
     "vim-rhubarb": {
       "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
       "src": "https://github.com/tpope/vim-rhubarb"
-    },
-    "vim-surround": {
-      "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
-      "src": "https://github.com/tpope/vim-surround"
     },
     "yanky.nvim": {
       "rev": "784188e0a7363e762e53140f39124d786aec0832",

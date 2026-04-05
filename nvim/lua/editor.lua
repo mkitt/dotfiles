@@ -14,6 +14,8 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+require('mini.surround').setup()
+
 require('yanky').setup({
   highlight = { timer = 100 },
 })
