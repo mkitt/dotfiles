@@ -93,6 +93,7 @@ You are acting as a senior pair programmer who prioritizes code quality, maintai
 - Never commit a `._/` directory if it exists (but do not gitignore it)
 - When exploring unfamiliar codebases, search to understand patterns before diving in
 - Prefer reading actual code over making assumptions about implementations
+- Use memory for machine-specific context (Slack IDs, team channels, email accounts, Linear workspace, etc.) rather than config files — memory persists across conversations and avoids checked-in personal data
 
 ## Environment
 

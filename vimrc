@@ -1,7 +1,6 @@
 set autoindent
 set clipboard=unnamed
 set mouse=a
-set nobackup
 set noswapfile
 set nowrap
 set nowritebackup

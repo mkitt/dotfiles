@@ -4,7 +4,8 @@ Personal dotfiles for macOS. Files here are symlinked to the home directory via 
 
 ## Structure
 
-- `claude/` — Claude Code config (symlinked to `~/.claude` via Makefile)
+- `.claude/` — Project-level Claude Code config (hooks, project settings)
+- `claude/` — User-level Claude Code config (symlinked to `~/.claude` via Makefile)
 - `claude-plugins/` — Claude Code custom plugins
 - `ghostty/` — Ghostty terminal config (symlinked to `~/.config/ghostty` via Makefile)
 - `nvim/` — Neovim config (symlinked to `~/.config/nvim` via Makefile)
@@ -20,6 +21,17 @@ make uninstall  # Remove symlinks, uninstall brews/casks/LSPs
 make update     # Update brews, casks, and LSP servers
 make macos      # Apply macOS system defaults
 ```
+
+## Skills
+
+- `ops` — daily awareness tool with three commands: `debrief` (what happened), `brief` (what's ahead), `muster` (composed summary). Zero-config, detects available MCPs at runtime, accepts scope (person, channel) and time period arguments.
+- `transfer-context` — prepare context for a new chat session
+
+## Hooks
+
+- PostToolUse on Edit/Write/NotebookEdit runs `.claude/hooks/quality-check.sh`
+- Formats `.md`, `.json`, `.yaml`, `.yml` via `npx oxfmt`
+- Config at `.claude/hooks/oxfmtrc.json` (printWidth: 80)
 
 ## Neovim
 
