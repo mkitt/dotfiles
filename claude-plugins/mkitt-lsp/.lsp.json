@@ -7,7 +7,7 @@
       ".sh": "shellscript"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   },
@@ -20,7 +20,7 @@
       ".scss": "scss"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   },
@@ -32,7 +32,7 @@
       ".graphql": "graphql"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   },
@@ -44,7 +44,7 @@
       ".html": "html"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   },
@@ -56,7 +56,7 @@
       ".jsonc": "jsonc"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   },
@@ -74,7 +74,7 @@
       ".tsx": "typescriptreact"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   },
@@ -86,7 +86,7 @@
       ".yml": "yaml"
     },
     "initializationOptions": {},
-    "maxRestarts": 3,
+    "maxRestarts": 10,
     "settings": {},
     "transport": "stdio"
   }
