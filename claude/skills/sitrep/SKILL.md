@@ -1,17 +1,17 @@
 ---
-name: ops
+name: sitrep
 description: >-
-  Daily awareness tool. Gathers activity from connected sources (GitHub, Slack,
+  Daily situation report. Gathers activity from connected sources (GitHub, Slack,
   Linear, Calendar, Gmail) to debrief what happened, brief what's ahead, and
   muster a composed summary. Use when the user wants to review activity, check
   what's coming up, or prepare a daily update.
 argument-hint: "<debrief|brief|muster> [scope] [period]"
-allowed-tools: Read, Glob, Grep, Bash, Agent, mcp__claude_ai_Gmail__gmail_get_profile, mcp__claude_ai_Gmail__gmail_search_messages, mcp__claude_ai_Google_Calendar__gcal_list_events, mcp__claude_ai_Linear__list_issues, mcp__claude_ai_Linear__list_my_issues, mcp__claude_ai_Slack__slack_search_channels, mcp__claude_ai_Slack__slack_search_public_and_private
+allowed-tools: Read, Glob, Grep, Bash, Agent, ToolSearch, mcp__claude_ai_Gmail__gmail_get_profile, mcp__claude_ai_Gmail__gmail_search_messages, mcp__claude_ai_Google_Calendar__gcal_list_events, mcp__claude_ai_Linear__list_issues, mcp__claude_ai_Slack__slack_search_channels, mcp__claude_ai_Slack__slack_search_public_and_private
 ---
 
-# Ops
+# Sitrep
 
-Daily awareness tool. Gathers activity from connected sources to orient you.
+Daily situation report. Gathers activity from connected sources to orient you.
 
 ## Commands
 
@@ -35,13 +35,29 @@ never error or suggest the user connect something.
 - **Linear** — available if `mcp__claude_ai_Linear__*` tools exist
 - **Slack** — available if `mcp__claude_ai_Slack__*` tools exist
 
+MCP tools may be deferred (lazy-loaded). Use `ToolSearch` to load tools
+before first use — e.g., `ToolSearch("select:mcp__claude_ai_Linear__list_issues")`
+or `ToolSearch("+Linear list")`. Batch-load all needed MCP tools at the start
+of a command to avoid mid-run failures.
+
 A debrief with only GitHub is still useful — it shows PRs and commits.
 A brief without Calendar still shows PRs and issues. Degrade gracefully.
 
+## Memory
+
+Check conversation context and memory for cached details before resolving
+at runtime. Memory avoids redundant lookups and provides context the skill
+can't infer (repos, channels, team). Useful memory keys:
+
+- **Identity** — name, Slack ID, email, timezone
+- **Repos** — sibling repositories to scan for git activity
+- **Channels** — Slack channels relevant to the user's work (PR reviews, team)
+- **Linear** — team name, active project context
+
 ## Identity
 
-Use identity details from conversation context (memory) when available.
-For anything not in context, infer at runtime:
+Use identity details from memory when available.
+For anything not in memory, infer at runtime:
 
 - **Name** — `git config user.name`
 - **Slack ID** — if Slack is available, resolve from profile
@@ -78,7 +94,8 @@ All commands accept time periods as the last argument(s):
 ### Workday Logic
 
 - Tuesday through Friday: previous day is last workday
-- Monday: Friday is last workday
+- Monday: debrief covers Friday through Sunday (full weekend window)
+- Saturday/Sunday: debrief covers Friday through today, brief targets Monday
 - After holidays: last workday before the break
 
 ## Output Conventions
@@ -94,7 +111,7 @@ All commands accept time periods as the last argument(s):
 If `$ARGUMENTS` is empty, `help`, or unrecognized, display:
 
 ```
-/ops — daily awareness tool
+/sitrep — daily situation report
 
 Commands:
   debrief [scope] [period]   what happened (default: last workday)

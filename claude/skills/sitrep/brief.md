@@ -10,7 +10,7 @@ Run available sources in parallel for the resolved scope and period.
 
 ### Local Git
 
-Check the current working directory and any repos known from context:
+Check the current working directory and any repos from memory:
 
 - `git log --oneline @{upstream}..HEAD 2>/dev/null` — unpushed commits → In progress
 - `git diff --stat HEAD` — uncommitted changes → In progress
@@ -28,10 +28,11 @@ Use `gh` CLI or `activity-github` subagent:
 
 ### Linear
 
-`mcp__claude_ai_Linear__list_issues` or `list_my_issues`:
+`mcp__claude_ai_Linear__list_issues`:
 
-- In-progress issues assigned to [scope] (`state: "started"`) → In progress
-- High-priority unstarted issues → Needs attention
+- In-progress issues: `assignee: "me"`, `state: "started"` → In progress
+- High-priority unstarted: `assignee: "me"`, `priority: 1` or `priority: 2` → Needs attention
+- For another person, use `assignee: "<name>"` instead of `"me"`
 - Skip issues not updated in 2+ weeks (backlog)
 
 ### Calendar
@@ -48,7 +49,7 @@ Use `gh` CLI or `activity-github` subagent:
 - `to:<@slack_id> after:<last_workday>` — things directed at [scope]
 - Direct questions and open threads → Needs attention
 - Slackbot reminders: `from:slackbot to:<@slack_id>` → Reminders
-- Self-DMs: `from:<@slack_id> to:<@slack_id>` — notes to self → Reminders
+- Self-DMs: `from:<@slack_id> in:<@slack_id>` — notes to self → Reminders
 
 ### Gmail
 

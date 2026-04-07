@@ -6,9 +6,20 @@ Default: debrief(last workday) + brief(today).
 
 ## Time Parsing
 
-- (none) → debrief: last workday, brief: today
+- (none) → debrief: last workday, brief: today (or next workday if today is a weekend)
 - `weekly` → debrief: this-week, brief: next-week
 - Other period → debrief: that period, brief: today
+
+### Weekend / Monday Handling
+
+On **Monday**, debrief covers **Friday through Sunday** (the full weekend
+window). Work happens on weekends even without standups — capture it all.
+
+On **Saturday or Sunday**, shift both periods:
+- **Debrief** covers Friday through today
+- **Brief** targets Monday (next workday)
+
+This matches Sunday-evening standup prep and Monday-morning catch-up.
 
 ## Steps
 

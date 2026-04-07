@@ -10,7 +10,7 @@ Run available sources in parallel for the resolved scope and period.
 
 ### Local Git
 
-Check the current working directory and any repos known from context:
+Check the current working directory and any repos from memory:
 
 - `git log --author="<name>" --after="<start_date>" --oneline` — local commits
 - `git stash list` — stashed work (self scope only)
@@ -30,10 +30,10 @@ Use the `activity-github` subagent via the Agent tool:
 
 ### Linear
 
-`mcp__claude_ai_Linear__list_issues` or `list_my_issues`:
+`mcp__claude_ai_Linear__list_issues`:
 
-- Completed issues within the period (`state: "completed"`)
-- For another person, filter by assignee name
+- Completed issues: `assignee: "me"`, `state: "completed"`, `updatedAt: "-P<N>D"`
+- For another person, use `assignee: "<name>"` instead of `"me"`
 
 ### Slack
 
@@ -42,7 +42,7 @@ Use the `activity-github` subagent via the Agent tool:
 - Person scope: `from:<@slack_id> after:<start_date>` — substantive
   messages only, skip greetings, reactions, short acks
 - Channel scope: `in:<#channel> after:<start_date>` — all activity
-- Self-DMs: `from:<@slack_id> to:<@slack_id>` — notes, links, thoughts
+- Self-DMs: `from:<@slack_id> in:<@slack_id>` — notes, links, thoughts
   captured during the period → Activity
 
 ### Calendar
