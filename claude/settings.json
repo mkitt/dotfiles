@@ -44,14 +44,14 @@
       "WebSearch"
     ],
     "deny": [
-      "Bash(git add:*)",
       "Bash(git checkout:*)",
       "Bash(git clean -fd:*)",
       "Bash(git push -f:*)",
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)",
       "Bash(sudo:*)"
-    ]
+    ],
+    "defaultMode": "auto"
   },
   "enabledPlugins": {
     "claude-code-setup@claude-plugins-official": true,

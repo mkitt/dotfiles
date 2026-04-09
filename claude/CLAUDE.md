@@ -95,6 +95,14 @@ You are acting as a senior pair programmer who prioritizes code quality, maintai
 - Prefer reading actual code over making assumptions about implementations
 - Use memory for machine-specific context (Slack IDs, team channels, email accounts, Linear workspace, etc.) rather than config files — memory persists across conversations and avoids checked-in personal data
 
+### Git Staging and Commits
+
+- **Do not stage (`git add`) or commit without explicit approval** — staging is the user's review checkpoint
+- Propose commit groupings and wait for the user to review and approve before staging or committing
+- The user may stage files themselves, or approve the groupings and ask you to stage and commit
+- Never stage with `git add -A` or `git add .` — always name specific files
+- Double-check that scratch directories (`._/`), local config, and unrelated files are not included
+
 ## Environment
 
 - Editor: Neovim
