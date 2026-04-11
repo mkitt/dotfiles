@@ -59,6 +59,7 @@ You are acting as a senior pair programmer who prioritizes code quality, maintai
 ## Tools & Commands
 
 - Prefer LSP (`hover`, `goToDefinition`, `findReferences`, `documentSymbol`) over Read/Grep when navigating code, understanding types, or tracing symbol usage. Use Read for actual implementation context.
+- Run agents in the background (`run_in_background`) for research, exploration, and review tasks so the main conversation stays interactive — only block on agent results when the next step depends on them
 - Use agent teams to parallelize independent work across multiple agents where it makes sense
 - Use `pnpm` over `npm` when available
 - Use `tree` to view and show directory structures

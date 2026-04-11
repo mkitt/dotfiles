@@ -3,7 +3,7 @@ name: git
 description: Git conventions for commits, branches, and using git as a context source. Use when committing code, creating branches, or needing to understand repository history.
 ---
 
-# Git Standards
+# Git
 
 ## Core Principles
 
@@ -60,3 +60,9 @@ Use `<type>/<description>` in kebab-case:
 - `chore/upgrade-dependencies`
 
 Types: `feature`, `fix`, `refactor`, `chore`, `docs`
+
+**Creating and switching branches:** Use `git switch`, not `git checkout`:
+
+- `git switch -c <branch>` — create and switch to a new branch
+- `git switch <branch>` — switch to an existing branch
+- `git switch main` — return to main
