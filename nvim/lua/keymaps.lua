@@ -43,11 +43,18 @@ vim.keymap.set('n', '[n', function() vim.fn.search(conflict, 'bW') end, { desc =
 vim.keymap.set('n', ']n', function() vim.fn.search(conflict, 'W') end, { desc = 'Next conflict marker' })
 
 -- Commands
-vim.api.nvim_create_user_command('Ypath', function()
-  local path = vim.fn.expand('%:p')
+vim.api.nvim_create_user_command('Ypath', function(opts)
+  local path = vim.fn.expand('%:p'):gsub('^' .. vim.env.HOME, '~')
+  if opts.range == 2 then
+    if opts.line1 == opts.line2 then
+      path = path .. ':' .. opts.line1
+    else
+      path = path .. ':' .. opts.line1 .. '-' .. opts.line2
+    end
+  end
   vim.fn.setreg('+', path)
   vim.notify(path, vim.log.levels.INFO)
-end, { desc = 'Copy file path to clipboard' })
+end, { range = true, desc = 'Copy file path to clipboard' })
 
 -- Leader commands
 vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>', { desc = 'Open the Copilot panel' })
