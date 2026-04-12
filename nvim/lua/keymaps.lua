@@ -42,6 +42,13 @@ local conflict = [[^\(<<<<<<<\|=======\|>>>>>>>\||||||||\)]]
 vim.keymap.set('n', '[n', function() vim.fn.search(conflict, 'bW') end, { desc = 'Previous conflict marker' })
 vim.keymap.set('n', ']n', function() vim.fn.search(conflict, 'W') end, { desc = 'Next conflict marker' })
 
+-- Commands
+vim.api.nvim_create_user_command('Ypath', function()
+  local path = vim.fn.expand('%:p')
+  vim.fn.setreg('+', path)
+  vim.notify(path, vim.log.levels.INFO)
+end, { desc = 'Copy file path to clipboard' })
+
 -- Leader commands
 vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>', { desc = 'Open the Copilot panel' })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagnostics in a quickfix list' })
