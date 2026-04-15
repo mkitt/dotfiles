@@ -21,6 +21,7 @@ vim.opt.showcmd = false
 vim.opt.signcolumn = 'number'
 vim.opt.title = true
 -- Window Management
+vim.opt.diffopt:append('vertical')
 vim.opt.sidescrolloff = 3
 vim.opt.splitbelow = true
 vim.opt.splitright = true
