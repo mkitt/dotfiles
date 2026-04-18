@@ -10,8 +10,8 @@ Personal dotfiles for macOS. Files here are symlinked to the home directory via 
 - `ghostty/` — Ghostty terminal config (symlinked to `~/.config/ghostty` via Makefile)
 - `nvim/` — Neovim config (symlinked to `~/.config/nvim` via Makefile)
 - `Makefile` — Install, uninstall, update, and macOS defaults
-- Dotfiles in the `dots` variable (`gitconfig`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`
-- `.local` files (`gitconfig.local`, `zshrc.local`) are for machine-specific overrides and not checked in
+- Dotfiles in the `dots` variable (`gitconfig`, `gitconfig.local`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`
+- `*.local` is gitignored for machine-specific overrides; `gitconfig.local` is the one tracked baseline (committed before the ignore rule landed)
 
 ## Commands
 
@@ -24,7 +24,7 @@ make macos      # Apply macOS system defaults
 
 ## Skills
 
-- `ops` — daily awareness tool with three commands: `debrief` (what happened), `brief` (what's ahead), `muster` (composed summary). Zero-config, detects available MCPs at runtime, accepts scope (person, channel) and time period arguments.
+- `sitrep` — daily awareness tool with three commands: `debrief` (what happened), `brief` (what's ahead), `muster` (composed summary). Zero-config, detects available MCPs at runtime, accepts scope (person, channel) and time period arguments.
 - `transfer-context` — prepare context for a new chat session
 
 ## Hooks

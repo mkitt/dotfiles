@@ -43,7 +43,7 @@ make help
 ### Git Credentials
 
 To setup your git credentials you'll need to add a `gitconfig.local` file to
-your the root directory and add the following:
+the root directory and add the following:
 
 ```
 [user]
