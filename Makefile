@@ -57,7 +57,7 @@ uninstall:
 	sudo -v
 	brew uninstall $(brews)
 	brew uninstall --cask $(casks)
-	pnpm uninstall -g $(lsps)
+	zsh -c '. $$HOME/.zshrc && pnpm uninstall -g $(lsps)'
 	@rm -rfv $$HOME/.config/ghostty
 	@rm -rfv $$HOME/.config/nvim
 	@rm -rfv $$HOME/.claude
@@ -75,7 +75,7 @@ update:
 	@printf "%s----\n"
 	brew doctor
 	@printf "%s----\n"
-	pnpm install -g $(lsps)
+	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
 	@printf "%s----\n"
 	@printf "%sUpdate nvim plugins: :lua vim.pack.update()\n"
 
