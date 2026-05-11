@@ -65,6 +65,7 @@
   },
   "agentPushNotifEnabled": true,
   "alwaysThinkingEnabled": true,
+  "autoUpdatesChannel": "latest",
   "effortLevel": "high",
   "skipAutoPermissionPrompt": true
 }

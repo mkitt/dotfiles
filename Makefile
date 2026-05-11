@@ -73,7 +73,7 @@ update:
 	@printf "%s----\n"
 	brew cleanup
 	@printf "%s----\n"
-	brew doctor
+	brew doctor || true
 	@printf "%s----\n"
 	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
 	@printf "%s----\n"
