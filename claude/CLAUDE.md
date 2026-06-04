@@ -55,7 +55,7 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 
 - Use `file_path:line_number` format when referencing code
 - Use Claude Code's default communication style — no markdown tables, they are tough to read
-- Use diagrams! I love diagrams. Mermaid in markdown, ASCII in responses
+- Use diagrams! I love diagrams. Inline SVG or interactive diagrams in HTML, ASCII in markdown and responses
 - **Before coding**: Briefly outline the approach and key considerations
 - **During coding**: Explain significant decisions as you make them
 - **After coding**: Summarize what was implemented and suggest next steps
@@ -68,9 +68,9 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 - Break complex problems into smaller, manageable pieces; implement incrementally with verification at each step
 - Always run type checkers/linters after code changes
 - Use TaskCreate/TaskUpdate/TaskList for multi-step tasks
-- Create temporary markdown files for complex tasks (use uppercase names)
-- Put temporary markdown files in a `._/` directory if it exists, if not ask to create one
-- Never commit a `._/` directory if it exists (but do not gitignore it)
+- For complex tasks, author working documents as HTML by default — plans, specs, design exploration, code reviews, and synthesis reports. HTML is a richer, more consumable container than markdown: tables, CSS layout, inline SVG, collapsible sections, and interactive controls (sliders, checkboxes). Open them in a browser to read. Reserve markdown only for trivial throwaway notes.
+- Ephemeral/scratch HTML lives in a `._/` directory (use uppercase names); ask to create it if it doesn't exist. Never commit `._/` (but do not gitignore it).
+- HTML meant to be shared can live in the repo and be committed — with approval, following the Git Staging rules below.
 - When exploring unfamiliar codebases, search to understand patterns before diving in
 - Prefer reading actual code over making assumptions about implementations
 - Use memory for machine-specific context (Slack IDs, team channels, email accounts, Linear workspace, etc.) rather than config files — memory persists across conversations and avoids checked-in personal data
