@@ -64,6 +64,11 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 
+# mise (version manager) — activates per-directory tool versions
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
 # Load local zshrc file if it exists
 if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
   source "${ZDOTDIR:-$HOME}/.zshrc.local"
