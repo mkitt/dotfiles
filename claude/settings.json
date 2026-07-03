@@ -64,9 +64,9 @@
     "mkitt-lsp@mkitt": true,
     "pr-review-toolkit@claude-plugins-official": true
   },
-  "agentPushNotifEnabled": true,
   "alwaysThinkingEnabled": true,
-  "autoUpdatesChannel": "latest",
   "effortLevel": "xhigh",
+  "autoUpdatesChannel": "latest",
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
