@@ -32,6 +32,8 @@
 [merge]
   conflictStyle = zdiff3
   ff = only
+[pull]
+  rebase = true
 [push]
   autoSetupRemote = true
   followTags = true
