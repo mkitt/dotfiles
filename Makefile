@@ -8,6 +8,7 @@ brews = \
 	gh \
 	git \
 	lua-language-server \
+	mise \
 	neovim \
 	node \
 	pnpm \
