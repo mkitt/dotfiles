@@ -22,12 +22,24 @@ vim.lsp.config('*', {
 })
 
 -- Server-specific configurations (nvim-lspconfig provides base defaults)
+
+-- Vite+ keeps the oxlint/oxfmt config in vite.config.ts, so the lspconfig
+-- defaults (which require .oxlintrc.json/.oxfmtrc.json and set
+-- workspace_required = true) never attach. Anchor to the repo root instead.
+local function vp_root(bufnr, on_dir)
+  on_dir(vim.fs.root(bufnr, { 'pnpm-workspace.yaml', '.git' }))
+end
+
 vim.lsp.config('oxfmt', {
   cmd = { 'npx', 'oxfmt', '--lsp' },
+  root_dir = vp_root,
+  workspace_required = false,
 })
 
 vim.lsp.config('oxlint', {
   cmd = { 'npx', 'oxlint', '--lsp' },
+  root_dir = vp_root,
+  workspace_required = false,
   settings = {
     typeAware = true,
   },
