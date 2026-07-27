@@ -7,7 +7,7 @@ description: >-
   REVIEW fans out a per-PR analyst (Opus, read-only) for the approve /
   request-changes decision on specific PRs. Use when asked to "go through",
   "triage", "clear the queue", "review", or "should I approve" one or more PRs.
-argument-hint: "[pr-numbers|urls|all] [--triage|--review] [--mode recommend|confirm] [--repo owner/repo]"
+argument-hint: "[pr-numbers|urls|all] [--triage|--review] [--mode recommend|confirm] [--noob] [--repo owner/repo]"
 ---
 
 **Arguments:** $ARGUMENTS
@@ -129,10 +129,31 @@ through the gated action path below (explicit yes each). Same safety model.
 
 Read from `--mode`; default `recommend`.
 
+## `--noob` — onboarding context (review only)
+
+Off by default. Set it when the reviewer is **new to this repo or this body of
+work** (they will not be the last). When on, each analyst card leads with an
+**ELI5 & how we got here** block written for a first-time reader:
+
+- **ELI5 the intent** — ≤ 3 plain sentences: what this PR is actually trying to
+  do and why anyone should care. Expand only the acronyms/terms that actually
+  appear in this PR's diff or card; assume no prior context.
+- **How we got here** — the groundwork that made this necessary, as **≤ 4
+  one-line steps**: the predecessor issues / PRs / ADRs in the lineage and the
+  one thing each contributed, so the reader sees the arc, not just this diff.
+
+**Keep it tight.** The block leads a decision card, not a wiki page — cap it at
+roughly 150 words total. Rich context, disciplined length: if a term doesn't
+appear in the card, don't stop to define it.
+
+Ignored in triage (a cheap sweep with no deep read) — if a triaged PR needs this,
+drop into review on it. `--eli5` is an accepted alias.
+
 ## R1 — Resolve the PR list
 
 Parse `$ARGUMENTS` into PR numbers (bare, `#537`, or full URLs → derive
-`--repo`). Determine the repo.
+`--repo`). Determine the repo. Note `--noob`/`--eli5` if present (adds the
+onboarding block per PR — see the `--noob` section).
 
 ## R2 — Enrich with the plan (best-effort)
 
@@ -146,18 +167,27 @@ open queue): if a reviewed PR shares an issue with, supersedes, or is stacked on
 another PR, note it in the digest ("#537 is the ADR doc for the #541
 implementation") — the isolated analyst can't see its siblings, so surface it here.
 
+**When `--noob` is set**, don't stop at the PR's own issue — walk the lineage:
+follow the issue's "Follows / Context" chain (predecessor `AGENT-###` issues,
+ADRs) and any predecessor PRs, capturing one line each on what they laid down.
+This traced lineage is the raw material for the analyst's "how we got here" — the
+cross-PR history the isolated analyst can't reconstruct on its own.
+
 ## R3 — Fan out (parallel)
 
 Spawn **one `pr-approval-analyst` per PR in a single message** (multiple `Agent`
 calls together) so they run concurrently, each isolated. Pass: PR number,
-`--repo`, the plan summary if any, and the mode. Wait for all cards.
+`--repo`, the plan summary if any, and the mode — and, when `--noob`, the traced
+lineage plus an instruction to produce the **ELI5 & how we got here** block.
+Wait for all cards.
 
 ## R4 — Combine into the digest
 
 Render cards most-blocking first (`request-changes` / `blocked-on-ci` /
 `needs-rebase` → `dive-deeper` → `approve-with-nits` → `approve`). Lead with a
 roll-up: `N PRs · X approvable · Y need changes · Z need your eyes`. Keep each
-card compact — a decision surface, not a wall of text.
+card compact — a decision surface, not a wall of text. When `--noob`, each card
+**opens** with the ELI5 & how-we-got-here block — context before verdict.
 
 ## R5 — Recommend, then act only on explicit go
 
