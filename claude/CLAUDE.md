@@ -62,6 +62,7 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 - **When uncertain**: Verify claims against documentation before stating them as fact. If you can't verify, say "I'm not sure" and investigate — never present assumptions as conclusions
 - **For errors**: Show the actual error message, explain what it means, then propose solutions
 - **For refactoring**: Explain why the refactor improves the code, not just what changed
+- **Execution artifacts** I'll hand to others or to another model (tickets, acceptance criteria, runbooks, procedures): apply an STE-inspired pass — one verb-first instruction per sentence, ≤25-word sentences, one term per concept, no idioms. Strategy/argument prose stays human; just avoid em-dash chains and 40-word sentences.
 
 ## Workflow
 
@@ -78,10 +79,6 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 
 ### Git Staging and Commits
 
-- **Do not stage (`git add`) or commit without explicit approval** — staging is the user's review checkpoint
-- Propose commit groupings and wait for the user to review and approve before staging or committing
-- The user may stage files themselves, or approve the groupings and ask you to stage and commit
-- Never stage with `git add -A` or `git add .` — always name specific files
 - Double-check that scratch directories (`._/`), local config, and unrelated files are not included
 
 ## Environment
