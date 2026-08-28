@@ -8,12 +8,6 @@ vim.keymap.set('n', '<C-J>', '<C-W><C-J>', { desc = 'Move to the window below' }
 vim.keymap.set('n', '<C-K>', '<C-W><C-K>', { desc = 'Move to the window above' })
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { desc = 'Move to the right window' })
 
--- Copilot
-vim.keymap.set('i', '<C-\\>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false
-})
-
 -- Yanky
 vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)', { desc = 'Put (paste) cb after' })
 vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)', { desc = 'Put (paste) cb before' })
@@ -57,7 +51,6 @@ vim.api.nvim_create_user_command('Ypath', function(opts)
 end, { range = true, desc = 'Copy file path to clipboard' })
 
 -- Leader commands
-vim.keymap.set('n', '<leader>C', ':Copilot panel<CR>', { desc = 'Open the Copilot panel' })
 vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagnostics in a quickfix list' })
 vim.keymap.set('n', '<leader>Y', ':Neotree reveal<CR>', { desc = 'Reveal the file in Neotree' })
 

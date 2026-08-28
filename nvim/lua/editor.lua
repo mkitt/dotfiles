@@ -20,9 +20,6 @@ require('yanky').setup({
 
 -- -------------------------------------
 -- Editor
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_filetypes = { ["*"] = true, }
-
 require('nvim-web-devicons').setup()
 
 require('blink.cmp').setup({
@@ -57,10 +54,7 @@ require('blink.cmp').setup({
     enabled = true,
   },
   sources = {
-    default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
-    providers = {
-      copilot = { name = '', module = 'blink-copilot', async = true },
-    },
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
   },
 })
 

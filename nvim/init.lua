@@ -63,8 +63,6 @@ vim.pack.add({
   'https://github.com/tpope/vim-repeat',
   'https://github.com/tpope/vim-surround',
   -- Editor
-  'https://github.com/fang2hou/blink-copilot',
-  'https://github.com/github/copilot.vim',
   'https://github.com/ibhagwan/fzf-lua',
   { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = vim.version.range('3') },
   'https://github.com/nvim-tree/nvim-web-devicons',
