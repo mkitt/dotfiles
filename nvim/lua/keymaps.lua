@@ -31,7 +31,7 @@ vim.keymap.set('n', '-', ':Neotree filesystem float reveal<CR>',
   { desc = 'Open the filesystem tree explorer in a float', silent = true })
 vim.keymap.set('n', '\\', ':nohlsearch<CR>', { desc = 'Clear search highlighting', silent = true })
 
--- Conflict markers (unimpaired)
+-- Conflict markers (unimpaired-style; nvim has [q/]q and [b/]b, not [n/]n)
 local conflict = [[^\(<<<<<<<\|=======\|>>>>>>>\||||||||\)]]
 vim.keymap.set('n', '[n', function() vim.fn.search(conflict, 'bW') end, { desc = 'Previous conflict marker' })
 vim.keymap.set('n', ']n', function() vim.fn.search(conflict, 'W') end, { desc = 'Next conflict marker' })

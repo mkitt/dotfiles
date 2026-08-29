@@ -26,7 +26,6 @@ vim.opt.sidescrolloff = 3
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 -- File Handling
-vim.opt.backup = false
 vim.opt.clipboard = 'unnamed'
 vim.opt.exrc = true
 vim.opt.swapfile = false
