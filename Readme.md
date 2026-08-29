@@ -82,9 +82,3 @@ see [the knowledge base article][gpg_transfer]
 [macos_defaults]: http://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"
 [wipe]: https://support.apple.com/en-us/HT201065 "wipe"
-
-<!--
-```
-  󰨈 󰮖 󰦌             󰯈 󰊠 󰋋 󰯉   󰮯 
-```
--->
