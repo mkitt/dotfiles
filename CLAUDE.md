@@ -31,4 +31,5 @@ make macos      # Apply macOS system defaults
 
 - `.gitignore` treats `claude/` as an allowlist: `claude/*` is ignored, with negations for `CLAUDE.md`, `agents/`, `commands/`, `settings.json` and `skills/`. Any other new config path (`claude/hooks/`, say) is silently untracked until you add its negation
 - Nerd font unicode characters get corrupted through Read/Edit tools — let the user make edits involving nerd font icons
+- `mkitt-lsp/.lsp.json` declares one server per extension on purpose: Claude Code starts only the first server registered for an extension and never starts the rest, so tailwindcss, oxlint and oxfmt stay Neovim-only — see the [plugins reference](https://code.claude.com/docs/en/plugins-reference)
 - LSP fugitive buffer error (workspace URI) is a known Neovim limitation, living with it
