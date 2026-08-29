@@ -68,6 +68,7 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 - Always run type checkers/linters after code changes
 - Track multi-step work in the session's task/todo tool when one is available
 - For complex tasks, author working documents as HTML by default — plans, specs, design exploration, code reviews, and synthesis reports. HTML is a richer, more consumable container than markdown: tables, CSS layout, inline SVG, collapsible sections, and interactive controls (sliders, checkboxes). Open them in a browser to read. Reserve markdown only for trivial throwaway notes.
+- Ephemeral drafts live in the session scratchpad directory, never in the repo — nothing lands in the working tree unless I ask for it
 - For substantive work that has both a PR and a Linear issue, publish that working doc as a **single HTML artifact and link it from both** — one shared visual source of truth (design, diagrams, decisions, evidence), not separate inline diagrams per surface. Same file path on republish keeps the URL stable. **Sharing gate:** artifacts are default-private — before linking, remind me to share it with the right audience (reviewers, teammates); ask who should see it if unclear. Skip for flat fixes with no structure worth a doc.
 - HTML meant to be shared can live in the repo and be committed — with approval, following the Git Staging rules below.
 - When exploring unfamiliar codebases, search to understand patterns before diving in
