@@ -1,4 +1,4 @@
--- LSP Configuration (servers installed globally via: make lsp)
+-- LSP Configuration (servers installed globally by make install / make update)
 -- @see https://neovim.io/doc/user/news-0.12/
 
 -- Merge default LSP and blink.cmp capabilities
