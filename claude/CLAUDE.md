@@ -72,7 +72,7 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 - HTML meant to be shared can live in the repo and be committed — with approval, following the Git Staging rules below.
 - When exploring unfamiliar codebases, search to understand patterns before diving in
 - Prefer reading actual code over making assumptions about implementations
-- Use memory for machine-specific context (Slack IDs, team channels, email accounts, Linear workspace, etc.) rather than config files — memory persists across conversations and avoids checked-in personal data
+- Keep operational identifiers (Slack IDs, channel IDs, account emails, workspace slugs) in memory rather than in this file — memory persists across conversations and keeps them out of a public repo. Stable public identity belongs here.
 
 ### Git Staging and Commits
 
