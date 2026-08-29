@@ -46,8 +46,6 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 ## Tools & Commands
 
 - Prefer LSP (`hover`, `goToDefinition`, `findReferences`, `documentSymbol`) over Read/Grep when navigating code, understanding types, or tracing symbol usage. Use Read for actual implementation context.
-- Run agents in the background (`run_in_background`) for research, exploration, and review tasks so the main conversation stays interactive — only block on agent results when the next step depends on them
-- Use agent teams to parallelize independent work across multiple agents where it makes sense
 - Use `pnpm` over `npm` when available
 - Use `tree` to view and show directory structures
 
@@ -68,10 +66,9 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 
 - Break complex problems into smaller, manageable pieces; implement incrementally with verification at each step
 - Always run type checkers/linters after code changes
-- Use TaskCreate/TaskUpdate/TaskList for multi-step tasks
+- Track multi-step work in the session's task/todo tool when one is available
 - For complex tasks, author working documents as HTML by default — plans, specs, design exploration, code reviews, and synthesis reports. HTML is a richer, more consumable container than markdown: tables, CSS layout, inline SVG, collapsible sections, and interactive controls (sliders, checkboxes). Open them in a browser to read. Reserve markdown only for trivial throwaway notes.
 - For substantive work that has both a PR and a Linear issue, publish that working doc as a **single HTML artifact and link it from both** — one shared visual source of truth (design, diagrams, decisions, evidence), not separate inline diagrams per surface. Same file path on republish keeps the URL stable. **Sharing gate:** artifacts are default-private — before linking, remind me to share it with the right audience (reviewers, teammates); ask who should see it if unclear. Skip for flat fixes with no structure worth a doc.
-- Ephemeral/scratch HTML lives in a `._/` directory (use uppercase names); ask to create it if it doesn't exist. Never commit `._/` (but do not gitignore it).
 - HTML meant to be shared can live in the repo and be committed — with approval, following the Git Staging rules below.
 - When exploring unfamiliar codebases, search to understand patterns before diving in
 - Prefer reading actual code over making assumptions about implementations
@@ -79,7 +76,10 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 
 ### Git Staging and Commits
 
-- Double-check that scratch directories (`._/`), local config, and unrelated files are not included
+- Use `git switch` to create and change branches, never `git checkout`
+- Keep commits atomic — one logical change each
+- Write commit messages in the tbaggery format: imperative subject, 50 characters max, capitalized, no trailing period; body wrapped at 72 explaining why, not how
+- Double-check that local config and unrelated files are not staged
 
 ## Environment
 
