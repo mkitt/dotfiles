@@ -2,10 +2,15 @@ lazy-lock.json
 
 
 # Claude Code runtime (claude/ is symlinked to ~/.claude)
+# Allowlist: everything under claude/ is runtime state and stays ignored.
+# Adding a new config directory means adding its negation here, or it is
+# silently untracked.
 claude/*
 !claude/CLAUDE.md
 !claude/agents/
 !claude/agents/**/*.md
+!claude/commands/
+!claude/commands/**/*.md
 !claude/settings.json
 !claude/skills/
 !claude/skills/**/*.md

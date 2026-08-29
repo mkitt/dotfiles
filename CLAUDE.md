@@ -29,6 +29,6 @@ make macos      # Apply macOS system defaults
 
 ## Gotchas
 
-- `.gitignore` treats `claude/` as an allowlist: `claude/*` is ignored, with negations only for `CLAUDE.md`, `agents/`, `settings.json` and `skills/`. A new top-level path (`claude/commands/`, `claude/hooks/`) is silently untracked until you add its negation
+- `.gitignore` treats `claude/` as an allowlist: `claude/*` is ignored, with negations for `CLAUDE.md`, `agents/`, `commands/`, `settings.json` and `skills/`. Any other new config path (`claude/hooks/`, say) is silently untracked until you add its negation
 - Nerd font unicode characters get corrupted through Read/Edit tools — let the user make edits involving nerd font icons
 - LSP fugitive buffer error (workspace URI) is a known Neovim limitation, living with it
