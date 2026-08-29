@@ -9,8 +9,8 @@ Personal dotfiles for macOS. Files here are symlinked to the home directory via 
 - `ghostty/` — Ghostty terminal config (symlinked to `~/.config/ghostty` via Makefile)
 - `nvim/` — Neovim config (symlinked to `~/.config/nvim` via Makefile)
 - `Makefile` — Install, uninstall, update, and macOS defaults
-- Dotfiles in the `dots` variable (`gitconfig`, `gitconfig.local`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`
-- `*.local` is gitignored for machine-specific overrides; `gitconfig.local` is the one tracked baseline (committed before the ignore rule landed)
+- Dotfiles in the `dots` variable (`gitconfig`, `gitconfig.local`, `gitignore`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`
+- `*.local` is gitignored for machine-specific overrides; `gitconfig.local` is untracked and must be created by hand on a new machine (see Readme)
 
 ## Commands
 
@@ -23,11 +23,12 @@ make macos      # Apply macOS system defaults
 
 ## Neovim
 
-- 4 files: `init.lua`, `editor.lua`, `lsp.lua`, `keymaps.lua` + theme module
+- 7 Lua files: `init.lua`, `lua/` (editor, keymaps, lsp, theme), `colors/` (beamish, nordish)
 - nvim-treesitter is on `main` branch (new rewrite), parsers managed via explicit install list
-- Requires: `brew install tree-sitter tree-sitter-cli`
+- `tree-sitter` and `tree-sitter-cli` come from `make install`; both are in the Makefile `brews` list
 
 ## Gotchas
 
+- `.gitignore` treats `claude/` as an allowlist: `claude/*` is ignored, with negations only for `CLAUDE.md`, `agents/`, `settings.json` and `skills/`. A new top-level path (`claude/commands/`, `claude/hooks/`) is silently untracked until you add its negation
 - Nerd font unicode characters get corrupted through Read/Edit tools — let the user make edits involving nerd font icons
 - LSP fugitive buffer error (workspace URI) is a known Neovim limitation, living with it
