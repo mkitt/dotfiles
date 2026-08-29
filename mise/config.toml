@@ -5,5 +5,6 @@
 # holds the language servers (~/Library/pnpm/global/5), rewriting every binary
 # wrapper. Take that migration on purpose, not through an unattended upgrade.
 [tools]
+doppler = "latest"
 node = "lts"
 pnpm = "10.34.5"
