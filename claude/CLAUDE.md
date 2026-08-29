@@ -31,6 +31,21 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 - Don't continue if you encounter unexpected behavior — stop and discuss
 - Don't over-engineer; prefer simplicity
 
+### Follow-up Work: Absorb by Default
+
+Adjacent work found while implementing or reviewing gets done in the current change, not deferred. Every finding takes one of three exits: fixed now, explicitly dismissed with a rationale, or — exceptionally — tracked for later.
+
+Track it for later only when it meets at least one bar:
+
+- it belongs to a **different subsystem** than the change at hand
+- it needs a **design decision** that is mine to make
+- it is **blocked on an external dependency**
+- it would **materially expand the review surface** (rule of thumb: roughly a third or more of the current diff)
+
+Deferral wears many costumes — a ticket in whatever tracker the project uses, a `TODO` comment, an "out of scope" or "future work" line in a plan or spec, a background-task suggestion. They all count and they all need the same bar. When you clear it, lead with why the work couldn't be absorbed, and surface it to me rather than filing it silently. One follow-up per change is the limit; if a second appears, stop and re-scope with me.
+
+This is about not abandoning what you found, not about widening the goal — it never licenses speculative extras beyond what I asked for.
+
 ## Code Style
 
 - Follow Clean Code principles and existing conventions in each project
