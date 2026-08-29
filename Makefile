@@ -1,8 +1,5 @@
 brews = \
 	cocoapods \
-	colima \
-	docker \
-	docker-compose \
 	fd \
 	fzf \
 	gh \

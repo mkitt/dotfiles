@@ -38,7 +38,6 @@ fi
 # Handy stuff
 alias ...="cd ../../"
 alias ....="cd ../../../"
-alias bake="caffeinate -i -d -t 3600"
 alias cp="cp -i"
 alias la="ls -lA"
 alias ll="ls -l"
