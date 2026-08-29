@@ -1,0 +1,9 @@
+# Global tool versions, symlinked to ~/.config/mise/config.toml by make install.
+# Per-project configs still win; these are only the fallback versions.
+#
+# pnpm is pinned deliberately. A major bump migrates the pnpm global store that
+# holds the language servers (~/Library/pnpm/global/5), rewriting every binary
+# wrapper. Take that migration on purpose, not through an unattended upgrade.
+[tools]
+node = "lts"
+pnpm = "10.34.5"

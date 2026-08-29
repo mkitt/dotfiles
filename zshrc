@@ -66,6 +66,10 @@ esac
 # mise (version manager) — activates per-directory tool versions
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
+  # Shims are stable paths that work without the activate hook, for scripts,
+  # IDEs, and the language servers Neovim and Claude Code spawn. Appended so
+  # activate and Homebrew keep priority; shims only catch what they miss.
+  export PATH="$PATH:$HOME/.local/share/mise/shims"
 fi
 
 # Load local zshrc file if it exists

@@ -7,6 +7,7 @@ Personal dotfiles for macOS. Files here are symlinked to the home directory via 
 - `claude/` — User-level Claude Code config (symlinked to `~/.claude` via Makefile)
 - `claude-plugins/` — Claude Code custom plugins
 - `ghostty/` — Ghostty terminal config (symlinked to `~/.config/ghostty` via Makefile)
+- `mise/` — Global tool versions (symlinked to `~/.config/mise` via Makefile)
 - `nvim/` — Neovim config (symlinked to `~/.config/nvim` via Makefile)
 - `Makefile` — Install, uninstall, update, and macOS defaults
 - Dotfiles in the `dots` variable (`gitconfig`, `gitconfig.local`, `gitignore`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`

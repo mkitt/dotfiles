@@ -7,8 +7,6 @@ brews = \
 	lua-language-server \
 	mise \
 	neovim \
-	node \
-	pnpm \
 	ripgrep \
 	tree \
 	tree-sitter \
@@ -45,8 +43,11 @@ install:
 	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
 	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
 	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
+	@if [[ -d $$HOME/.config/mise ]]; then rm -rf $$HOME/.config/mise; fi
+	@ln -sfv `pwd`/mise $$HOME/.config/mise
 	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
 	@ln -sfv `pwd`/claude $$HOME/.claude
+	/opt/homebrew/bin/mise install
 	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
@@ -57,6 +58,7 @@ uninstall:
 	brew uninstall --cask $(casks)
 	zsh -c '. $$HOME/.zshrc && pnpm uninstall -g $(lsps)'
 	@rm -rfv $$HOME/.config/ghostty
+	@rm -rfv $$HOME/.config/mise
 	@rm -rfv $$HOME/.config/nvim
 	@rm -rfv $$HOME/.claude
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
@@ -72,6 +74,8 @@ update:
 	brew cleanup
 	@printf "%s----\n"
 	brew doctor || true
+	@printf "%s----\n"
+	mise install
 	@printf "%s----\n"
 	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
 	@printf "%s----\n"
