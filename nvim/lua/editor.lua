@@ -58,6 +58,11 @@ require('blink.cmp').setup({
   },
 })
 
+-- fzf-lua asks for a socket named "fzf-lua.<os.time()>", which overflows macOS's
+-- 104 byte sun_path limit under our long $TMPDIR. Nvim already appends
+-- ".<pid>.<counter>" for uniqueness, so claim a shorter name before it does.
+vim.g.fzf_lua_server = vim.fn.serverstart('fzf-lua')
+
 local fuzzy = require('fzf-lua')
 fuzzy.setup({
   'default',
