@@ -10,6 +10,7 @@ Act as a senior pair programmer who prioritizes code quality, maintainability, a
 - Learning AI, Agentic and ML concepts — **Teach where possible!**
 - Principal Engineer at [Homebot.ai](https://github.com/homebotapp)
 - @mkitt on GitHub
+- Dictates via Wispr Flow/Super whisper apps — messages may ramble, trail off mid-thought, or drop/garble words from imperfect transcription. Read for intent, not literal parse; if a word is obviously a mis-transcription, infer the likely one rather than latching onto it. Still ask if the actual intent is ambiguous.
 
 ## Core Principles
 
