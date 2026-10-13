@@ -4,12 +4,14 @@
 
 The dotfiles for macOS.
 
-&hearts; the Vim.
+These Macs are access devices: development happens in cloud sessions, so this
+repo carries only a shell, git, gh and a few command line helpers.
+
+Used to &hearts; the Vim.
 
 ## Commands
 
-The main tasks are `Makefile` targets. To see the available commands provided by
-the `install`, `uninstall`, `update` and `help` scripts run:
+The main tasks are `Makefile` targets. To see them, run:
 
 ```sh
 make help
@@ -19,16 +21,16 @@ make help
 
 1. Setup iCloud
 1. Install App store applications
+1. Install Core Applications
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
-1. Run `/opt/homebrew/bin/brew install git`
+1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
+   authentication key and once as a signing key
 1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
-1. Set other reasonable [macOS defaults][macos_defaults]
+1. Run `make macos` for reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
-1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
-   authentication key and once as a signing key
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Setup all Application settings
@@ -46,11 +48,9 @@ the root directory and add the following:
   name = YOUR_GIT_AUTHOR_NAME
   email = YOUR_GIT_AUTHOR_EMAIL
   signingkey = ~/.ssh/id_ed25519.pub
-[github]
-  user = YOUR_GITHUB_USERNAME
 ```
 
-- The `install`script symlinks this file to `$HOME/.gitconfig.local`
+- The `install` script symlinks this file to `$HOME/.gitconfig.local`
 - The repo's `.gitignore` keeps any `*.local` file out of git
 
 ### Commit Signing
@@ -75,7 +75,7 @@ If a commit fails to sign, load the key into the agent with
 
 [gh-keys]: https://github.com/settings/keys
 [gh-ssh-signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
-[git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
+[git-remotes]: https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt "github.com/mkitt"
 [homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: http://mths.be/macos "macos defaults"
