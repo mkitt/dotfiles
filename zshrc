@@ -1,10 +1,4 @@
-# Initialize Homebrew (hardcoded for Apple Silicon)
-export HOMEBREW_PREFIX="/opt/homebrew"
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-export HOMEBREW_REPOSITORY="/opt/homebrew"
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="/opt/homebrew/share/info${INFOPATH+:$INFOPATH}"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 export EDITOR="vim"
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
@@ -16,7 +10,6 @@ setopt NO_CASE_GLOB
 setopt SHARE_HISTORY
 
 # @see http://zsh.sourceforge.net/Doc/Release/Parameters.html
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -43,7 +36,6 @@ alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
-alias reload="source ~/.zshrc && cd ../ && cd -"
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
@@ -55,8 +47,3 @@ zstyle ':completion:*' expand prefix suffix
 
 # Load zsh completion engine
 autoload -Uz compinit && compinit
-
-# Load local zshrc file if it exists
-if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
-  source "${ZDOTDIR:-$HOME}/.zshrc.local"
-fi
