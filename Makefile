@@ -20,14 +20,14 @@ install:
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
-#/ uninstall       Removes homebrews, casks, dotfiles and LSP servers
+#/ uninstall       Removes homebrews, casks and dotfiles
 uninstall:
 	sudo -v
 	brew uninstall $(brews)
 	brew uninstall --cask $(casks)
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
-#/ update          Updates homebrews, casks and LSP servers
+#/ update          Updates homebrews and casks
 update:
 	brew update
 	@printf "%s----\n"

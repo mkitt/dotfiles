@@ -5,7 +5,7 @@ export HOMEBREW_REPOSITORY="/opt/homebrew"
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
 export INFOPATH="/opt/homebrew/share/info${INFOPATH+:$INFOPATH}"
-export EDITOR="nvim"
+export EDITOR="vim"
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 setopt AUTO_CD
