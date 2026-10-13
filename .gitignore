@@ -1,13 +1,2 @@
-# OS files
 .DS_Store
-
-# Local overrides
 *.local
-*.local.*
-
-# API keys and secrets
-*.key
-*.token
-*.secret
-.env
-.env.local
