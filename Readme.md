@@ -19,22 +19,17 @@ make help
 
 1. Setup iCloud
 1. Install App store applications
-1. Map caps lock to the control key
-1. Install [Ghostty][ghostty]
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
 1. Run `/opt/homebrew/bin/brew install git`
 1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
-1. Install [Claude Code][claude_code]
-1. Open Neovim and confirm plugin installation
 1. Set other reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Create new [SSH & update GPG keys][gh-ssh-gpg]
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
-1. Pull down key repositories
 1. Setup all Application settings
 1. [Wipe old computer][wipe]
 
@@ -71,9 +66,7 @@ see [the knowledge base article][gpg_transfer]
 
 <!-- Markdown Links! -->
 
-[claude_code]: https://claude.com/product/claude-code
 [gh-ssh-gpg]: https://github.com/settings/keys
-[ghostty]: https://ghostty.org "ghostty"
 [git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt "github.com/mkitt"
 [gpg_tools]: https://gpgtools.org/ "gpg tools"

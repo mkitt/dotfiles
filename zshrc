@@ -56,22 +56,6 @@ zstyle ':completion:*' expand prefix suffix
 # Load zsh completion engine
 autoload -Uz compinit && compinit
 
-# pnpm
-export PNPM_HOME="${ZDOTDIR:-$HOME}/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PNPM_HOME/bin:$PATH" ;;
-esac
-
-# mise (version manager) — activates per-directory tool versions
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh)"
-  # Shims are stable paths that work without the activate hook, for scripts,
-  # IDEs, and the language servers Neovim and Claude Code spawn. Appended so
-  # activate and Homebrew keep priority; shims only catch what they miss.
-  export PATH="$PATH:$HOME/.local/share/mise/shims"
-fi
-
 # Load local zshrc file if it exists
 if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then
   source "${ZDOTDIR:-$HOME}/.zshrc.local"

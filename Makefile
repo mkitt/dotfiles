@@ -1,25 +1,6 @@
-brews = \
-	cocoapods \
-	fd \
-	fzf \
-	gh \
-	git \
-	lua-language-server \
-	mise \
-	neovim \
-	ripgrep \
-	tree \
-	tree-sitter \
-	tree-sitter-cli
+brews = gh git ripgrep tree
 casks = gpg-suite
 dots = gitconfig gitconfig.local gitignore vimrc zshrc
-lsps = \
-	@tailwindcss/language-server@latest \
-	@vtsls/language-server@latest \
-	bash-language-server@latest \
-	graphql-language-service-cli@latest \
-	vscode-langservers-extracted@latest \
-	yaml-language-server@latest
 
 # --------------------------------------
 
@@ -30,25 +11,13 @@ help:
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
 	@printf "%scask: $(casks)\n"
-	@printf "%slsp:  $(lsps)\n"
 
-#/ install         Installs homebrews, casks, dotfiles and LSP servers
+#/ install         Installs homebrews, casks and dotfiles
 install:
 	sudo -v
 	/opt/homebrew/bin/brew install $(brews)
 	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
-	@mkdir -p $$HOME/.config
-	@if [[ -d $$HOME/.config/nvim ]]; then rm -rf $$HOME/.config/nvim; fi
-	@ln -sfv `pwd`/nvim $$HOME/.config/nvim
-	@if [[ -d $$HOME/.config/ghostty ]]; then rm -rf $$HOME/.config/ghostty; fi
-	@ln -sfv `pwd`/ghostty $$HOME/.config/ghostty
-	@if [[ -d $$HOME/.config/mise ]]; then rm -rf $$HOME/.config/mise; fi
-	@ln -sfv `pwd`/mise $$HOME/.config/mise
-	@if [[ -L $$HOME/.claude ]]; then rm $$HOME/.claude; fi
-	@ln -sfv `pwd`/claude $$HOME/.claude
-	/opt/homebrew/bin/mise install
-	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
 #/ uninstall       Removes homebrews, casks, dotfiles and LSP servers
@@ -56,11 +25,6 @@ uninstall:
 	sudo -v
 	brew uninstall $(brews)
 	brew uninstall --cask $(casks)
-	zsh -c '. $$HOME/.zshrc && pnpm uninstall -g $(lsps)'
-	@rm -rfv $$HOME/.config/ghostty
-	@rm -rfv $$HOME/.config/mise
-	@rm -rfv $$HOME/.config/nvim
-	@rm -rfv $$HOME/.claude
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
 #/ update          Updates homebrews, casks and LSP servers
@@ -75,11 +39,7 @@ update:
 	@printf "%s----\n"
 	brew doctor || true
 	@printf "%s----\n"
-	mise install
-	@printf "%s----\n"
-	zsh -c '. $$HOME/.zshrc && pnpm install -g $(lsps)'
-	@printf "%s----\n"
-	@printf "%sUpdate nvim plugins: :lua vim.pack.update()\n"
+	@printf "%sUpdate complete\n"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
