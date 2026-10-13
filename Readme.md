@@ -50,7 +50,7 @@ the root directory and add the following:
 ```
 
 - The `install`script symlinks this file to `$HOME/.gitconfig.local`
-- The global `.gitignore` is set to omit any `*.local` files
+- The repo's `.gitignore` keeps any `*.local` file out of git
 
 ### GPG
 

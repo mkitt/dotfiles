@@ -10,7 +10,6 @@
 [commit]
   gpgsign = true
 [core]
-  excludesfile = ~/.gitignore
   pager = /opt/homebrew/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
   trustctime = false
 [diff]

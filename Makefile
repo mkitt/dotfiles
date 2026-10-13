@@ -1,6 +1,6 @@
 brews = gh git ripgrep tree
 casks = gpg-suite
-dots = gitconfig gitconfig.local gitignore vimrc zshrc
+dots = gitconfig gitconfig.local vimrc zshrc
 
 # --------------------------------------
 

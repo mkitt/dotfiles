@@ -7,8 +7,8 @@ The Macs these run on are access devices: development happens in Claude cloud se
 ## Structure
 
 - `Makefile` — Install, uninstall, update, and macOS defaults
-- Dotfiles in the `dots` variable (`gitconfig`, `gitconfig.local`, `gitignore`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`
-- `*.local` is gitignored for machine-specific overrides; `gitconfig.local` is untracked and must be created by hand on a new machine (see Readme)
+- Dotfiles in the `dots` variable (`gitconfig`, `gitconfig.local`, `vimrc`, `zshrc`) are symlinked as `~/.{filename}`
+- `*.local` is ignored by the repo's own `.gitignore` for machine-specific overrides; `gitconfig.local` is untracked and must be created by hand on a new machine (see Readme)
 
 ## Commands
 
