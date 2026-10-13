@@ -1,5 +1,4 @@
 brews = gh git ripgrep tree
-casks = gpg-suite
 dots = gitconfig gitconfig.local vimrc zshrc
 
 # --------------------------------------
@@ -10,24 +9,19 @@ help:
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
 	@printf "%s\nGlobal packages:\n"
 	@printf "%sbrew: $(brews)\n"
-	@printf "%scask: $(casks)\n"
 
-#/ install         Installs homebrews, casks and dotfiles
+#/ install         Installs homebrews and dotfiles
 install:
-	sudo -v
 	/opt/homebrew/bin/brew install $(brews)
-	/opt/homebrew/bin/brew install --cask $(casks)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
 	@printf "%s\nSetup macOS defaults: make macos\n"
 
-#/ uninstall       Removes homebrews, casks and dotfiles
+#/ uninstall       Removes homebrews and dotfiles
 uninstall:
-	sudo -v
 	brew uninstall $(brews)
-	brew uninstall --cask $(casks)
 	@for file in $(dots); do rm -v $$HOME/.$$file; done
 
-#/ update          Updates homebrews and casks
+#/ update          Updates homebrews
 update:
 	brew update
 	@printf "%s----\n"

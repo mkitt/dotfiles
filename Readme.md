@@ -27,7 +27,8 @@ make help
 1. Run `make install` for dotfiles
 1. Set other reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
-1. Create new [SSH & update GPG keys][gh-ssh-gpg]
+1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
+   authentication key and once as a signing key
 1. Run `gh auth login`
 1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Setup all Application settings
@@ -44,7 +45,7 @@ the root directory and add the following:
 [user]
   name = YOUR_GIT_AUTHOR_NAME
   email = YOUR_GIT_AUTHOR_EMAIL
-  # signingKey = YOUR_GIT_GPG_SIGNING_KEY
+  signingkey = ~/.ssh/id_ed25519.pub
 [github]
   user = YOUR_GITHUB_USERNAME
 ```
@@ -52,13 +53,19 @@ the root directory and add the following:
 - The `install`script symlinks this file to `$HOME/.gitconfig.local`
 - The repo's `.gitignore` keeps any `*.local` file out of git
 
-### GPG
+### Commit Signing
 
-Install GPG Keychain for GPG signing to happen automatically. See [GPG
-Tools][gpg_tools] for more information. To get your GPG signing key you can
-either open up GPG Keychain, or run `gpg --list-keys` and add this to in your
-`.gitconfig.local` file. If you are transferring a key to a new computer
-see [the knowledge base article][gpg_transfer]
+Commits are signed with the SSH key rather than GPG, so nothing beyond macOS's
+own `ssh-keygen` is needed. `gitconfig` sets `gpg.format = ssh`, and the
+`signingkey` above points at the public key. GitHub marks the commits Verified
+once the same key is added as a [signing key][gh-ssh-signing]. To create a key:
+
+```sh
+ssh-keygen -t ed25519 -C YOUR_GIT_AUTHOR_EMAIL
+```
+
+If a commit fails to sign, load the key into the agent with
+`ssh-add --apple-use-keychain ~/.ssh/id_ed25519`.
 
 ---
 
@@ -66,11 +73,10 @@ see [the knowledge base article][gpg_transfer]
 
 <!-- Markdown Links! -->
 
-[gh-ssh-gpg]: https://github.com/settings/keys
+[gh-keys]: https://github.com/settings/keys
+[gh-ssh-signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
 [git-remotes]: https://help.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt "github.com/mkitt"
-[gpg_tools]: https://gpgtools.org/ "gpg tools"
-[gpg_transfer]: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/backup-or-transfer-your-keys "transfer gpg"
 [homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: http://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"

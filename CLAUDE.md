@@ -13,8 +13,8 @@ The Macs these run on are access devices: development happens in Claude cloud se
 ## Commands
 
 ```bash
-make install    # Install brews and casks, and symlink dotfiles
-make uninstall  # Uninstall brews and casks, and remove symlinks
+make install    # Install brews and symlink dotfiles
+make uninstall  # Uninstall brews and remove symlinks
 make update     # Update brews
 make macos      # Apply macOS system defaults
 ```
@@ -22,4 +22,5 @@ make macos      # Apply macOS system defaults
 ## Gotchas
 
 - Nothing here can be run from a cloud session: `make`, Homebrew and `defaults` need a Mac, so changes are tested by running `make install` locally before merging
+- Commits are signed over SSH (`gpg.format = ssh`); the key path lives in `gitconfig.local`, and GitHub needs the key added a second time as a signing key
 - `gitconfig`'s pager and `zshrc`'s prompt use helpers shipped with Homebrew git, which is why `git` stays in `brews` even though macOS has its own
