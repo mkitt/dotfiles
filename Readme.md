@@ -20,8 +20,7 @@ make help
 ## New Machine
 
 1. Setup iCloud
-1. Install App store applications
-1. Install Core Applications
+1. Install core and app store applications
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
 1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
