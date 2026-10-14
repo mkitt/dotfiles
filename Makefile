@@ -1,5 +1,3 @@
-# Homebrew git, not macOS's, because gitconfig's pager and zshrc's prompt use
-# helpers only it ships.
 brews = gh git ripgrep tree
 dots = gitconfig gitconfig.local zshrc
 
