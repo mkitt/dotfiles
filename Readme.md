@@ -79,4 +79,4 @@ If a commit fails to sign, load the key into the agent with
 [homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: http://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"
-[wipe]: https://support.apple.com/en-us/HT201065 "wipe"
+[wipe]: https://support.apple.com/en-us/102664 "Erase your Mac and reset it to factory settings"
