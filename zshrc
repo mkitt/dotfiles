@@ -1,28 +1,11 @@
-# Initialize Homebrew (hardcoded for Apple Silicon)
-export HOMEBREW_PREFIX="/opt/homebrew"
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-export HOMEBREW_REPOSITORY="/opt/homebrew"
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:$PATH"
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="/opt/homebrew/share/info${INFOPATH+:$INFOPATH}"
-export EDITOR="nvim"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export EDITOR="vim"
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 setopt AUTO_CD
-setopt GLOB_COMPLETE
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt NO_CASE_GLOB
-setopt SHARE_HISTORY
-
-# @see http://zsh.sourceforge.net/Doc/Release/Parameters.html
-HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-
-# @see http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
-bindkey '^P' history-incremental-pattern-search-backward
-bindkey '^N' history-incremental-pattern-search-forward
 
 # @see http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
 # @see https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
@@ -36,41 +19,18 @@ else
 fi
 
 # Handy stuff
-alias ...="cd ../../"
-alias ....="cd ../../../"
 alias cp="cp -i"
 alias la="ls -lA"
 alias ll="ls -l"
 alias ls="ls -G"
 alias mv="mv -i"
-alias reload="source ~/.zshrc && cd ../ && cd -"
 
 # case insensitive path-completion
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' \
                                     'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
 
-# partial completion suggestions
-zstyle ':completion:*' list-suffixes
-zstyle ':completion:*' expand prefix suffix
-
 # Load zsh completion engine
 autoload -Uz compinit && compinit
-
-# pnpm
-export PNPM_HOME="${ZDOTDIR:-$HOME}/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PNPM_HOME/bin:$PATH" ;;
-esac
-
-# mise (version manager) — activates per-directory tool versions
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh)"
-  # Shims are stable paths that work without the activate hook, for scripts,
-  # IDEs, and the language servers Neovim and Claude Code spawn. Appended so
-  # activate and Homebrew keep priority; shims only catch what they miss.
-  export PATH="$PATH:$HOME/.local/share/mise/shims"
-fi
 
 # Load local zshrc file if it exists
 if [ -f "${ZDOTDIR:-$HOME}/.zshrc.local" ]; then

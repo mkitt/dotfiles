@@ -1,18 +1,12 @@
 [alias]
   co = checkout
   st = status
-  glog = log --pretty='format:%d %Cgreen%h%Creset %an - %s' --graph
-  clog = log --pretty='- [x] %h %s'
-  slog = log --pretty='- %h %s (%an)'
 [branch]
-  autosetuprebase = always
   sort = -committerdate
 [commit]
   gpgsign = true
 [core]
-  excludesfile = ~/.gitignore
   pager = /opt/homebrew/opt/git/share/git-core/contrib/diff-highlight/diff-highlight | less
-  trustctime = false
 [diff]
   algorithm = histogram
   colorMoved = plain
@@ -22,7 +16,7 @@
   prune = true
   pruneTags = true
 [gpg]
-  program = /usr/local/MacGPG2/bin/gpg2
+  format = ssh
 [help]
   autocorrect = prompt
 [include]
@@ -40,8 +34,5 @@
 [rebase]
   autoStash = true
   autosquash = true
-[rerere]
-  autoupdate = true
-  enabled = true
 [tag]
   sort = version:refname
