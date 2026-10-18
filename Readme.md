@@ -20,7 +20,6 @@ make help
 ## New Machine
 
 1. Setup iCloud
-1. Install core and app store applications
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
 1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
@@ -31,6 +30,7 @@ make help
 1. Run `make macos` for reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Run `gh auth login`
+1. Install core and app store applications
 1. Setup all Application settings
 1. [Wipe old computer][wipe]
 
