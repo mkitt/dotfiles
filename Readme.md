@@ -20,18 +20,23 @@ make help
 ## New Machine
 
 1. Setup iCloud
+1. Add Primary Google to Internet Accounts
+1. Install [Claude Desktop][claude-desktop]
+1. Install Xcode (App Store) & Components
 1. Run `xcode-select --install`
 1. Install [homebrew][homebrew]
-1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
-   authentication key and once as a signing key
+1. Remap caps lock to control
+1. Create a Authentication SSH key and add to [GitHub][gh-keys]
+1. Create a Signing SSH key and add to [GitHub][gh-keys]
 1. Run `git clone git@github.com:mkitt/dotfiles.git && cd dotfiles`
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
-1. Run `make macos` for reasonable [macOS defaults][macos_defaults]
-1. Restart to pick up reasonable defaults
+1. Run `make macos` for [macOS defaults][macos_defaults]
 1. Run `gh auth login`
-1. Install core and app store applications
-1. Setup all Application settings
+1. Restart to pick up macOS defaults
+1. Install App Store applications
+1. Install Core applications
+1. Setup macOS preferences and application settings
 1. [Wipe old computer][wipe]
 
 ## Tips
@@ -71,6 +76,7 @@ If a commit fails to sign, load the key into the agent with
 
 <!-- Markdown Links! -->
 
+[claude-desktop]: https://claude.com/download
 [gh-keys]: https://github.com/settings/keys
 [gh-ssh-signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
 [github]: https://github.com/mkitt "github.com/mkitt"
