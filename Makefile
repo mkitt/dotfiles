@@ -5,33 +5,35 @@ dots = gitconfig gitconfig.local zshrc
 
 #/ help            Print this message (default)
 help:
-	@printf "%sUsage: make TARGET\n"
+	@echo "Usage: make TARGET"
 	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
-	@printf "%s\nGlobal packages:\n"
-	@printf "%sbrew: $(brews)\n"
+	@echo
+	@echo "Global packages:"
+	@echo "brew: $(brews)"
 
 #/ install         Installs homebrews and dotfiles
 install:
 	/opt/homebrew/bin/brew install $(brews)
 	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
-	@printf "%s\nSetup macOS defaults: make macos\n"
+	@echo
+	@echo "Setup macOS defaults: make macos"
 
 #/ uninstall       Removes homebrews and dotfiles
 uninstall:
 	brew uninstall $(brews)
-	@for file in $(dots); do rm -v $$HOME/.$$file; done
+	@for file in $(dots); do rm -fv $$HOME/.$$file; done
 
 #/ update          Updates homebrews
 update:
 	brew update
-	@printf "%s----\n"
+	@echo "----"
 	brew upgrade
-	@printf "%s----\n"
+	@echo "----"
 	brew cleanup
-	@printf "%s----\n"
+	@echo "----"
 	brew doctor || true
-	@printf "%s----\n"
-	@printf "%sUpdate complete\n"
+	@echo "----"
+	@echo "Update complete"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
