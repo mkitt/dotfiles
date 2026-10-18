@@ -25,13 +25,12 @@ make help
 1. Install [homebrew][homebrew]
 1. Create an SSH key and add it to [GitHub][gh-keys] twice, once as an
    authentication key and once as a signing key
-1. Run `git clone https://github.com/mkitt/dotfiles.git && cd dotfiles`
+1. Run `git clone git@github.com:mkitt/dotfiles.git && cd dotfiles`
 1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
 1. Run `make macos` for reasonable [macOS defaults][macos_defaults]
 1. Restart to pick up reasonable defaults
 1. Run `gh auth login`
-1. Switch the dotfiles repo [from https to ssh][git-remotes]
 1. Setup all Application settings
 1. [Wipe old computer][wipe]
 
@@ -74,9 +73,8 @@ If a commit fails to sign, load the key into the agent with
 
 [gh-keys]: https://github.com/settings/keys
 [gh-ssh-signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
-[git-remotes]: https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh
 [github]: https://github.com/mkitt "github.com/mkitt"
 [homebrew]: https://brew.sh "homebrew's home"
-[macos_defaults]: http://mths.be/macos "macos defaults"
+[macos_defaults]: https://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"
 [wipe]: https://support.apple.com/en-us/102664 "Erase your Mac and reset it to factory settings"
