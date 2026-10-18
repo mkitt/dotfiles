@@ -25,8 +25,6 @@ uninstall:
 update:
 	brew update
 	@printf "%s----\n"
-	brew outdated
-	@printf "%s----\n"
 	brew upgrade
 	@printf "%s----\n"
 	brew cleanup
