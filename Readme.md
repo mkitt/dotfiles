@@ -36,7 +36,6 @@ make help
 1. Restart to pick up macOS defaults
 1. Setup System Settings and Preferences
 1. Install App Store Applications
-1. Install Chrome, Slack, Zoom
 1. [Wipe old computer][wipe]
 
 ## Tips
