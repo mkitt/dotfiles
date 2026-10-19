@@ -20,7 +20,7 @@ make help
 ## New Machine
 
 1. Setup iCloud
-1. Add Primary Google to Internet Accounts
+1. Add Internet Accounts
 1. Install [Claude Desktop][claude-desktop]
 1. Install Xcode (App Store) & Components
 1. Run `xcode-select --install`
@@ -34,9 +34,9 @@ make help
 1. Run `make macos` for [macOS defaults][macos_defaults]
 1. Run `gh auth login`
 1. Restart to pick up macOS defaults
-1. Install App Store applications
-1. Install Core applications
-1. Setup macOS preferences and application settings
+1. Setup System Settings and Preferences
+1. Install App Store Applications
+1. Install Chrome, Slack, Zoom
 1. [Wipe old computer][wipe]
 
 ## Tips
