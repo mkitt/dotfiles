@@ -1,4 +1,4 @@
-brews = gh ripgrep tree
+brews = gh git ripgrep tree
 dots = gitconfig zshrc
 
 # --------------------------------------
