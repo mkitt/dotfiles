@@ -42,8 +42,8 @@ make help
 ### Commit Signing
 
 Commits are signed with the SSH key rather than GPG, so nothing beyond macOS's
-own `ssh-keygen` is needed. `gitconfig` sets `gpg.format = ssh`, and the
-`signingkey` above points at the public key. GitHub marks the commits Verified
+own `ssh-keygen` is needed. `gitconfig` sets `gpg.format = ssh` and points
+`signingKey` at the public key. GitHub marks the commits Verified
 once the same key is added as a [signing key][gh-ssh-signing]. To create a key:
 
 ```sh
