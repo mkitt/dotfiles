@@ -1,5 +1,5 @@
 brews = gh git ripgrep tree
-dots = gitconfig gitconfig.local zshrc
+dots = gitconfig zshrc
 
 # --------------------------------------
 

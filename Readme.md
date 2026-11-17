@@ -29,7 +29,6 @@ make help
 1. Create a Authentication SSH key and add to [GitHub][gh-keys]
 1. Create a Signing SSH key and add to [GitHub][gh-keys]
 1. Run `git clone git@github.com:mkitt/dotfiles.git && cd dotfiles`
-1. Add the [`gitconfig.local`](#git-credentials) file to the `dotfiles` directory
 1. Run `make install` for dotfiles
 1. Run `make macos` for [macOS defaults][macos_defaults]
 1. Run `gh auth login`
@@ -39,21 +38,6 @@ make help
 1. [Wipe old computer][wipe]
 
 ## Tips
-
-### Git Credentials
-
-To setup your git credentials you'll need to add a `gitconfig.local` file to
-the root directory and add the following:
-
-```
-[user]
-  name = YOUR_GIT_AUTHOR_NAME
-  email = YOUR_GIT_AUTHOR_EMAIL
-  signingkey = ~/.ssh/id_ed25519.pub
-```
-
-- The `install` script symlinks this file to `$HOME/.gitconfig.local`
-- The repo's `.gitignore` keeps any `*.local` file out of git
 
 ### Commit Signing
 
