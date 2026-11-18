@@ -27,6 +27,8 @@ Run these from `~`. To list them, run `make help`.
 - `make macos` applies the [macOS defaults][macos_defaults]
 
 Edits belong in this repo, since `make update` overwrites the local copies.
+A tool added to the `Makefile` installs on the second `make update`, since the
+first one only downloads the new `Makefile`.
 
 ## New Machine
 
@@ -43,7 +45,7 @@ Edits belong in this repo, since `make update` overwrites the local copies.
    cd ~ && curl -fsSLO https://raw.githubusercontent.com/mkitt/dotfiles/main/Makefile && make install
    ```
 1. Run `make macos` for [macOS defaults][macos_defaults]
-1. Run `gh auth login`
+1. Open a new terminal (to pick up `~/.local/bin`) and run `gh auth login`
 1. Restart to pick up macOS defaults
 1. Setup System Settings and Preferences
 1. Install App Store Applications

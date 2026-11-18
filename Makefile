@@ -13,7 +13,7 @@ help:
 #/ install         Copies the dotfiles and installs gh
 install: update
 	@echo
-	@echo "Next: gh auth login, then make macos"
+	@echo "Next: make macos, then open a new terminal and run gh auth login"
 
 #/ update          Refreshes the dotfiles, this Makefile and gh
 update: dotfiles gh
@@ -35,9 +35,12 @@ gh:
 	if [ "$$($(bin)/gh --version 2>/dev/null | awk 'NR==1{print $$3}')" = "$$v" ]; then \
 	  echo "gh $$v is current"; exit 0; \
 	fi; \
-	tmp=$$(mktemp -d); trap 'rm -rf "$${tmp:?}"' EXIT; \
-	curl -fsSL $(releases)/download/v$$v/gh_$${v}_macOS_universal.zip -o $$tmp/gh.zip; \
-	unzip -q $$tmp/gh.zip -d $$tmp; \
+	case $$(uname -m) in x86_64) arch=amd64 ;; *) arch=arm64 ;; esac; \
+	zip=gh_$${v}_macOS_$$arch.zip; \
+	tmp=$$(mktemp -d); trap 'rm -rf "$${tmp:?}"' EXIT; cd $$tmp; \
+	curl -fsSLO $(releases)/download/v$$v/$$zip; \
+	curl -fsSL $(releases)/download/v$$v/gh_$${v}_checksums.txt | grep " $$zip$$" | shasum -a 256 -c -s || { echo "$$zip failed its checksum"; exit 1; }; \
+	unzip -q $$zip; \
 	mkdir -p $(bin); install -m 755 $$tmp/*/bin/gh $(bin)/gh; \
 	echo "Installed gh $$v"
 	@mkdir -p $(completions)
