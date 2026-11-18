@@ -1,6 +1,7 @@
 raw = https://raw.githubusercontent.com/mkitt/dotfiles/main
 releases = https://github.com/cli/cli/releases
 bin = $(HOME)/.local/bin
+completions = $(HOME)/.local/share/zsh/site-functions
 
 # --------------------------------------
 
@@ -39,6 +40,8 @@ gh:
 	unzip -q $$tmp/gh.zip -d $$tmp; \
 	mkdir -p $(bin); install -m 755 $$tmp/*/bin/gh $(bin)/gh; \
 	echo "Installed gh $$v"
+	@mkdir -p $(completions)
+	@$(bin)/gh completion -s zsh > $(completions)/_gh && echo "Wrote gh completion"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:

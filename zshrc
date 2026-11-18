@@ -2,6 +2,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="vim"
 setopt AUTO_CD
 setopt HIST_IGNORE_SPACE
+fpath=(~/.local/share/zsh/site-functions $fpath)
 autoload -Uz compinit && compinit
 autoload -Uz vcs_info
 zstyle ':vcs_info:git:*' check-for-changes true
