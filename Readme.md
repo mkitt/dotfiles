@@ -5,17 +5,30 @@
 The dotfiles for macOS.
 
 These Macs are access devices: development happens in cloud sessions, so this
-repo carries only a shell, git, gh and a few command line helpers.
+repo carries only a shell config, a git config and gh. There's no Homebrew and
+no clone: the `Makefile` is downloaded on its own and fetches the rest.
 
 Used to &hearts; the Vim.
 
+## Desired State
+
+- Apple's git from the Command Line Tools (`/usr/bin/git`)
+- The latest `gh` in `~/.local/bin`
+- `~/.zshrc`, `~/.gitconfig` and `~/Makefile` as plain copies of this repo
+- macOS defaults from `make macos`
+- No Homebrew
+
 ## Commands
 
-The main tasks are `Makefile` targets. To see them, run:
+Run these from `~`. To list them, run `make help`.
 
-```sh
-make help
-```
+- `make install` sets up a new Mac
+- `make update` refreshes the dotfiles, the `Makefile` and `gh` (skipped when current)
+- `make macos` applies the [macOS defaults][macos_defaults]
+
+Edits belong in this repo, since `make update` overwrites the local copies.
+A tool added to the `Makefile` installs on the second `make update`, since the
+first one only downloads the new `Makefile`.
 
 ## New Machine
 
@@ -24,14 +37,15 @@ make help
 1. Install [Claude Desktop][claude-desktop]
 1. Install Xcode (App Store) & Components
 1. Run `xcode-select --install`
-1. Install [homebrew][homebrew]
 1. Remap caps lock to control
 1. Create a Authentication SSH key and add to [GitHub][gh-keys]
 1. Create a Signing SSH key and add to [GitHub][gh-keys]
-1. Run `git clone git@github.com:mkitt/dotfiles.git && cd dotfiles`
-1. Run `make install` for dotfiles
+1. Download the Makefile and install:
+   ```sh
+   cd ~ && curl -fsSLO https://raw.githubusercontent.com/mkitt/dotfiles/main/Makefile && make install
+   ```
 1. Run `make macos` for [macOS defaults][macos_defaults]
-1. Run `gh auth login`
+1. Open a new terminal (to pick up `~/.local/bin`) and run `gh auth login`
 1. Restart to pick up macOS defaults
 1. Setup System Settings and Preferences
 1. Install App Store Applications
@@ -63,7 +77,6 @@ If a commit fails to sign, load the key into the agent with
 [gh-keys]: https://github.com/settings/keys
 [gh-ssh-signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
 [github]: https://github.com/mkitt "github.com/mkitt"
-[homebrew]: https://brew.sh "homebrew's home"
 [macos_defaults]: https://mths.be/macos "macos defaults"
 [mkitt.net]: https://mkitt.net "🏔"
 [wipe]: https://support.apple.com/en-us/102664 "Erase your Mac and reset it to factory settings"
