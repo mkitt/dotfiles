@@ -1,4 +1,4 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="vim"
 setopt AUTO_CD
 setopt HIST_IGNORE_SPACE

@@ -1,39 +1,44 @@
-brews = gh git ripgrep tree
-dots = gitconfig zshrc
+raw = https://raw.githubusercontent.com/mkitt/dotfiles/main
+releases = https://github.com/cli/cli/releases
+bin = $(HOME)/.local/bin
 
 # --------------------------------------
 
 #/ help            Print this message (default)
 help:
 	@echo "Usage: make TARGET"
-	@cat ./Makefile | grep '^#\/' | sed "s/#\//  /g"
+	@grep '^#/' $(firstword $(MAKEFILE_LIST)) | sed 's/^#\//  /'
+
+#/ install         Copies the dotfiles and installs gh
+install: update
 	@echo
-	@echo "Global packages:"
-	@echo "brew: $(brews)"
+	@echo "Next: gh auth login, then make macos"
 
-#/ install         Installs homebrews and dotfiles
-install:
-	/opt/homebrew/bin/brew install $(brews)
-	@for file in $(dots); do ln -sfv `pwd`/$$file $$HOME/.$$file; done
-	@echo
-	@echo "Setup macOS defaults: make macos"
+#/ update          Refreshes the dotfiles, this Makefile and gh
+update: dotfiles gh
 
-#/ uninstall       Removes homebrews and dotfiles
-uninstall:
-	brew uninstall $(brews)
-	@for file in $(dots); do rm -fv $$HOME/.$$file; done
+# Download to a temp file and mv, so a failed download never leaves a
+# half-written file and an old symlink is replaced rather than written through.
+dotfiles:
+	@set -e; for f in zshrc gitconfig; do \
+	  curl -fsSL $(raw)/$$f -o $(HOME)/.$$f.tmp; mv $(HOME)/.$$f.tmp $(HOME)/.$$f; \
+	  echo "Copied ~/.$$f"; \
+	done
+	@curl -fsSL $(raw)/Makefile -o $(HOME)/Makefile.tmp
+	@mv $(HOME)/Makefile.tmp $(HOME)/Makefile && echo "Copied ~/Makefile"
 
-#/ update          Updates homebrews
-update:
-	brew update
-	@echo "----"
-	brew upgrade
-	@echo "----"
-	brew cleanup
-	@echo "----"
-	brew doctor || true
-	@echo "----"
-	@echo "Update complete"
+# The latest release URL redirects to its tag, which avoids parsing the API's JSON.
+gh:
+	@set -e; \
+	tag=$$(curl -fsSLo /dev/null -w '%{url_effective}' $(releases)/latest); v=$${tag##*/v}; \
+	if [ "$$($(bin)/gh --version 2>/dev/null | awk 'NR==1{print $$3}')" = "$$v" ]; then \
+	  echo "gh $$v is current"; exit 0; \
+	fi; \
+	tmp=$$(mktemp -d); trap 'rm -rf "$${tmp:?}"' EXIT; \
+	curl -fsSL $(releases)/download/v$$v/gh_$${v}_macOS_universal.zip -o $$tmp/gh.zip; \
+	unzip -q $$tmp/gh.zip -d $$tmp; \
+	mkdir -p $(bin); install -m 755 $$tmp/*/bin/gh $(bin)/gh; \
+	echo "Installed gh $$v"
 
 #/ macos           Setup macOS defaults: https://mths.be/macos
 macos:
@@ -53,4 +58,4 @@ macos:
 	@# Make Dock icons of hidden applications translucent
 	defaults write com.apple.dock showhidden -bool true
 
-.PHONY: help install macos uninstall update
+.PHONY: dotfiles gh help install macos update
