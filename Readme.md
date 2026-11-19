@@ -4,10 +4,6 @@
 
 The dotfiles for macOS.
 
-These Macs are access devices: development happens in cloud sessions, so this
-repo carries only a shell config, a git config and gh. There's no Homebrew and
-no clone: the `Makefile` is downloaded on its own and fetches the rest.
-
 Used to &hearts; the Vim.
 
 ## Desired State
