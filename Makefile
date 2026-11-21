@@ -17,7 +17,7 @@ install: update
 update: dotfiles gh
 
 # Download to a temp file and mv, so a failed download never leaves a
-# half-written file and an old symlink is replaced rather than written through.
+# half-written file.
 dotfiles:
 	@set -e; for f in zshrc gitconfig; do \
 	  curl -fsSL $(raw)/$$f -o $(HOME)/.$$f.tmp; mv $(HOME)/.$$f.tmp $(HOME)/.$$f; \

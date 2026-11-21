@@ -1,5 +1,8 @@
 [commit]
   gpgsign = true
+[credential "https://github.com"]
+  helper =
+  helper = !~/.local/bin/gh auth git-credential
 [fetch]
   prune = true
 [gpg]

@@ -1,3 +1,4 @@
+typeset -U path
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="vim"
 setopt AUTO_CD
