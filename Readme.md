@@ -10,11 +10,12 @@ Used to &hearts; the Vim.
 
 1. Setup iCloud
 1. Add Internet Accounts
-1. Install [Claude Desktop][claude-desktop] and [Codex Desktop][codex-desktop]
+1. Install [Claude Desktop][claude-desktop]
 1. Install Xcode (App Store) & Components
 1. Run `xcode-select --install`
 1. Remap caps lock to control
-1. Create an SSH key ([Commit Signing](#commit-signing)) and add it to [GitHub][gh-keys] twice, as an Authentication key and a Signing key
+1. Create a Authentication SSH key and add to [GitHub][gh-keys]
+1. Create a Signing SSH key and add to [GitHub][gh-keys]
 1. Download the Makefile and install:
    ```sh
    cd ~ && curl -fsSLO https://raw.githubusercontent.com/mkitt/dotfiles/main/Makefile && make install
@@ -25,25 +26,6 @@ Used to &hearts; the Vim.
 1. Setup System Settings and Preferences
 1. Install App Store Applications
 1. [Wipe old computer][wipe]
-
-## Desired State
-
-- No Homebrew
-- Apple's stock git at `/usr/bin/git`, from the Command Line Tools
-- `gh` in `~/.local/bin`, with its zsh completion
-- `~/.zshrc`, `~/.gitconfig` and `~/Makefile` are copies of this repo's files:
-  no clone, no symlinks
-- Change those files here, not on the Mac, since `make update` overwrites them
-
-## Update
-
-```sh
-cd ~ && make update
-```
-
-`make update` replaces `~/Makefile` too, so a Makefile change takes effect on
-the run after it lands. GitHub can serve the old files for about 5 minutes
-after a push.
 
 ## Tips
 
@@ -68,7 +50,6 @@ If a commit fails to sign, load the key into the agent with
 <!-- Markdown Links! -->
 
 [claude-desktop]: https://claude.com/download
-[codex-desktop]: https://openai.com/codex/
 [gh-keys]: https://github.com/settings/keys
 [gh-ssh-signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification
 [github]: https://github.com/mkitt "github.com/mkitt"
