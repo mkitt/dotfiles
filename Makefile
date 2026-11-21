@@ -13,10 +13,12 @@ help:
 #/ install         Copies the dotfiles and installs gh
 install: update
 	@echo
-	@echo "Next: make macos, then open a new terminal and run gh auth login"
+	@echo "Installed. Run make macos, open a new terminal, run gh auth login, then restart."
 
 #/ update          Refreshes the dotfiles, this Makefile and gh
 update: dotfiles gh
+	@echo
+	@echo "Updated."
 
 # Download to a temp file and mv, so a failed download never leaves a
 # half-written file and an old symlink is replaced rather than written through.
